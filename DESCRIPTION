@@ -18,7 +18,7 @@ Imports:
     tuber,
     httr,
     jsonlite,
-    ari
+    ari (>= 0.1.0.9003)
 Suggests: 
     knitr,
     rmarkdown,
@@ -26,6 +26,7 @@ Suggests:
     testthat,
     tuneR
 Encoding: UTF-8
+Remotes: muschellij2/ari
 LazyData: true
 ByteCompile: true
 Type: Package
