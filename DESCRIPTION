@@ -14,6 +14,7 @@ Imports:
     googledrive,
     dplyr,
     tuber,
+    httr,
     jsonlite
 Suggests: 
     knitr,

@@ -65,7 +65,7 @@ ms_locale_df = function() {
                       "English (New Zealand)", "English (United States)", "Spanish (Spain)",
                       "Spanish (Mexico)", "Finnish (Finland)", "French (Canada)", "French (France)",
                       "Hindi (India)", "Italian (Italy)", "Japanese (Japan)", "Korean (Korea)",
-                      "Norwegian (BokmÃ¥l) (Norway)", "Dutch (Netherlands)", "Polish (Poland)",
+                      "Norwegian (Bokmal) (Norway)", "Dutch (Netherlands)", "Polish (Poland)",
                       "Portuguese (Brazil)", "Portuguese (Portugal)", "Russian (Russia)",
                       "Swedish (Sweden)", "Chinese (Mandarin, simplified)", "Chinese (Hong Kong SAR)",
                       "Chinese (Mandarin, Taiwanese)")), .Names = c("code", "language"
