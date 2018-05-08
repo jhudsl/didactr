@@ -5,7 +5,7 @@
 #' @return A character vector
 #' @export
 #'
-#' @importFrom xml2 read_xml xml_text
+#' @importFrom xml2 read_xml xml_text xml_find_all
 #' @importFrom dplyr %>%
 xml_notes = function(file) {
   xdoc = read_xml(file)

@@ -9,7 +9,7 @@
 #' @return A list of the images and the notes for each script
 #' @export
 #'
-#' @importFrom googledrive drive_download
+#' @importFrom googledrive drive_download as_id
 gs_convert = function(id, verbose = TRUE, ...) {
   pdf_file = tempfile(fileext = ".pdf")
 
