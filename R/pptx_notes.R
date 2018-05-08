@@ -18,8 +18,12 @@ pptx_notes = function(file) {
                      full.names = TRUE)
   if (length(notes) > 0) {
     res = sapply(notes, xml_notes)
-    names(res) = basename(notes)
-
+    bn = basename(notes)
+    id = sub(".*(\\d.*)[.].*", "\\1", bn)
+    ord = order(as.numeric(id))
+    res = res[ord]
+    bn = bn[ord]
+    names(res) = bn
     return(res)
   } else {
     return(NULL)
