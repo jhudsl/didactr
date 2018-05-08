@@ -6,3 +6,4 @@
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^\.httr-oauth$
+^\.coveralls\.yml$
