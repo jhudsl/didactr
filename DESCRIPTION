@@ -1,7 +1,9 @@
 Package: didactr
 Version: 0.1.1
 Title: Tools for Creating Automated Courses
-Description: Leverages the 'ari' package and other tools to create automated courses from slides and a script.  Also, uploads these to YouTube and other servies, with the option of translation.
+Description: Leverages the 'ari' package and other tools to create automated 
+    courses from slides and a script.  Also, uploads these to 
+    YouTube and other servies, with the option of translation.
 Authors@R: c(person(given = "John",family = "Muschelli",
   email = "muschellij2@gmail.com",
   role = c("aut", "cre"),
@@ -15,7 +17,8 @@ Imports:
     dplyr,
     tuber,
     httr,
-    jsonlite
+    jsonlite,
+    ari
 Suggests: 
     knitr,
     rmarkdown,
