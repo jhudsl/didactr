@@ -19,7 +19,7 @@ pptx_notes = function(file) {
   if (length(notes) > 0) {
     res = sapply(notes, xml_notes)
     bn = basename(notes)
-    id = sub(".*(\\d.*)[.].*", "\\1", bn)
+    id = sub("[[:alpha:]]*(\\d.*)[.].*", "\\1", bn)
     ord = order(as.numeric(id))
     res = res[ord]
     bn = bn[ord]
