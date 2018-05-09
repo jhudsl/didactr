@@ -1,10 +1,17 @@
 language: R
 sudo: no
 cache: packages
-after_success: if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::coveralls(type
-  = "all")'; fi
+after_success: 
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
+    then 
+      Rscript -e 'covr::coveralls(type = "all")'; 
+    fi
 warnings_are_errors: yes
-before_deploy: if [ "$TRAVIS_OS_NAME" == "osx" ]; then rm -f *.tar.gz; fi
+before_deploy: 
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
+    then 
+      rm -f *.tar.gz; 
+    fi
 r_check_args: --as-cran --install-args=--build
 deploy:
   provider: releases
