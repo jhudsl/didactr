@@ -26,3 +26,33 @@ You can install `didactr` from GitHub with:
 # install.packages("remotes")
 remotes::install_github("muschellij2/didactr")
 ```
+
+
+## Example
+
+```{r, eval = FALSE}
+library(didactr)
+yt_auth(json = "RClass-Youtube.json")
+```
+
+```{r, eval = FALSE}
+library(didactr)
+library(googledrive)
+library(dplyr)
+library(tuber)
+aws.signature::use_credentials(profile = "polly")
+#########################
+# Find a presentation
+#########################
+x = drive_find(n_max = 25, type = "presentation")
+res = gs_ari(x$id[1], voice = "Joanna", 
+       cleanup = FALSE,
+       ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"')
+
+####### yt_authentication done here #####
+
+vid = upload_video(file = res$output, 
+                   status = list(privacyStatus = "unlisted"),
+                   snippet = list(title = "hey"))
+browseURL(vid$url)
+```

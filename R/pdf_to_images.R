@@ -18,7 +18,7 @@
 pdf_to_images = function(
   pdf_file,
   out_dir = NULL,
-  extra.opts = "-density 600" ,
+  extra.opts = "-density 600 -quality 100" ,
   stub = "img_",
   output_type = "png"){
   Sys.setenv(MAGICK_THREAD_LIMIT = 1);

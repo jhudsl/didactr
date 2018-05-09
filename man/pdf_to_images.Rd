@@ -4,8 +4,9 @@
 \alias{pdf_to_images}
 \title{Convert PDF to Other Images using ImageMagick}
 \usage{
-pdf_to_images(pdf_file, out_dir = NULL, extra.opts = "-density 600",
-  stub = "img_", output_type = "png")
+pdf_to_images(pdf_file, out_dir = NULL,
+  extra.opts = "-density 600 -quality 100", stub = "img_",
+  output_type = "png")
 }
 \arguments{
 \item{pdf_file}{Filename of PDF file}
