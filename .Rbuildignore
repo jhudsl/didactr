@@ -7,3 +7,4 @@
 ^\.travis\.yml$
 ^\.httr-oauth$
 ^\.coveralls\.yml$
+^codecov\.yml$

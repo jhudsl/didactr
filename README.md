@@ -5,6 +5,8 @@ status](https://travis-ci.com/muschellij2/didactr.svg?branch=master)](https://tr
 Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/didactr?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/didactr)
 [![Coverage
 status](https://coveralls.io/repos/github/muschellij2/didactr/badge.svg?branch=master)](https://coveralls.io/r/muschellij2/didactr?branch=master)
+[![Coverage
+status](https://codecov.io/gh/muschellij2/didactr/branch/master/graph/badge.svg)](https://codecov.io/github/muschellij2/didactr?branch=master)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # didactr Package:
