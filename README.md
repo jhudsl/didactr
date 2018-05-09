@@ -50,4 +50,7 @@ vid = upload_video(file = res$output,
                    status = list(privacyStatus = "unlisted"),
                    snippet = list(title = "hey"))
 browseURL(vid$url)
+
+# if you want to delete the video
+del = delete_videos(vid$content$id)
 ```
