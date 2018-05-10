@@ -25,5 +25,8 @@ gs_convert = function(id, verbose = TRUE, ...) {
   script = pptx_notes(pptx_file)
   pngs = pdf_to_images(pdf_file, ...)
   L = list(images = pngs,
-           script = script)
+           script = script,
+           pdf_file = pdf_file,
+           pptx_file = pptx_file)
+  return(L)
 }

@@ -2,7 +2,8 @@
 #'
 #' @param pdf_file Filename of PDF file
 #' @param extra.opts Extra options passed to \code{\link{im.convert}}
-#' @param stub prefix of the output files
+#' @param stub prefix of the output files, can include C-style printing of
+#' digits and such
 #' @param output_type Type of output, such as `png` or `jpg`
 #' @param out_dir Output directory.  If `NULL`, then a temporary directory
 #' will be used.  If files of the same name are in the `out_dir`, these
@@ -19,7 +20,7 @@ pdf_to_images = function(
   pdf_file,
   out_dir = NULL,
   extra.opts = "-density 600 -quality 100" ,
-  stub = "img_",
+  stub = "img_%04d",
   output_type = "png"){
   Sys.setenv(MAGICK_THREAD_LIMIT = 1);
 
@@ -40,7 +41,7 @@ pdf_to_images = function(
   })
   tdir = tempfile()
   dir.create(tdir, showWarnings = FALSE)
-  png_types = paste0(stub, "%04d.", output_type)
+  png_types = paste0(stub, ".", output_type)
   setwd(tdir)
   # convert it
   im.convert(pdf_file,

@@ -5,7 +5,7 @@
 \title{Convert PDF to Other Images using ImageMagick}
 \usage{
 pdf_to_images(pdf_file, out_dir = NULL,
-  extra.opts = "-density 600 -quality 100", stub = "img_",
+  extra.opts = "-density 600 -quality 100", stub = "img_\%04d",
   output_type = "png")
 }
 \arguments{
@@ -17,7 +17,8 @@ will be overwritten}
 
 \item{extra.opts}{Extra options passed to \code{\link{im.convert}}}
 
-\item{stub}{prefix of the output files}
+\item{stub}{prefix of the output files, can include C-style printing of
+digits and such}
 
 \item{output_type}{Type of output, such as `png` or `jpg`}
 }
