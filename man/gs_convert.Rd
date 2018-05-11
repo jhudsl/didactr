@@ -4,7 +4,7 @@
 \alias{gs_convert}
 \title{Convert Google Slides to PNGs and a script}
 \usage{
-gs_convert(id, verbose = TRUE, ...)
+gs_convert(id, verbose = TRUE, auto_stub = TRUE, ...)
 }
 \arguments{
 \item{id}{File id passed to \code{\link{drive_download}} after passing
@@ -12,6 +12,10 @@ through \code{\link{as_id}}}
 
 \item{verbose}{logical, indicating whether to print informative messages,
 passed to \code{\link{drive_download}}}
+
+\item{auto_stub}{Should the prefix name be taken from
+the Google slide name?  If so, `stub` argument will
+be overridden in \code{\link{pdf_to_images}}}
 
 \item{...}{Additional options to send to \code{\link{pdf_to_images}}}
 }

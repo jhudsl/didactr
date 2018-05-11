@@ -5,7 +5,7 @@
 \title{Convert PDF to Other Images using ImageMagick}
 \usage{
 pdf_to_images(pdf_file, out_dir = NULL,
-  extra.opts = "-density 600 -quality 100", stub = "img_\%04d",
+  extra.opts = "-density 300 -quality 100", stub = "img_\%04d",
   output_type = "png")
 }
 \arguments{
