@@ -4,6 +4,8 @@
 #' through \code{\link{as_id}}
 #' @param verbose logical, indicating whether to print informative messages,
 #' passed to \code{\link{drive_download}}
+#' @param PPTX If \code{TRUE}, then the PowerPoint is downloaded as well.
+#' If this is \code{FALSE}, then the script will not be generated.
 #' @param auto_stub Should the prefix name be taken from
 #' the Google slide name?  If so, `stub` argument will
 #' be overridden in \code{\link{pdf_to_images}}
@@ -14,7 +16,10 @@
 #'
 #' @importFrom googledrive drive_download as_id drive_get
 gs_convert = function(id, verbose = TRUE,
+                      PPTX = TRUE,
                       auto_stub = TRUE, ...) {
+
+  id = as_id(id)
   pdf_file = tempfile(fileext = ".pdf")
 
   args = list(...)
@@ -28,21 +33,41 @@ gs_convert = function(id, verbose = TRUE,
     lesson_name = paste0(lesson_name, "-%0d")
     args$stub = lesson_name
   }
-  dl = drive_download(as_id(id),
+  if (verbose) {
+    message(paste0("Downloading the PDF: ", pdf_file))
+  }
+  dl = drive_download(id,
                       path = pdf_file,
                       type = "pdf")
 
-  pptx_file = tempfile(fileext = ".pptx")
-  pptx_dl = drive_download(as_id(id),
-                           path = pptx_file,
-                           type = "pptx")
 
-  script = pptx_notes(pptx_file)
+  if (PPTX) {
+    pptx_file = tempfile(fileext = ".pptx")
+    if (verbose) {
+      message(paste0("Downloading the PPTX: ", pptx_file))
+    }
+    pptx_dl = drive_download(id,
+                             path = pptx_file,
+                             type = "pptx")
+    if (verbose) {
+      message("Getting Notes from PPTX")
+    }
+    script = pptx_notes(pptx_file)
+  } else {
+    pptx_file = NULL
+    script = NULL
+  }
   args$pdf_file = pdf_file
+  if (verbose) {
+    message("Converting PDF to Images")
+  }
+  if (verbose) {
+    message(paste0("Stub for Conversion is:", args$stub))
+  }
   pngs = do.call(pdf_to_images, args)
   L = list(images = pngs,
-           script = script,
-           pdf_file = pdf_file,
-           pptx_file = pptx_file)
+           pdf_file = pdf_file)
+  L$script = script
+  L$pptx_file = pptx_file
   return(L)
 }
