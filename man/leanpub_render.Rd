@@ -4,13 +4,16 @@
 \alias{leanpub_render}
 \title{Render Leanpub document}
 \usage{
-leanpub_render(md_file, ...)
+leanpub_render(md_file, output_options = list(self_contained = FALSE), ...)
 }
 \arguments{
 \item{md_file}{Path to markdown file}
 
+\item{output_options}{arguments to send to \code{\link{render}}}
+
 \item{...}{additional arguments to send to \code{\link{render}}
-other than \code{input}, `output_dir`, and `output_format`}
+other than \code{input}, `output_dir`, and `output_format`,
+and `output_options`}
 }
 \value{
 HTML output filename

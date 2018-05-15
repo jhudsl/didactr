@@ -1,15 +1,19 @@
 #' Render Leanpub document
 #'
 #' @param md_file Path to markdown file
+#' @param output_options arguments to send to \code{\link{render}}
 #' @param ... additional arguments to send to \code{\link{render}}
-#' other than \code{input}, `output_dir`, and `output_format`
+#' other than \code{input}, `output_dir`, and `output_format`,
+#' and `output_options`
 #'
 #' @return HTML output filename
 #' @export
 #' @importFrom rmarkdown render
 #' @importFrom rstudioapi viewer isAvailable
 #' @importFrom utils browseURL
-leanpub_render = function(md_file, ...) {
+leanpub_render = function(md_file,
+                          output_options = list(self_contained = FALSE),
+                          ...) {
   md_file = normalizePath(md_file, mustWork = TRUE)
   tfile = basename(tempfile())
   tfile = file.path(dirname(md_file), tfile)
@@ -27,6 +31,7 @@ leanpub_render = function(md_file, ...) {
     input = tfile,
     output_dir = tempdir(),
     output_format = "html_document",
+    output_options = output_options,
     ...)
   if (rstudioapi::isAvailable()) {
     rstudioapi::viewer(res)
