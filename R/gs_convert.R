@@ -20,7 +20,9 @@ gs_convert = function(id, verbose = TRUE,
                       auto_stub = TRUE, ...) {
 
   id = as_id(id)
-  pdf_file = tempfile(fileext = ".pdf")
+  tdir = tempfile()
+  dir.create(tdir)
+  pdf_file = tempfile(fileext = ".pdf", tmpdir = tdir)
 
   args = list(...)
   if (auto_stub) {
@@ -42,7 +44,7 @@ gs_convert = function(id, verbose = TRUE,
 
 
   if (PPTX) {
-    pptx_file = tempfile(fileext = ".pptx")
+    pptx_file = tempfile(fileext = ".pptx", tmpdir = tdir)
     if (verbose) {
       message(paste0("Downloading the PPTX: ", pptx_file))
     }

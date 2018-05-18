@@ -26,6 +26,11 @@ leanpub_render = function(md_file,
   if (length(image_lines) > 0) {
     x[image_lines] = sub("\\(images", "(resources/images", x[image_lines])
   }
+  image_lines = grep(x, pattern = "!\\[.*\\]\\((http*)\\)")
+  if (length(image_lines) > 0) {
+    x[image_lines] = sub("edit#slide=id.", "export/png?id=", x[image_lines],
+                         fixed = TRUE)
+  }
   writeLines(x, con = tfile)
   res = rmarkdown::render(
     input = tfile,
