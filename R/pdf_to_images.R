@@ -50,6 +50,7 @@ pdf_to_images = function(
   results = list.files(path = tdir,
                        full.names = TRUE)
   if (!is.null(out_dir)) {
+    out_dir = normalizePath(out_dir)
     file.copy(results, to = out_dir, overwrite = TRUE)
     results = file.path(out_dir, basename(results))
   }
