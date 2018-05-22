@@ -169,9 +169,6 @@ check_course = function(course_dir = NULL) {
   ## (images should tehn be re-rendered)
   df = df %>%
     mutate(mod_time_pngs = ymd_hms(file.info(file.path(img_path,lesson,list.files(file.path(img_path,lesson),pattern = "-1.png")))$mtime)) %>%
-    ### TO FIX: get the time of the files in the directory not just time directory was created
-    # ifelse(all_images_exist, as.POSIXct(file.info(file.path(img_path,lesson,grep("+.-1.png",list.files(file.path(img_path,lesson)),value=TRUE)))$mtime),NA)) %>%
-    # mutate(mod_time_pngs = ymd_hms(mod_time_pngs)) %>%
     mutate(gs_more_recent = mod_time_gs > mod_time_pngs)
 
 

@@ -15,8 +15,7 @@ create_images <- function(course_status = NULL){
   ## OR mod_time_gs > mod_time_pngs
   sapply(df$id,
          function(x) {
-           if((is.na(df$pdf[df$id==x]) & !is.na(x)) |
-              (df$gs_more_recent[df$id==x])){
+           if((is.na(df$pdf[df$id==x]) & !is.na(x))|(df$gs_more_recent[df$id==x])){
              message(paste0("Converting PDFs for: ", df$lesson[df$id==x]))
              out_dir = file.path(img_path, df$lesson[df$id==x])
              res = gs_convert(id = x, PPTX = FALSE,
