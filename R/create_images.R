@@ -24,9 +24,8 @@ create_images <- function(course_status = NULL){
                               output_type = "png")
              filename =  paste0(df$cnum[df$id==x] ,"_", df$course[df$id==x],
                                 "_", df$lesson_name[df$id==x],".pdf")
-             file.copy(res$pdf, to=file.path(img_path,df$lesson[df$id==x],filename))
-             ##TO ADD: update df
-             ## For now: will message
+             file.copy(res$pdf, to=file.path(img_path,df$lesson[df$id==x],filename),
+                       overwrite=TRUE)
              message(paste0("Reminder to go re-run df images code"))
            }})
 }

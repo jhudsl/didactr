@@ -23,27 +23,24 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL){
              vids = youtube_uploads %>%
                filter(lesson == df$lesson[df$vid_file==x]) %>%
                arrange(desc(time_published))
-             if(nrow(vids) > 0){
-               make_video <- vids$time_published[df$vid_file == x] < df$mod_time_vid[df$vid_file == x]
-             }
-             if( nrow(vids) == 0) {
+           }
+           if(nrow(vids) > 0){
+             make_video <- vids$time_published[vids$file == basename(x)] < df$mod_time_vid[df$vid_file == x]
+           }else{
                vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
                make_video = TRUE
              }
-           }else{
-             vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
-             make_video = TRUE
-           }
            if(!df$has_vid_link[df$vid_file==x] | make_video ){
              # get info from file for video title
-             lesson = sub("[.]mp4$", "", basename(x)) %>%
+             lesson = sub("[.]mp4$", "", basename(x))
+             lesson_name = sub("[.]mp4$", "", basename(x)) %>%
                sub("\\d+_","",.) %>%
                gsub("_"," ",. ) %>%
                stringr::str_to_title(.)
-             title = paste0(Course,": ", lesson)
+             title = paste0(Course,": ", lesson_name)
              file = x
              ## upload video to youtube
-             message(paste0("uploading video to youtube for: ", lesson))
+             message(paste0("uploading video to youtube for: ", lesson_name))
              up = upload_video(file = file,
                                snippet = list(title = title),
                                status= list(privacyStatus = "unlisted",
