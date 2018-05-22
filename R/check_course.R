@@ -247,5 +247,6 @@ check_course = function(course_dir = NULL) {
                        })
 course_status = df
 save(course_status, file = file.path(met_path,"course_status.rda"))
-return(list(course_summary = df, images = images, image_links = image_links, bad_img_dir = bad_img_dir ))
+return(list(course_summary = df, images = images, image_links = image_links, bad_img_dir = bad_img_dir,
+            course_dir = course_dir))
 }

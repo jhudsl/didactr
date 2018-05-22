@@ -27,4 +27,6 @@ create_images <- function(course_status = NULL){
                        overwrite=TRUE)
              message(paste0("Reminder to go re-run df images code"))
            }})
+  ret = check_course(course_dir = course_status$course_dir)
+  return(ret)
 }

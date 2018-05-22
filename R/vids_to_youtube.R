@@ -2,13 +2,19 @@
 #'
 #' @param course_status object output from \code{\link{check_course}}
 #' @param Course Course to be used in title of youtube video
+#' @param josn Link to json file with credentials
 #'
 #' @return youtube_uploads data frame with metrics from upload
 #' @export
 #' @importFrom stringr str_to_title
 #'
 
-vids_to_youtube <- function(course_status = NULL, Course = NULL){
+vids_to_youtube <- function(course_status = NULL, Course = NULL,
+                            json = NULL, ...){
+  if (!is.null(json)) {
+    yt_auth(json = json, ...)
+  }
+
   df = course_status$course_summary
   ## if no video link in df
   ## or if video link in df not the most updated
@@ -49,4 +55,6 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL){
              #update uploaded videos data frame
              youtube_uploads <- update_youtube(up, file=file, lesson=lesson)
            }})
+  ret = check_course(course_dir = course_status$course_dir)
+  return(ret)
 }
