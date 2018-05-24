@@ -204,10 +204,10 @@ check_course = function(course_dir = NULL) {
   df$yt_md_link = unlist(sapply(df$md_file,
                          function(fname) {
                            x = readLines(fname, warn = FALSE)
-                           line <- grep(pattern = ("^!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(.+youtu.+\\)"),x)
-                           x = sub("!\\[.+\\]\\(([^()]+)\\)","\\1", x[line])
-                           ## take care of any lessons with youtube in their name
-                           x = x[grep(".+_youtube-.+",x,invert=TRUE)]
+                            # will find better singular regex for this eventually...
+                           line <- grep(pattern = "^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)", x, perl=TRUE) #
+                           x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
+                          if(startsWith(x, "!")){ x <- NA}
                           if(length(x)<1){x <- NA}
                            return(x)
                          }))
@@ -238,11 +238,11 @@ check_course = function(course_dir = NULL) {
   df$yt_md_ID = sapply(df$md_file,
                        function(fname) {
                          x = readLines(fname, warn = FALSE)
-                         line <- grep(pattern = ("!\\[.+\\]\\(.+[^.png]\\)|!\\[.+\\]\\(.+youtu.+\\)"),x)
+                         line <- grep(pattern = ("^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)"),x,perl=TRUE)
                          ## get youtube ID
                          ## this will break if youtube ever decides
                          ## to change the length of their IDs
-                         x = ifelse(df$has_vid_file[df$md_file==fname],
+                         x = ifelse(!is.na(df$yt_md_link[df$md_file==fname]),
                                     str_sub(x[line],-12,-2),NA)
                        })
 course_status = df

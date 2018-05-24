@@ -7,14 +7,14 @@
 #' @return youtube_uploads data frame with metrics from upload
 #' @export
 #' @importFrom stringr str_to_title
+#' @importFrom dplyr data_frame
 #'
 
 vids_to_youtube <- function(course_status = NULL, Course = NULL,
-                            json = NULL, ...){
+                            json = NULL){
   if (!is.null(json)) {
-    yt_auth(json = json, ...)
+    yt_auth(json = json)
   }
-
   df = course_status$course_summary
   ## if no video link in df
   ## or if video link in df not the most updated
@@ -26,17 +26,20 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
            ## hopefully I delete this and improve before you ever see this note
            if(file.exists(file.path(met_path,"youtube_uploads.rda"))){
              load(file.path(met_path,"youtube_uploads.rda"))
-             vids = youtube_uploads %>%
+              vids = youtube_uploads %>%
                filter(lesson == df$lesson[df$vid_file==x]) %>%
                arrange(desc(time_published))
-           }
-           if(nrow(vids) > 0){
-             make_video <- vids$time_published[vids$file == basename(x)] < df$mod_time_vid[df$vid_file == x]
+             if(nrow(vids) > 0){
+               make_video <- vids$time_published[vids$file == basename(x)] < df$mod_time_vid[df$vid_file == x]
+             }else{
+               vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
+               make_video = TRUE
+             }
            }else{
                vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
                make_video = TRUE
              }
-           if(!df$has_vid_link[df$vid_file==x] | make_video ){
+           if(!df$has_vid_link[df$vid_file==x]|make_video){
              # get info from file for video title
              lesson = sub("[.]mp4$", "", basename(x))
              lesson_name = sub("[.]mp4$", "", basename(x)) %>%

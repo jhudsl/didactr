@@ -23,7 +23,7 @@ update_youtube_link <- function(course_status = NULL){
              message(paste0("updating youtube link in manuscript file: ", x))
              t  <- readLines(df$md_file[df$lesson == x])
              # identify which link to edit for the video
-             line <- grep(pattern = "!\\[.+\\]\\(.+[^.png]\\)|!\\[.+\\]\\(.+youtu.+\\)|!\\[.+\\]\\()",t)
+             line <- grep(pattern = "^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)",t,perl=TRUE)
              t[line]<-gsub("\\(.+\\)|\\(\\)",paste0("(",vids$url[1],")"),t[line])
              writeLines(t, con=df$md_file[df$lesson == x])
            }
