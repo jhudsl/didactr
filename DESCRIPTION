@@ -7,7 +7,10 @@ Description: Leverages the 'ari' package and other tools to create automated
 Authors@R: c(person(given = "John",family = "Muschelli",
   email = "muschellij2@gmail.com",
   role = c("aut", "cre"),
-  comment = c(ORCID = "0000-0001-6469-1750"))
+  comment = c(ORCID = "0000-0001-6469-1750")),
+  person(given = "Shannon",family = "Ellis",
+  email = "shannon0ellis@gmail.com",
+  role = c("aut"))
   )
 License: GPL-3
 Imports:

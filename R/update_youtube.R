@@ -1,8 +1,8 @@
 #' Create PDF and PNGs from Google Slides
 #'
-#' @param up output from \code{\link{vid_to_youtube}}
-#' @param file object created in \code{\link{vid_to_youtube}}
-#' @param lesson object created in \code{\link{vid_to_youtube}}
+#' @param up output from \code{\link{vids_to_youtube}}
+#' @param file object created in \code{\link{vids_to_youtube}}
+#' @param lesson object created in \code{\link{vids_to_youtube}}
 #'
 #' @return Downloaded PDF and PNGs.
 #' @export

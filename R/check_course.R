@@ -55,7 +55,7 @@ check_course = function(course_dir = ".") {
     drive_info = drive_info %>%
       rename(gs_name = name) %>%
       mutate(course_info=gs_name) %>%
-      separate(.,col=course_info, sep = "_",
+      separate(col=course_info, sep = "_",
                into=c("cnum", "course","lesson_name"),
                extra="merge")
     mod_time_gs = sapply(drive_info$drive_resource,

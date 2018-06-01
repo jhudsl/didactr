@@ -7,11 +7,11 @@
 update_youtube(up, file = NULL, lesson = NULL)
 }
 \arguments{
-\item{up}{output from \code{\link{vid_to_youtube}}}
+\item{up}{output from \code{\link{vids_to_youtube}}}
 
-\item{file}{object created in \code{\link{vid_to_youtube}}}
+\item{file}{object created in \code{\link{vids_to_youtube}}}
 
-\item{lesson}{object created in \code{\link{vid_to_youtube}}}
+\item{lesson}{object created in \code{\link{vids_to_youtube}}}
 }
 \value{
 Downloaded PDF and PNGs.
