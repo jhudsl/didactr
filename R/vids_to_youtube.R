@@ -47,7 +47,7 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
              lesson_name = sub("[.]mp4$", "", basename(x)) %>%
                stringr::str_replace("\\d+_","") %>%
                stringr::str_replace_all("_"," ") %>%
-               stringr::str_to_title()
+               stringr::str_to_title
              title = paste0(Course,": ", lesson_name)
              file = x
              ## upload video to youtube
