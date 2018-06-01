@@ -4,12 +4,14 @@
 \alias{vids_to_youtube}
 \title{Upload videos to YouTube}
 \usage{
-vids_to_youtube(course_status = NULL, Course = NULL)
+vids_to_youtube(course_status = NULL, Course = NULL, json = NULL)
 }
 \arguments{
 \item{course_status}{object output from \code{\link{check_course}}}
 
 \item{Course}{Course to be used in title of youtube video}
+
+\item{json}{Link to json file with credentials}
 }
 \value{
 youtube_uploads data frame with metrics from upload

@@ -2,7 +2,7 @@
 #'
 #' @param course_status object output from \code{\link{check_course}}
 #' @param Course Course to be used in title of youtube video
-#' @param josn Link to json file with credentials
+#' @param json Link to json file with credentials
 #'
 #' @return youtube_uploads data frame with metrics from upload
 #' @export

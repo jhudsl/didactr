@@ -4,7 +4,7 @@
 \alias{check_course}
 \title{Check Leanpub Course}
 \usage{
-check_course(course_dir = NULL)
+check_course(course_dir = ".")
 }
 \arguments{
 \item{course_dir}{directory with course materials}

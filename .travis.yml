@@ -1,6 +1,11 @@
 language: R
-sudo: no
+sudo: true
 cache: packages
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libpoppler-cpp-dev
+
 after_success: 
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
     then 

@@ -4,13 +4,22 @@
 \alias{create_videos}
 \title{Create video from script and PNGs}
 \usage{
-create_videos(course_status = NULL)
+create_videos(course_status = NULL, voice = "Joanna",
+  audio_codec = "libfdk_aac", verbose = TRUE, ...)
 }
 \arguments{
 \item{course_status}{output from \code{\link{check_course}}}
+
+\item{voice}{Voice to pass to \code{\link{ari_spin}}}
+
+\item{audio_codec}{audio codec to pass to \code{\link{ari_spin}}}
+
+\item{verbose}{Should diagnostic messages be printed}
+
+\item{...}{additional arguments passed to \code{\link{ari_spin}}}
 }
 \value{
-created mp4s
+A `data.frame` output from \code{\link{check_course}}
 }
 \description{
 Create video from script and PNGs

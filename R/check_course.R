@@ -11,11 +11,13 @@
 #' @importFrom tidyr separate
 #' @import dplyr
 #'
-check_course = function(course_dir = NULL) {
-  setwd(normalizePath(course_dir))
+check_course = function(course_dir = ".") {
+  paths = check_structure(course_dir)
   # get manuscript md files and check names of
-  manuscript_files = list.files(pattern = ".md$", path = "manuscript",
-                                full.names = TRUE)
+  manuscript_files = list.files(
+    pattern = ".md$",
+    path = paths$man_path,
+    full.names = TRUE)
 
   man_stubs = sub("[.]md$", "", basename(manuscript_files))
   # md file has highest precedence
@@ -69,7 +71,7 @@ check_course = function(course_dir = NULL) {
 
   ## get image path with correct directory names
   df = df %>%
-    mutate(img_dir = file.path(img_path, lesson))
+    mutate(img_dir = file.path(paths$img_path, lesson))
 
   a <- sapply(df$img_dir,
               function(x){
@@ -80,7 +82,7 @@ check_course = function(course_dir = NULL) {
                 }})
 
   # naming conventions for the images folders
-  img_dirs = list.dirs(path = img_path, recursive = FALSE,
+  img_dirs = list.dirs(path = paths$img_path, recursive = FALSE,
                        full.names = TRUE)
   names(img_dirs) = img_dirs
 
@@ -117,7 +119,7 @@ check_course = function(course_dir = NULL) {
   names(images) <- df$lesson
 
   df$all_images_exist = sapply(images, function(x) {
-    all(file.exists(file.path(res_path, x)))
+    all(file.exists(file.path(paths$res_path, x)))
   })
 
   # check if image directories exist but don't have MD file
@@ -137,7 +139,7 @@ check_course = function(course_dir = NULL) {
                                       path = x,
                                       full.names = TRUE)
                     if (length(pdfs) > 1) {
-                      warning(paste0(img_path, " had more than one PDF! ",
+                      warning(paste0(paths$img_path, " had more than one PDF! ",
                                      "Only grabbing first"))
                       pdfs = pdfs[1]
                     }
@@ -168,16 +170,20 @@ check_course = function(course_dir = NULL) {
   ## to be used to see if slides have been updated more recently
   ## (images should tehn be re-rendered)
   df = df %>%
-    mutate(mod_time_pngs = ymd_hms(file.info(file.path(img_path,lesson,list.files(file.path(img_path,lesson),pattern = "-1.png")))$mtime)) %>%
+    mutate(mod_time_pngs = ymd_hms(
+      file.info(file.path(paths$img_path, lesson,
+                          list.files(file.path(paths$img_path, lesson),
+                                     pattern = "-1.png")))$mtime)) %>%
     mutate(gs_more_recent = mod_time_gs > mod_time_pngs)
 
 
   ## get script path with correct directory names
   df = df %>%
-    mutate(scr_file = file.path(scr_path, paste0(lesson, "_script.md")))
+    mutate(scr_file = file.path(paths$scr_path,
+                                paste0(lesson, "_script.md")))
 
   # naming conventions for the images folders
-  scr_files = list.files(path = scr_path, recursive = FALSE,
+  scr_files = list.files(path = paths$scr_path, recursive = FALSE,
                          full.names = TRUE)
   names(scr_files) = scr_files
 
@@ -202,15 +208,15 @@ check_course = function(course_dir = NULL) {
 
   ## Get YouTube Links currently in the markdown file
   df$yt_md_link = unlist(sapply(df$md_file,
-                         function(fname) {
-                           x = readLines(fname, warn = FALSE)
-                            # will find better singular regex for this eventually...
-                           line <- grep(pattern = "^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)", x, perl=TRUE) #
-                           x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
-                          if(startsWith(x, "!")){ x <- NA}
-                          if(length(x)<1){x <- NA}
-                           return(x)
-                         }))
+                                function(fname) {
+                                  x = readLines(fname, warn = FALSE)
+                                  # will find better singular regex for this eventually...
+                                  line <- grep(pattern = "^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)", x, perl=TRUE) #
+                                  x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
+                                  if(startsWith(x, "!")){ x <- NA}
+                                  if(length(x)<1){x <- NA}
+                                  return(x)
+                                }))
 
   ## make sure expected vid file is there
   df = df %>%
@@ -218,7 +224,7 @@ check_course = function(course_dir = NULL) {
 
   # get video path with correct video
   # get manuscript md files and check names of
-  vid_files = list.files(pattern = ".mp4$", path = vid_path,
+  vid_files = list.files(pattern = ".mp4$", path = paths$vid_path,
                          full.names = TRUE)
 
 
@@ -245,8 +251,11 @@ check_course = function(course_dir = NULL) {
                          x = ifelse(!is.na(df$yt_md_link[df$md_file==fname]),
                                     str_sub(x[line],-12,-2),NA)
                        })
-course_status = df
-save(course_status, file = file.path(met_path,"course_status.rda"))
-return(list(course_summary = df, images = images, image_links = image_links, bad_img_dir = bad_img_dir,
-            course_dir = course_dir))
+  course_status = df
+  save(course_status, file = file.path(paths$met_path,"course_status.rda"))
+  L = list(course_summary = df, images = images,
+           image_links = image_links, bad_img_dir = bad_img_dir,
+           course_dir = course_dir)
+  L$paths = paths
+  return(L)
 }

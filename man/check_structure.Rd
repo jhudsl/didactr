@@ -4,13 +4,13 @@
 \alias{check_structure}
 \title{Check Course File Structure}
 \usage{
-check_structure(course_dir = NULL)
+check_structure(course_dir = ".")
 }
 \arguments{
 \item{course_dir}{directory with course materials}
 }
 \value{
-A data frame of the checked course.
+A list of the paths necessary for the course
 }
 \description{
 Check Course File Structure
