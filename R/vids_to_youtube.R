@@ -6,7 +6,7 @@
 #'
 #' @return youtube_uploads data frame with metrics from upload
 #' @export
-#' @importFrom stringr str_to_title
+#' @importFrom stringr str_to_title str_replace str_replace_all
 #' @importFrom dplyr data_frame
 #'
 
@@ -43,9 +43,9 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
              # get info from file for video title
              lesson = sub("[.]mp4$", "", basename(x))
              lesson_name = sub("[.]mp4$", "", basename(x)) %>%
-               sub("\\d+_","",.) %>%
-               gsub("_"," ",. ) %>%
-               stringr::str_to_title(.)
+               stringr::str_replace("\\d+_","") %>%
+               stringr::str_replace_all("_"," ") %>%
+               stringr::str_to_title()
              title = paste0(Course,": ", lesson_name)
              file = x
              ## upload video to youtube
