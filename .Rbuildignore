@@ -8,3 +8,4 @@
 ^\.httr-oauth$
 ^\.coveralls\.yml$
 ^codecov\.yml$
+tests/testthat/googlesheets_token.rds.enc

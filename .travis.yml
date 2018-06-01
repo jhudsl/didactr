@@ -1,29 +1,23 @@
 language: R
 sudo: true
 cache: packages
-
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y libpoppler-cpp-dev
-
-after_success: 
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
-    then 
-      Rscript -e 'covr::coveralls(type = "all")'; 
-    fi
-warnings_are_errors: yes
-before_deploy: 
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
-    then 
-      rm -f *.tar.gz; 
-    fi
-r_check_args: --as-cran --install-args=--build
+- openssl aes-256-cbc -K $encrypted_d735996d425c_key -iv $encrypted_d735996d425c_iv
+  -in tests/testthat/googlesheets_token.rds.enc -out tests/testthat/googlesheets_token.rds -d
+- sudo apt-get -qq update
+- sudo apt-get install -y libpoppler-cpp-dev
+after_success:
+- if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::coveralls(type = "all")';
+  fi
+warnings_are_errors: true
+before_deploy:
+- if [ "$TRAVIS_OS_NAME" == "osx" ]; then rm -f *.tar.gz; fi
+r_check_args: "--as-cran --install-args=--build"
 deploy:
   provider: releases
-  skip_cleanup: yes
-  file_glob: yes
+  skip_cleanup: true
+  file_glob: true
   file: didactr*.t*gz
-  'on':
-    tags: yes
+  on:
+    tags: true
     repo: muschellij2/didactr
-
