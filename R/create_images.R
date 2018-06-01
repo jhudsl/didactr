@@ -25,7 +25,6 @@ create_images <- function(course_status = NULL){
                                 "_", df$lesson_name[df$id==x],".pdf")
              file.copy(res$pdf, to=file.path(img_path,df$lesson[df$id==x],filename),
                        overwrite=TRUE)
-             message(paste0("Reminder to go re-run df images code"))
            }})
   ret = check_course(course_dir = course_status$course_dir)
   return(ret)
