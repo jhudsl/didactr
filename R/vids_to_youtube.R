@@ -4,7 +4,8 @@
 #' @param Course Course to be used in title of youtube video
 #' @param json Link to json file with credentials
 #'
-#' @return youtube_uploads data frame with metrics from upload
+#' @return A list from \code{\link{check_course}} with another field of
+#' \code{youtube_uploads}.
 #' @export
 #' @importFrom stringr str_to_title str_replace str_replace_all
 #' @importFrom dplyr data_frame
@@ -16,9 +17,10 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
     yt_auth(json = json)
   }
   df = course_status$course_summary
+  paths = course_status$paths
   ## if no video link in df
   ## or if video link in df not the most updated
-  sapply(df$vid_file,
+  youtube_uploads = lapply(df$vid_file,
          function(x) {
            ## decide if video needs to be uploaded
            ## john when you look at this code, know that i'm sorry
@@ -52,12 +54,19 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
              message(paste0("uploading video to youtube for: ", lesson_name))
              up = upload_video(file = file,
                                snippet = list(title = title),
-                               status= list(privacyStatus = "unlisted",
+                               status = list(privacyStatus = "unlisted",
                                             license = "creativeCommon"))
 
              #update uploaded videos data frame
-             youtube_uploads <- update_youtube(up, file=file, lesson=lesson)
+             youtube_uploads <- update_youtube(up, file=file, lesson=lesson,
+                                               metric_path = paths$met_path)
+             return(youtube_uploads)
            }})
-  ret = check_course(course_dir = course_status$course_dir)
+  youtube_uploads = bind_rows(youtube_uploads)
+  youtube_uploads = distinct(youtube_uploads)
+
+  ret = check_course(course_dir = course_status$course_dir,
+                     save_metrics = course_status$save_metrics)
+  ret$youtube_uploads = youtube_uploads
   return(ret)
 }

@@ -14,7 +14,8 @@ vids_to_youtube(course_status = NULL, Course = NULL, json = NULL)
 \item{json}{Link to json file with credentials}
 }
 \value{
-youtube_uploads data frame with metrics from upload
+A list from \code{\link{check_course}} with another field of
+\code{youtube_uploads}.
 }
 \description{
 Upload videos to YouTube

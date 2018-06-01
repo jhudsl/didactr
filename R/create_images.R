@@ -6,7 +6,7 @@
 #' @return Downloaded PDF and PNGs.
 #' @export
 
-create_images <- function(course_status = NULL){
+create_images <- function(course_status = NULL) {
   df = course_status$course_summary
   paths = course_status$paths
 
@@ -28,7 +28,8 @@ create_images <- function(course_status = NULL){
              file.copy(res$pdf, to=file.path(paths$img_path,df$lesson[df$id==x],filename),
                        overwrite=TRUE)
            }})
-  ret = check_course(course_dir = course_status$course_dir)
+  ret = check_course(course_dir = course_status$course_dir,
+                     save_metrics = course_status$save_metrics)
 
   return(ret)
 }

@@ -69,6 +69,7 @@ create_videos <- function(course_status = NULL,
              }
            }
          })
-  ret = check_course(course_dir = course_status$course_dir)
+  ret = check_course(course_dir = course_status$course_dir,
+                     save_metrics = course_status$save_metrics)
   return(ret)
 }

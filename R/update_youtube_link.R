@@ -28,6 +28,7 @@ update_youtube_link <- function(course_status = NULL){
              writeLines(t, con=df$md_file[df$lesson == x])
            }
          })
-  ret = check_course(course_dir = course_status$course_dir)
+  ret = check_course(course_dir = course_status$course_dir,
+                     save_metrics = course_status$save_metrics)
   return(ret)
 }

@@ -1,6 +1,7 @@
 #' Check Leanpub Course
 #'
 #' @param course_dir directory with course materials
+#' @param save_metrics Should an `rds` file be saved of the `data.frame`?
 #'
 #' @return A data frame of the checked course.
 #' @export
@@ -11,7 +12,7 @@
 #' @importFrom tidyr separate
 #' @import dplyr
 #'
-check_course = function(course_dir = ".") {
+check_course = function(course_dir = ".", save_metrics = TRUE) {
   paths = check_structure(course_dir)
   # get manuscript md files and check names of
   manuscript_files = list.files(
@@ -252,10 +253,15 @@ check_course = function(course_dir = ".") {
                                     str_sub(x[line],-12,-2),NA)
                        })
   course_status = df
-  save(course_status, file = file.path(paths$met_path,"course_status.rda"))
+  if (save_metrics) {
+    saveRDS(course_status,
+            file = file.path(paths$met_path, "course_status.rds"),
+            compress = "xz")
+  }
   L = list(course_summary = df, images = images,
            image_links = image_links, bad_img_dir = bad_img_dir,
            course_dir = course_dir)
   L$paths = paths
+  L$save_metrics = save_metrics
   return(L)
 }

@@ -4,7 +4,7 @@
 \alias{update_youtube}
 \title{Create PDF and PNGs from Google Slides}
 \usage{
-update_youtube(up, file = NULL, lesson = NULL)
+update_youtube(up, file = NULL, lesson = NULL, metric_path = NULL)
 }
 \arguments{
 \item{up}{output from \code{\link{vids_to_youtube}}}
@@ -12,9 +12,11 @@ update_youtube(up, file = NULL, lesson = NULL)
 \item{file}{object created in \code{\link{vids_to_youtube}}}
 
 \item{lesson}{object created in \code{\link{vids_to_youtube}}}
+
+\item{metric_path}{Path to the metrics file}
 }
 \value{
-Downloaded PDF and PNGs.
+A \code{data.frame} of all uploaded youtube videos.
 }
 \description{
 Create PDF and PNGs from Google Slides
