@@ -4,3 +4,4 @@
 .Ruserdata
 inst/doc
 .httr-oauth
+tests/testthat/googlesheets_token.rds
