@@ -18,7 +18,11 @@ Imports:
     tuber,
     httr,
     jsonlite,
+    lubridate,
+    pdftools,
     rstudioapi,
+    stringr,
+    tidyr,
     utils,
     ari (>= 0.1.0.9003),
     rmarkdown
