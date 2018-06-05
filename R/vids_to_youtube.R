@@ -26,13 +26,13 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
            ## john when you look at this code, know that i'm sorry
            ## it was a saturday morning
            ## hopefully I delete this and improve before you ever see this note
-           if(file.exists(file.path(paths$met_path,"youtube_uploads.rda"))){
-             load(file.path(paths$met_path,"youtube_uploads.rda"))
+           if(file.exists(file.path(paths$met_path,"youtube_uploads.rds"))){
+             youtube_uploads <- readRDS(file.path(paths$met_path,"youtube_uploads.rds"))
               vids = youtube_uploads %>%
                filter(lesson == df$lesson[df$vid_file==x]) %>%
                arrange(desc(time_published))
              if(nrow(vids) > 0){
-               make_video <- vids$time_published[vids$file == basename(x)] < df$mod_time_vid[df$vid_file == x]
+               make_video <- vids$time_published[vids$file == basename(x)][1] < df$mod_time_vid[df$vid_file == x]
              }else{
                vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
                make_video = TRUE
@@ -41,7 +41,7 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
                vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
                make_video = TRUE
              }
-           if(!df$has_vid_link[df$vid_file==x]|make_video){
+           if(make_video){
              # get info from file for video title
              lesson = sub("[.]mp4$", "", basename(x))
              lesson_name = sub("[.]mp4$", "", basename(x)) %>%
