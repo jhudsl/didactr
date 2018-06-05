@@ -26,8 +26,8 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
            ## john when you look at this code, know that i'm sorry
            ## it was a saturday morning
            ## hopefully I delete this and improve before you ever see this note
-           if(file.exists(file.path(met_path,"youtube_uploads.rda"))){
-             load(file.path(met_path,"youtube_uploads.rda"))
+           if(file.exists(file.path(paths$met_path,"youtube_uploads.rda"))){
+             load(file.path(paths$met_path,"youtube_uploads.rda"))
               vids = youtube_uploads %>%
                filter(lesson == df$lesson[df$vid_file==x]) %>%
                arrange(desc(time_published))

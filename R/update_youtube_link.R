@@ -7,8 +7,10 @@
 #'
 update_youtube_link <- function(course_status = NULL){
   df = course_status$course_summary
-  if(file.exists(file.path(met_path,"youtube_uploads.rda"))){
-    load(file.path(met_path,"youtube_uploads.rda"))
+  paths = course_status$paths
+
+  if(file.exists(file.path(paths$met_path,"youtube_uploads.rda"))){
+    load(file.path(paths$met_path,"youtube_uploads.rda"))
   }
   sapply(df$lesson,
          function(x) {
