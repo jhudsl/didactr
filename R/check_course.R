@@ -205,7 +205,11 @@ check_course = function(course_dir = ".", save_metrics = TRUE) {
   df = df %>%
     mutate(scr_para_length = ifelse(has_scr_file == FALSE, NA,
                                     sapply(scr_file,get_para))) %>%
-    mutate(scr_png_match = ifelse(scr_para_length == n_pngs, TRUE, FALSE))
+    mutate(scr_png_match = ifelse(scr_para_length == n_pngs, TRUE, FALSE)) %>%
+    mutate(mod_time_scr = ymd_hms(
+      file.info(file.path(scr_file))$mtime)) %>%
+    mutate(scr_more_recent = mod_time_gs > mod_time_scr) %>%
+    mutate(scr_more_recent = ifelse(is.na(mod_time_scr),TRUE,FALSE))
 
 
   ## Get YouTube Links currently in the markdown file

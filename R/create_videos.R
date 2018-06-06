@@ -24,7 +24,7 @@ create_videos <- function(course_status = NULL,
   ## OR if pngs are more recent than youtube video
   sapply(df$lesson,
          function(x) {
-           if(!df$has_vid_file[df$lesson==x] | df$vid_more_recent[df$lesson==x]){
+           if(!df$has_vid_file[df$lesson==x]|df$vid_more_recent[df$lesson==x]|df$scr_more_recent[df$lesson==x] ){
              files <- grep("[.]png", list.files(file.path(paths$img_path, x), full.names = TRUE),
                            value = TRUE)
 
