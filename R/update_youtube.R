@@ -1,4 +1,4 @@
-#' Create PDF and PNGs from Google Slides
+#' Update RDS object that tracks YouTube uploads
 #'
 #' @param up output from \code{\link{vids_to_youtube}}
 #' @param file object created in \code{\link{vids_to_youtube}}

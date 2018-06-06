@@ -176,7 +176,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE) {
                           list.files(file.path(paths$img_path, lesson),
                                      pattern = "-1.png")))$mtime)) %>%
     mutate(gs_more_recent = mod_time_gs > mod_time_pngs) %>%
-    mutate(gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE,FALSE))
+    mutate(gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE,gs_more_recent))
 
 
   ## get script path with correct directory names
