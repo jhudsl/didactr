@@ -2,11 +2,12 @@
 #' Create PDF and PNGs from Google Slides
 #'
 #' @param course_status output from \code{\link{check_course}}
+#' @param ... additional arguments passed to \code{\link{gs_convert}}
 #'
 #' @return Downloaded PDF and PNGs.
 #' @export
 
-create_images <- function(course_status = NULL) {
+create_images <- function(course_status = NULL, ...) {
   df = course_status$course_summary
   paths = course_status$paths
 
@@ -22,7 +23,7 @@ create_images <- function(course_status = NULL) {
              out_dir = file.path(paths$img_path, df$lesson[df$id==x])
              res = gs_convert(id = x, PPTX = FALSE,
                               out_dir = out_dir,
-                              output_type = "png")
+                              output_type = "png", ...)
              filename =  paste0(df$cnum[df$id==x] ,"_", df$course[df$id==x],
                                 "_", df$lesson_name[df$id==x],".pdf")
              file.copy(res$pdf, to=file.path(paths$img_path,df$lesson[df$id==x],filename),
