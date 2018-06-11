@@ -5,12 +5,13 @@
 #' @param lesson object created in \code{\link{vids_to_youtube}}
 #' @param metric_path Path to the metrics file
 #'
-#' @return A \code{data.frame} of all uploaded youtube videos.
+#' @return A \code{data.frame} of all uploaded youtube videos
 #' @importFrom dplyr distinct
 #' @export
+
 update_youtube <- function(
   up, file=NULL, lesson=NULL,
-  metric_path = NULL) {
+  metric_path = NULL, timezone="America/New_York") {
   met_file = file.path(metric_path, "youtube_uploads.rds")
   ## create file tracking object output
   if (!file.exists(met_file)) {
@@ -19,12 +20,13 @@ update_youtube <- function(
     youtube_uploads = readRDS(met_file)
   }
 
-
   yt_df <- as_data_frame(t(unlist(up$content))) %>%
-    mutate(file = basename(file)) %>%
-    mutate(lesson = lesson) %>%
-    mutate(url = up$url) %>%
-    mutate(time_published = ymd_hms(up$content$snippet$publishedAt)) %>%
+    mutate(file = basename(file),
+           lesson = lesson,
+           url = up$url,
+           time_published = ymd_hms(up$content$snippet$publishedAt),
+           time_published = lubridate::with_tz(time_published, tz = timezone)
+    ) %>%
     select(file, lesson, url, time_published, everything())
 
   youtube_uploads = bind_rows(youtube_uploads, yt_df)
