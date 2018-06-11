@@ -24,8 +24,7 @@ create_images <- function(course_status = NULL, ...) {
              res = gs_convert(id = x, PPTX = FALSE,
                               out_dir = out_dir,
                               output_type = "png", ...)
-             filename =  paste0(df$cnum[df$id==x] ,"_", df$course[df$id==x],
-                                "_", df$lesson_name[df$id==x],".pdf")
+             filename =  paste0(df$course_info[df$id==x],".pdf")
              file.copy(res$pdf, to=file.path(paths$img_path,df$lesson[df$id==x],filename),
                        overwrite=TRUE)
            }})

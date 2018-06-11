@@ -2,17 +2,19 @@
 #'
 #' @param course_dir directory with course materials
 #' @param save_metrics Should an `rds` file be saved of the `data.frame`?
+#' @param timezone Timezone to be used?
 #'
 #' @return A data frame of the checked course.
 #' @export
 #' @importFrom googledrive drive_get
-#' @importFrom lubridate ymd_hms
+#' @importFrom lubridate ymd_hms with_tz
 #' @importFrom stringr str_sub
 #' @importFrom httr parse_url
 #' @importFrom tidyr separate
 #' @import dplyr
 #'
-check_course = function(course_dir = ".", save_metrics = TRUE) {
+check_course = function(course_dir = ".", save_metrics = TRUE,
+                        timezone = "America/New_York") {
   paths = check_structure(course_dir)
   # get manuscript md files and check names of
   manuscript_files = list.files(
@@ -55,15 +57,17 @@ check_course = function(course_dir = ".", save_metrics = TRUE) {
   if (nrow(drive_info) > 0) {
     drive_info = drive_info %>%
       rename(gs_name = name) %>%
-      mutate(course_info=gs_name) %>%
-      separate(col=course_info, sep = "_",
-               into=c("cnum", "course","lesson_name"),
-               extra="merge")
+      mutate(course_info=gs_name)
+    # %>%
+    #   separate(col=course_info, sep = "_",
+    #            into=c("cnum", "course","lesson_name"),
+    #            extra="merge")
     mod_time_gs = sapply(drive_info$drive_resource,
                          function(x) {
                            x$modifiedTime
                          })
     drive_info$mod_time_gs = ymd_hms(mod_time_gs)
+    drive_info$mod_time_gs = lubridate::with_tz(drive_info$mod_time_gs, tz = timezone)
     drive_info = drive_info %>%
       select(-drive_resource)
     df = left_join(df, drive_info, by = "id")
@@ -166,17 +170,26 @@ check_course = function(course_dir = ".", save_metrics = TRUE) {
   df = df %>%
     mutate(pdf_png_match = ifelse(pdf_pages == n_pngs, TRUE, FALSE))
 
+  mod_time_to_tz_time = function(x, timezone) {
+    mod_times = file.info(x)$mtime
+    mod_times = ymd_hms(mod_times, tz = Sys.timezone())
+    mod_times = lubridate::with_tz(mod_times, tz = timezone)
+    return(mod_times)
+  }
   ## get mtime for each lesson
   ## if no pngs exist, NA
   ## to be used to see if slides have been updated more recently
   ## (images should tehn be re-rendered)
+  mod_times = list.files(
+    pattern = "-1.png",
+    path = file.path(paths$img_path, df$lesson),
+    full.names = TRUE)
+  mod_times = mod_time_to_tz_time(mod_times, timezone = timezone)
+
   df = df %>%
-    mutate(mod_time_pngs = ymd_hms(
-      file.info(file.path(paths$img_path, lesson,
-                          list.files(file.path(paths$img_path, lesson),
-                                     pattern = "-1.png")))$mtime)) %>%
-    mutate(gs_more_recent = mod_time_gs > mod_time_pngs) %>%
-    mutate(gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE,gs_more_recent))
+    mutate(mod_time_pngs = mod_times,
+           gs_more_recent = mod_time_gs > mod_time_pngs,
+           gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE,gs_more_recent))
 
 
   ## get script path with correct directory names
@@ -205,11 +218,11 @@ check_course = function(course_dir = ".", save_metrics = TRUE) {
   df = df %>%
     mutate(scr_para_length = ifelse(has_scr_file == FALSE, NA,
                                     sapply(scr_file,get_para))) %>%
-    mutate(scr_png_match = ifelse(scr_para_length == n_pngs, TRUE, FALSE)) %>%
-    mutate(mod_time_scr = ymd_hms(
-      file.info(file.path(scr_file))$mtime)) %>%
-    mutate(scr_more_recent = mod_time_gs > mod_time_scr) %>%
-    mutate(scr_more_recent = ifelse(is.na(mod_time_scr),TRUE,FALSE))
+    mutate(
+      scr_png_match = ifelse(scr_para_length == n_pngs, TRUE, FALSE),
+      mod_time_scr = mod_time_to_tz_time(scr_file, timezone = timezone),
+      scr_more_recent = mod_time_gs > mod_time_scr,
+      scr_more_recent = ifelse(is.na(mod_time_scr),TRUE,FALSE))
 
 
   ## Get YouTube Links currently in the markdown file
@@ -242,9 +255,9 @@ check_course = function(course_dir = ".", save_metrics = TRUE) {
 
   ## make sure expected vid file is there
   df = df %>%
-    mutate(has_vid_file = !is.na(vid_file)) %>%
-    mutate(mod_time_vid = ymd_hms(file.info(vid_file)$mtime))%>%
-    mutate(vid_more_recent = mod_time_pngs > mod_time_vid)
+    mutate(has_vid_file = !is.na(vid_file),
+           mod_time_vid = mod_time_to_tz_time(vid_file, timezone = timezone),
+           vid_more_recent = mod_time_pngs > mod_time_vid)
 
   ## Get youtube IDs
   df$yt_md_ID = sapply(df$md_file,
