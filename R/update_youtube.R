@@ -4,6 +4,7 @@
 #' @param file object created in \code{\link{vids_to_youtube}}
 #' @param lesson object created in \code{\link{vids_to_youtube}}
 #' @param metric_path Path to the metrics file
+#' @param timezone Timezone to be used?
 #'
 #' @return A \code{data.frame} of all uploaded youtube videos
 #' @importFrom dplyr distinct

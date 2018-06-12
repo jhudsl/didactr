@@ -2,9 +2,10 @@
 % Please edit documentation in R/update_youtube.R
 \name{update_youtube}
 \alias{update_youtube}
-\title{Create PDF and PNGs from Google Slides}
+\title{Update RDS object that tracks YouTube uploads}
 \usage{
-update_youtube(up, file = NULL, lesson = NULL, metric_path = NULL)
+update_youtube(up, file = NULL, lesson = NULL, metric_path = NULL,
+  timezone = "America/New_York")
 }
 \arguments{
 \item{up}{output from \code{\link{vids_to_youtube}}}
@@ -14,10 +15,12 @@ update_youtube(up, file = NULL, lesson = NULL, metric_path = NULL)
 \item{lesson}{object created in \code{\link{vids_to_youtube}}}
 
 \item{metric_path}{Path to the metrics file}
+
+\item{timezone}{Timezone to be used?}
 }
 \value{
-A \code{data.frame} of all uploaded youtube videos.
+A \code{data.frame} of all uploaded youtube videos
 }
 \description{
-Create PDF and PNGs from Google Slides
+Update RDS object that tracks YouTube uploads
 }

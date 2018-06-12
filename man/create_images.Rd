@@ -4,10 +4,12 @@
 \alias{create_images}
 \title{Create PDF and PNGs from Google Slides}
 \usage{
-create_images(course_status = NULL)
+create_images(course_status = NULL, ...)
 }
 \arguments{
 \item{course_status}{output from \code{\link{check_course}}}
+
+\item{...}{additional arguments passed to \code{\link{gs_convert}}}
 }
 \value{
 Downloaded PDF and PNGs.
