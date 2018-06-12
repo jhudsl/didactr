@@ -81,7 +81,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
   a <- sapply(df$img_dir,
               function(x){
                 if(!dir.exists(x)){
-                  warning(paste0("Creating image directories for: ", df$lesson[df$img_dir==x]))
+                  message(paste0("Creating image directories for: ", df$lesson[df$img_dir==x]))
                   dir.create(x, showWarnings = FALSE)
 
                 }})
@@ -179,16 +179,17 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
   ## get mtime for each lesson
   ## if no pngs exist, NA
   ## to be used to see if slides have been updated more recently
-  ## (images should tehn be re-rendered)
-  mod_times = list.files(
+  ## (images should then be re-rendered)
+  mod_files = list.files(
     pattern = "-1.png",
     path = file.path(paths$img_path, df$lesson),
     full.names = TRUE)
-  mod_times = mod_time_to_tz_time(mod_times, timezone = timezone)
+  mod_times = bind_cols(lesson = basename(dirname(mod_files)),
+                        mod_time_pngs = mod_time_to_tz_time(mod_files, timezone = timezone))
 
   df = df %>%
-    mutate(mod_time_pngs = ifelse(length(mod_times) > 0, mod_times, NA),
-           gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE,mod_time_gs > mod_time_pngs))
+    left_join(., mod_times, by = "lesson") %>%
+    mutate(gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE, mod_time_gs > mod_time_pngs))
 
 
   ## get script path with correct directory names
@@ -219,7 +220,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
                                     sapply(scr_file,get_para))) %>%
     mutate(
       scr_png_match = ifelse(scr_para_length == n_pngs, TRUE, FALSE),
-      mod_time_scr = ifelse(is.na(has_scr_file), NA, mod_time_to_tz_time(scr_file, timezone = timezone)),
+      mod_time_scr =  mod_time_to_tz_time(scr_file, timezone = timezone),
       scr_more_recent = ifelse(is.na(has_scr_file), NA , mod_time_gs > mod_time_scr))
 
 
@@ -253,9 +254,9 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
 
   ## make sure expected vid file is there
   df = df %>%
-    mutate(has_vid_file = !is.na(vid_file),
-           mod_time_vid = ifelse(is.na(has_vid_file), NA, mod_time_to_tz_time(vid_file, timezone = timezone)),
-           vid_more_recent = ifelse(is.na(has_vid_file), NA, mod_time_pngs > mod_time_vid))
+    mutate(mod_time_vid = mod_time_to_tz_time(vid_file, timezone = timezone),
+    vid_more_recent = ifelse(is.na(mod_time_vid), NA, mod_time_pngs > mod_time_vid))
+
 
   ## Get youtube IDs
   df$yt_md_ID = sapply(df$md_file,
