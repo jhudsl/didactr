@@ -187,9 +187,8 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
   mod_times = mod_time_to_tz_time(mod_times, timezone = timezone)
 
   df = df %>%
-    mutate(mod_time_pngs = mod_times,
-           gs_more_recent = mod_time_gs > mod_time_pngs,
-           gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE,gs_more_recent))
+    mutate(mod_time_pngs = ifelse(length(mod_times) > 0, mod_times, NA),
+           gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE,mod_time_gs > mod_time_pngs))
 
 
   ## get script path with correct directory names
@@ -220,9 +219,8 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
                                     sapply(scr_file,get_para))) %>%
     mutate(
       scr_png_match = ifelse(scr_para_length == n_pngs, TRUE, FALSE),
-      mod_time_scr = mod_time_to_tz_time(scr_file, timezone = timezone),
-      scr_more_recent = mod_time_gs > mod_time_scr,
-      scr_more_recent = ifelse(is.na(mod_time_scr),TRUE,FALSE))
+      mod_time_scr = ifelse(is.na(has_scr_file), NA, mod_time_to_tz_time(scr_file, timezone = timezone)),
+      scr_more_recent = ifelse(is.na(has_scr_file), NA , mod_time_gs > mod_time_scr))
 
 
   ## Get YouTube Links currently in the markdown file
@@ -230,7 +228,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
                                 function(fname) {
                                   x = readLines(fname, warn = FALSE)
                                   # will find better singular regex for this eventually...
-                                  line <- grep(pattern = "^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)", x, perl=TRUE) #
+                                  line <- grep(pattern = "^!\\[.+\\]\\((?!\\.png)\\)|^!\\[\\]\\((?!\\.png)\\)|^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)", x, perl=TRUE) #
                                   x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
                                   if(startsWith(x, "!")){ x <- NA}
                                   if(length(x)<1){x <- NA}
@@ -256,8 +254,8 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
   ## make sure expected vid file is there
   df = df %>%
     mutate(has_vid_file = !is.na(vid_file),
-           mod_time_vid = mod_time_to_tz_time(vid_file, timezone = timezone),
-           vid_more_recent = mod_time_pngs > mod_time_vid)
+           mod_time_vid = ifelse(is.na(has_vid_file), NA, mod_time_to_tz_time(vid_file, timezone = timezone)),
+           vid_more_recent = ifelse(is.na(has_vid_file), NA, mod_time_pngs > mod_time_vid))
 
   ## Get youtube IDs
   df$yt_md_ID = sapply(df$md_file,
