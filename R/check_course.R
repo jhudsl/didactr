@@ -40,7 +40,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
       warning(paste0("Multiple sheets identified!  Please check ",
                      fname))
     }
-    if (length(x) == 0|grepl("\\(\\)",x)) {
+    if (length(x) == 0 || grepl("\\(\\)", x)) {
       return(NA)
     }
     return(x)
