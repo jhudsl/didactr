@@ -20,48 +20,50 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
   paths = course_status$paths
   ## if no video link in df
   ## or if video link in df not the most updated
-  youtube_uploads = lapply(df$vid_file,
-         function(x) {
-           ## decide if video needs to be uploaded
-           ## john when you look at this code, know that i'm sorry
-           ## it was a saturday morning
-           ## hopefully I delete this and improve before you ever see this note
-           if(file.exists(file.path(paths$met_path,"youtube_uploads.rds"))){
-             youtube_uploads <- readRDS(file.path(paths$met_path,"youtube_uploads.rds"))
-              vids = youtube_uploads %>%
-               filter(lesson == df$lesson[df$vid_file==x]) %>%
-               arrange(desc(time_published))
-             if(nrow(vids) > 0){
-               make_video <- vids$time_published[vids$file == basename(x)][1] < df$mod_time_vid[df$vid_file == x]
-             }else{
-               vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
-               make_video = TRUE
-             }
-           }else{
-               vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
-               make_video = TRUE
-             }
-           if(make_video){
-             # get info from file for video title
-             lesson = sub("[.]mp4$", "", basename(x))
-             lesson_name = sub("[.]mp4$", "", basename(x)) %>%
-               stringr::str_replace("\\d+_","") %>%
-               stringr::str_replace_all("_"," ") %>%
-               stringr::str_to_title()
-             title = paste0(Course,": ", lesson_name)
-             file = x
-             ## upload video to youtube
-             message(paste0("uploading video to youtube for: ", lesson_name))
-             up = upload_video(file = file,
-                               snippet = list(title = title),
-                               status = list(privacyStatus = "unlisted",
-                                            license = "creativeCommon"))
+  youtube_uploads = lapply(
+    df$vid_file,
+    function(x) {
+      ## decide if video needs to be uploaded
+      ## john when you look at this code, know that i'm sorry
+      ## it was a saturday morning
+      ## hopefully I delete this and improve before you ever see this note
+      rds_file = file.path(paths$met_path,"youtube_uploads.rds")
+      if(file.exists(rds_file)){
+        youtube_uploads <- readRDS(rds_file)
+        vids = youtube_uploads %>%
+          filter(lesson == df$lesson[df$vid_file==x]) %>%
+          arrange(desc(time_published))
+        if (nrow(vids) > 0){
+          make_video <- vids$time_published[vids$file == basename(x)][1] < df$mod_time_vid[df$vid_file == x]
+        } else{
+          vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
+          make_video = TRUE
+        }
+      }else{
+        vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
+        make_video = TRUE
+      }
+      if(make_video){
+        # get info from file for video title
+        lesson = sub("[.]mp4$", "", basename(x))
+        lesson_name = sub("[.]mp4$", "", basename(x)) %>%
+          stringr::str_replace("\\d+_","") %>%
+          stringr::str_replace_all("_"," ") %>%
+          stringr::str_to_title
+        title = paste0(Course,": ", lesson_name)
+        file = x
+        ## upload video to youtube
+        message(paste0("uploading video to youtube for: ", lesson_name))
+        up = upload_video(file = file,
+                          snippet = list(title = title),
+                          status = list(privacyStatus = "unlisted",
+                                        license = "creativeCommon"))
 
-             #update uploaded videos data frame
-             youtube_uploads <- update_youtube(up, file=file, lesson=lesson,
-                                               metric_path = paths$met_path)
-             return(youtube_uploads)
-           }})
+        #update uploaded videos data frame
+        youtube_uploads <- update_youtube(up, file=file, lesson=lesson,
+                                          metric_path = paths$met_path)
+        return(youtube_uploads)
+      }})
   youtube_uploads = bind_rows(youtube_uploads)
   youtube_uploads = distinct(youtube_uploads)
 

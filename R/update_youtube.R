@@ -26,7 +26,8 @@ update_youtube <- function(
            lesson = lesson,
            url = up$url,
            time_published = ymd_hms(up$content$snippet$publishedAt),
-           time_published = lubridate::with_tz(time_published, tz = timezone)
+           time_published = lubridate::with_tz(time_published,
+                                               tzone = timezone)
     ) %>%
     select(file, lesson, url, time_published, everything())
 
