@@ -1,0 +1,90 @@
+---
+title: "Checking Courses in didactr"
+author: "John Muschelli, Shannon Ellis"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Checking Courses in didactr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(git2r)
+course_url = "https://github.com/jhudsl/cds_dataviz"
+tfile = tempfile()
+dir.create(tfile, recursive = TRUE)
+local_path = file.path(tfile, basename(course_url))
+clone(course_url, 
+      local_path = local_path, 
+      credentials = cred_token())
+course_dir = local_path
+Course = "Data Visualization"
+
+## load libraries
+library(didactr)
+
+##TO ADD generate lenpub structure
+##TO ADD create_manuscript(".md")
+
+googledrive::drive_auth("../tests/testthat/googlesheets_token.rds")
+## check course structure
+## fill in missing directories
+paths <- check_structure(course_dir)
+
+## get current status of course
+out <- check_course(course_dir)
+head(out$course_summary)
+
+## download PDFs and PNGs
+## put them where they belong
+out <- create_images(out, extra.opts = "-density 400 -quality 200")
+head(out$course_summary)
+```
+
+```{r, eval = FALSE}
+## Create Videos
+## tell R what AWS keys to use
+aws.signature::use_credentials(profile="polly")
+out <- create_videos(
+  out, 
+  audio_codec = "libfdk_aac"
+)
+head(out$course_summary)
+```
+
+
+# Upload Videos to YouTube
+
+The following section is for uploading videos to YouTube.  This uploading is done through [`tuber`](https://github.com/soodoku/tuber)  See https://github.com/soodoku/tuber#using-tuber for setting up the credentials for YouTube.  
+
+```{r, eval = FALSE}
+## Upload Videos & Update YouTube log
+json_file = "YOUTUBE_JSON.json"
+# yt_auth(json_file)
+out <- vids_to_youtube(out, Course=Course, json = json_file)
+
+## to take a look at youtube videos
+youtube_uploads <- readRDS(file.path(paths$met_path, "youtube_uploads.rds"))
+head(youtube_uploads)
+
+```
+
+Once the videos are uploaded you can upload the following links using:
+
+```{r, eval = FALSE}
+## Update Youtube Link in Manuscript file
+out <- update_youtube_link(out)
+
+## get current status of course
+head(out$course_summary)
+
+## TO ADD: check_quiz
+```

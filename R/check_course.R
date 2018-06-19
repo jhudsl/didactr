@@ -225,16 +225,25 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
 
 
   ## Get YouTube Links currently in the markdown file
-  df$yt_md_link = unlist(sapply(df$md_file,
+  yt_md_link = sapply(df$md_file,
                                 function(fname) {
                                   x = readLines(fname, warn = FALSE)
                                   # will find better singular regex for this eventually...
                                   line <- grep(pattern = "^!\\[.+\\]\\((?!\\.png)\\)|^!\\[\\]\\((?!\\.png)\\)|^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)", x, perl=TRUE) #
                                   x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
-                                  if(startsWith(x, "!")){ x <- NA}
-                                  if(length(x)<1){x <- NA}
+                                  # remove images
+                                  x = x[!startsWith(x, "images")]
+                                  if (length(x) < 1) {
+                                    x <- NA
+                                  }
+                                  res = startsWith(x, "!")
+                                  if (any(res)) {
+                                    x[res] <- NA
+                                  }
                                   return(x)
-                                }))
+                                })
+
+  df$yt_md_link = unlist(yt_md_link)
 
   ## make sure expected vid file is there
   df = df %>%
@@ -255,7 +264,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
   ## make sure expected vid file is there
   df = df %>%
     mutate(mod_time_vid = mod_time_to_tz_time(vid_file, timezone = timezone),
-    vid_more_recent = ifelse(is.na(mod_time_vid), NA, mod_time_pngs > mod_time_vid))
+           vid_more_recent = ifelse(is.na(mod_time_vid), NA, mod_time_pngs > mod_time_vid))
 
 
   ## Get youtube IDs
