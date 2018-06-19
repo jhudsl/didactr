@@ -235,8 +235,10 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
                                   #remove gifs
                                    line <- line[grep("gif", x[line], invert=TRUE)]
                                   x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
-                                  if(startsWith(x, "!")){ x <- NA}
-                                  if(length(x)<1){x <- NA}
+                                  if(length(x)<1){x <- NA
+                                  }else if(startsWith(x, "!")){
+                                    x <- NA}
+
                                   return(x)
                                 }))
 
