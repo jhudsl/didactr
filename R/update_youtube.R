@@ -12,13 +12,14 @@
 
 update_youtube <- function(
   up, file=NULL, lesson=NULL,
-  metric_path = NULL, timezone="America/New_York") {
-  met_file = file.path(metric_path, "youtube_uploads.rds")
+  metric_path = NULL,
+  timezone="America/New_York") {
+  yt_file = file.path(metric_path, "youtube_uploads.rds")
   ## create file tracking object output
-  if (!file.exists(met_file)) {
+  if (!file.exists(yt_file)) {
     youtube_uploads <- NULL
   } else{
-    youtube_uploads = readRDS(met_file)
+    youtube_uploads = readRDS(yt_file)
   }
 
   yt_df <- as_data_frame(t(unlist(up$content))) %>%
@@ -33,6 +34,6 @@ update_youtube <- function(
 
   youtube_uploads = bind_rows(youtube_uploads, yt_df)
   youtube_uploads = distinct(youtube_uploads)
-  saveRDS(youtube_uploads, file = met_file, compress = "xz")
+  saveRDS(youtube_uploads, file = yt_file, compress = "xz")
   return(youtube_uploads)
 }

@@ -27,9 +27,9 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
       ## john when you look at this code, know that i'm sorry
       ## it was a saturday morning
       ## hopefully I delete this and improve before you ever see this note
-      rds_file = file.path(paths$met_path,"youtube_uploads.rds")
-      if(file.exists(rds_file)){
-        youtube_uploads <- readRDS(rds_file)
+      yt_file = file.path(paths$met_path,"youtube_uploads.rds")
+      if(file.exists(yt_file)){
+        youtube_uploads <- readRDS(yt_file)
         vids = youtube_uploads %>%
           filter(lesson == df$lesson[df$vid_file==x]) %>%
           arrange(desc(time_published))
@@ -39,8 +39,9 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
           vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
           make_video = TRUE
         }
-      }else{
-        vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
+      } else{
+        vids = data_frame(lesson=df$lesson[df$vid_file==x],
+                          id = NA, time_published = NA)
         make_video = TRUE
       }
       if(make_video){

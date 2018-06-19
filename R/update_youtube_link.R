@@ -1,16 +1,25 @@
 #' Update Youtube Link
 #'
 #' @param course_status output from \code{\link{check_course}}
-#'
+#' @param youtube_uploads The `data.frame` output from
+#' \code{\link{update_youtube}}.  Will look in the metric path if not
+#' specified.
 #' @return updated manuscript files
 #' @export
 #'
-update_youtube_link <- function(course_status = NULL){
+update_youtube_link <- function(
+  course_status = NULL,
+  youtube_uploads = NULL){
   df = course_status$course_summary
   paths = course_status$paths
 
-  if(file.exists(file.path(paths$met_path,"youtube_uploads.rds"))){
-    readRDS(file.path(paths$met_path,"youtube_uploads.rds"))
+  yt_file = file.path(paths$met_path ,"youtube_uploads.rds")
+  if (file.exists(yt_file)) {
+    youtube_uploads = readRDS(yt_file)
+  } else {
+    if (is.null(youtube_uploads)) {
+      stop("YouTube uploads not found")
+    }
   }
   sapply(df$lesson,
          function(x) {
@@ -19,8 +28,8 @@ update_youtube_link <- function(course_status = NULL){
              mutate(les = sub("[.]mp4$", "", basename(file)) ) %>%
              filter(les == x) %>%
              arrange(desc(time_published))
-          ## update if no link exists
-          ## or if more recent upload has occurred
+           ## update if no link exists
+           ## or if more recent upload has occurred
            if(is.na(df$yt_md_link[df$lesson == x]) | nrow(vids)>0 & vids$url[1] != df$yt_md_link[df$lesson == x]){
              message(paste0("updating youtube link in manuscript file: ", x))
              t  <- readLines(df$md_file[df$lesson == x])
