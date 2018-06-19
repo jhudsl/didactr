@@ -4,10 +4,14 @@
 \alias{update_youtube_link}
 \title{Update Youtube Link}
 \usage{
-update_youtube_link(course_status = NULL)
+update_youtube_link(course_status = NULL, youtube_uploads = NULL)
 }
 \arguments{
 \item{course_status}{output from \code{\link{check_course}}}
+
+\item{youtube_uploads}{The `data.frame` output from
+\code{\link{update_youtube}}.  Will look in the metric path if not
+specified.}
 }
 \value{
 updated manuscript files

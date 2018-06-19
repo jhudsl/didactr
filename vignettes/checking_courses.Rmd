@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(git2r)
-course_url = "https://github.com/jhudsl/cds_dataviz"
+course_url = "https://github.com/jhudsl/cds_githubbasics"
 tfile = tempfile()
 dir.create(tfile, recursive = TRUE)
 local_path = file.path(tfile, basename(course_url))
@@ -26,7 +26,7 @@ clone(course_url,
       local_path = local_path, 
       credentials = cred_token())
 course_dir = local_path
-Course = "Data Visualization"
+Course = "GitHub Basics"
 
 ## load libraries
 library(didactr)
