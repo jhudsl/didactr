@@ -18,14 +18,14 @@ create_images <- function(course_status = NULL, ...) {
   ## OR mod_time_gs > mod_time_pngs
   sapply(df$id,
          function(x) {
-           if((is.na(df$pdf[df$id==x]) & !is.na(x))|(df$gs_more_recent[df$id==x])){
-             message(paste0("Converting PDFs for: ", df$lesson[df$id==x]))
-             out_dir = file.path(paths$img_path, df$lesson[df$id==x])
+           if(is.na(x)){}else if((is.na(df$pdf[which(df$id==x)]) & !is.na(x))|(df$gs_more_recent[which(df$id==x)])){
+             message(paste0("Converting PDFs for: ", df$lesson[which(df$id==x)]))
+             out_dir = file.path(paths$img_path, df$lesson[which(df$id==x)])
              res = gs_convert(id = x, PPTX = FALSE,
                               out_dir = out_dir,
                               output_type = "png", ...)
-             filename =  paste0(df$course_info[df$id==x],".pdf")
-             file.copy(res$pdf, to=file.path(paths$img_path,df$lesson[df$id==x],filename),
+             filename =  paste0(df$course_info[which(df$id==x)],".pdf")
+             file.copy(res$pdf, to=file.path(paths$img_path,df$lesson[which(df$id==x)],filename),
                        overwrite=TRUE)
            }})
   ret = check_course(course_dir = course_status$course_dir,

@@ -209,7 +209,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
   # get script path and number of paragraphs
   get_para <- function(x){
     para = readLines(x, warn = FALSE)
-    para = para[ !para %in% ""]
+    para = para[ !para %in% c(""," ")]
     return(length(para))
   }
 

@@ -42,7 +42,7 @@ create_videos <- function(course_status = NULL,
              }
 
              para = readLines(file.path(paths$scr_path, paste0(x, '_script.md')), warn = FALSE)
-             para = para[ !para %in% ""]
+             para = para[ !para %in% c("", " ")]
 
              if(length(para) == length(files)){
                message(paste0("generating video for: ", x))
