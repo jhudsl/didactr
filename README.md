@@ -41,6 +41,7 @@ aws.signature::use_credentials(profile = "polly")
 #########################
 # Find a presentation
 #########################
+auth = didactr_auth()
 x = drive_find(n_max = 25, type = "presentation")
 res = gs_ari(x$id[1], voice = "Joanna", 
        cleanup = FALSE,

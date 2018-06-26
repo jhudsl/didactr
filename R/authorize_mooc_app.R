@@ -14,7 +14,7 @@ mooc_app = function() {
 #' using the default cache file \code{.httr-oauth}
 #' @param use_oob use a local webserver for the OAuth dance
 #'
-#' @return A list with the token and the saved file with the token
+#' @return The auth token
 #' @export
 #'
 #' @importFrom httr oauth_endpoints oauth2.0_token
@@ -38,7 +38,7 @@ didactr_auth = function(cache = FALSE, use_oob = FALSE) {
   tfile = tempfile(fileext = ".rds")
   saveRDS(cred, tfile)
   googledrive::drive_auth(oauth_token = tfile)
-  return(list(token = cred, token_file = tfile))
+  return(invisible(cred))
 }
 
 

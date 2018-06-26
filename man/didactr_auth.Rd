@@ -13,7 +13,7 @@ using the default cache file \code{.httr-oauth}}
 \item{use_oob}{use a local webserver for the OAuth dance}
 }
 \value{
-A list with the token and the saved file with the token
+The auth token
 }
 \description{
 Authorize Application for didactr
