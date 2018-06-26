@@ -31,16 +31,16 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
       if(file.exists(yt_file)){
         youtube_uploads <- readRDS(yt_file)
         vids = youtube_uploads %>%
-          filter(lesson == df$lesson[df$vid_file==x]) %>%
+          filter(lesson == df$lesson[which(df$vid_file==x)]) %>%
           arrange(desc(time_published))
         if (nrow(vids) > 0){
-          make_video <- vids$time_published[vids$file == basename(x)][1] < df$mod_time_vid[df$vid_file == x]
+          make_video <- vids$time_published[vids$file == basename(x)][1] < df$mod_time_vid[which(df$vid_file == x)]
         } else{
-          vids = data_frame(lesson=df$lesson[df$vid_file==x], id = NA, time_published = NA)
+          vids = data_frame(lesson=df$lesson[which(df$vid_file==x)], id = NA, time_published = NA)
           make_video = TRUE
         }
       } else{
-        vids = data_frame(lesson=df$lesson[df$vid_file==x],
+        vids = data_frame(lesson=df$lesson[which(df$vid_file==x)],
                           id = NA, time_published = NA)
         make_video = TRUE
       }
@@ -50,7 +50,7 @@ vids_to_youtube <- function(course_status = NULL, Course = NULL,
         lesson_name = sub("[.]mp4$", "", basename(x)) %>%
           stringr::str_replace("\\d+_","") %>%
           stringr::str_replace_all("_"," ") %>%
-          stringr::str_to_title
+          stringr::str_to_title()
         title = paste0(Course,": ", lesson_name)
         file = x
         ## upload video to youtube
