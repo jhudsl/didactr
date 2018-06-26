@@ -19,6 +19,9 @@ create_videos <- function(course_status = NULL,
   df = course_status$course_summary
   paths = course_status$paths
 
+  if (!"has_vid_file" %in% colnames(df)) {
+    warning("Creating videos, but ")
+  }
   ## create video: ari_spin()
   ## if no video link in df
   ## OR if pngs are more recent than youtube video

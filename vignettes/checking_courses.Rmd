@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r}
+## load libraries
+library(didactr)
 library(git2r)
 course_url = "https://github.com/jhudsl/cds_githubbasics"
 tfile = tempfile()
@@ -28,13 +30,13 @@ clone(course_url,
 course_dir = local_path
 Course = "GitHub Basics"
 
-## load libraries
-library(didactr)
-
 ##TO ADD generate lenpub structure
 ##TO ADD create_manuscript(".md")
 
-googledrive::drive_auth("../tests/testthat/googlesheets_token.rds")
+auth_file = "../tests/testthat/googlesheets_token.rds"
+if (file.exists(auth_file)) {
+  googledrive::drive_auth(auth_file)
+}
 ## check course structure
 ## fill in missing directories
 paths <- check_structure(course_dir)

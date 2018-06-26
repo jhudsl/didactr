@@ -52,7 +52,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
 
   ## Get information from Google Drive
   d <- df %>% filter(!is.na(df$id))
-  drive_info = drive_get(id = d$id)
+  drive_info = googledrive::drive_get(id = d$id)
   if (nrow(drive_info) > 0) {
     drive_info = drive_info %>%
       rename(gs_name = name) %>%
@@ -65,7 +65,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
                          function(x) {
                            x$modifiedTime
                          })
-    drive_info$mod_time_gs = ymd_hms(mod_time_gs)
+    drive_info$mod_time_gs = lubridate::ymd_hms(mod_time_gs)
     drive_info$mod_time_gs = lubridate::with_tz(drive_info$mod_time_gs, tz = timezone)
     drive_info = drive_info %>%
       select(-drive_resource)
@@ -171,7 +171,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
 
   mod_time_to_tz_time = function(x, timezone) {
     mod_times = file.info(x)$mtime
-    mod_times = ymd_hms(mod_times, tz = Sys.timezone())
+    mod_times = lubridate::ymd_hms(mod_times, tz = Sys.timezone())
     mod_times = lubridate::with_tz(mod_times, tz = timezone)
     return(mod_times)
   }
@@ -226,26 +226,62 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
       mod_time_scr =  mod_time_to_tz_time(scr_file, timezone = timezone))
 
 
-  ## Get YouTube Links currently in the markdown file
-  df$yt_md_link = unlist(sapply(df$md_file,
-                                function(fname) {
-                                  x = readLines(fname, warn = FALSE)
-                                  # will find better singular regex for this eventually...
-                                  line <- grep(pattern = "^!\\[.+\\]\\((?!\\.png)\\)|^!\\[\\]\\((?!\\.png)\\)|^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)", x, perl=TRUE) #
-                                  #remove gifs
-                                   line <- line[grep("gif", x[line], invert=TRUE)]
-                                  x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
-                                  if(length(x)<1){x <- NA
-                                  }else if(startsWith(x, "!")){
-                                    x <- NA}
+  png_pattern = paste0("^!\\[.+\\]\\((?!\\.png)\\)|",
+                       "^!\\[\\]\\((?!\\.png)\\)|",
+                       "^!\\[.+\\]\\((?!\\.png)\\)|",
+                       "!\\[.+\\]\\(.+[^.png]\\)|",
+                       "^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)")
 
-                                  return(x)
-                                }))
+  length0 = function(x) {
+    length(x) == 0
+  }
+
+  length_0_to_NA = function(x) {
+    if (length0(x)) {
+      x <- NA
+    }
+    x
+  }
+
+
+  youtube_link_in_md = function(fname) {
+    x = readLines(fname, warn = FALSE)
+    # will find better singular regex for this eventually...
+    line <- grep(pattern = png_pattern,
+                 x, perl = TRUE) #
+    if (length0(line)) {
+      return(NA)
+    }
+    #remove gifs
+    line <- line[!grepl("gif", x[line])]
+    x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
+    # remove images
+    x = x[!startsWith(x, "images")]
+    if (length0(x)) {
+      return(NA)
+    }
+    res = startsWith(x, "!")
+    if (any(res)) {
+      x[res] <- NA
+    }
+    x = length_0_to_NA(x)
+    if (length(x) > 1) {
+      print(x)
+      warning(paste0("MULTIPLE LINES found for ", fname,
+                     ", keeping first"))
+      x = x[1]
+    }
+    return(x)
+  }
+
+
+  ## Get YouTube Links currently in the markdown file
+  df$yt_md_link = unlist(sapply(df$md_file, youtube_link_in_md))
 
 
   ## make sure expected vid file is there
   df = df %>%
-    mutate(has_vid_link = grepl("youtu",yt_md_link))
+    mutate(has_vid_link = grepl("youtu", yt_md_link))
 
   # get video path with correct video
   # get manuscript md files and check names of
@@ -263,8 +299,8 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
   df = df %>%
     mutate(mod_time_vid = mod_time_to_tz_time(vid_file, timezone = timezone),
            has_vid_file = ifelse(is.na(vid_file), FALSE, TRUE),
-    vid_more_recent = ifelse(is.na(mod_time_vid), TRUE, mod_time_pngs > mod_time_vid),
-    scr_more_recent = ifelse(is.na(has_scr_file), TRUE , mod_time_scr > mod_time_vid))
+           vid_more_recent = ifelse(is.na(mod_time_vid), TRUE, mod_time_pngs > mod_time_vid),
+           scr_more_recent = ifelse(is.na(has_scr_file), TRUE , mod_time_scr > mod_time_vid))
 
 
   ## Get youtube IDs
@@ -272,7 +308,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
                        function(fname) {
                          x = readLines(fname, warn = FALSE)
                          line <- grep(pattern = ("^!\\[.+\\]\\((?!\\.png)\\)|!\\[.+\\]\\(.+[^.png]\\)|^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)"),x,perl=TRUE)
-                          line <- line[grep("gif", x[line], invert=TRUE)]
+                         line <- line[grep("gif", x[line], invert=TRUE)]
                          ## get youtube ID
                          ## this will break if youtube ever decides
                          ## to change the length of their IDs
