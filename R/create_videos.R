@@ -10,10 +10,9 @@
 #' @importFrom ari ari_spin
 #' @export
 #'
-
 create_videos <- function(course_status = NULL,
                           voice = "Joanna",
-                          audio_codec = "libfdk_aac",
+                          audio_codec = NULL,
                           verbose = TRUE,
                           ...){
   df = course_status$course_summary
@@ -49,7 +48,9 @@ create_videos <- function(course_status = NULL,
 
              if(length(para) == length(files)){
                message(paste0("generating video for: ", x))
-
+               if (is.null(audio_codec)) {
+                 audio_codec = ari::get_audio_codec()
+               }
                ari::ari_spin(paragraphs = para,
                         images = files,
                         voice = voice,
