@@ -8,7 +8,7 @@ mooc_app = function() {
   )
 }
 
-#' Authorize Application for MOOC
+#' Authorize Application for didactr
 #'
 #' @param cache A logical value or a string. \code{TRUE} means to cache
 #' using the default cache file \code{.httr-oauth}
@@ -20,9 +20,9 @@ mooc_app = function() {
 #' @importFrom httr oauth_endpoints oauth2.0_token
 #' @importFrom googledrive drive_auth
 #' @examples \dontrun{
-#' authorize_mooc_app()
+#' didactr_auth()
 #' }
-authorize_mooc_app = function(cache = FALSE, use_oob = FALSE) {
+didactr_auth = function(cache = FALSE, use_oob = FALSE) {
 
   cred <- httr::oauth2.0_token(
     endpoint = httr::oauth_endpoints("google"),
