@@ -187,7 +187,7 @@ check_course = function(course_dir = ".", save_metrics = TRUE,
                         mod_time_pngs = mod_time_to_tz_time(mod_files, timezone = timezone))
 
   df = df %>%
-    left_join(., mod_times, by = "lesson") %>%
+    left_join(mod_times, by = "lesson") %>%
     mutate(gs_more_recent = ifelse(is.na(mod_time_pngs),TRUE, mod_time_gs > mod_time_pngs),
            gs_more_recent = ifelse(is.na(gs_name), NA, gs_more_recent))
 
