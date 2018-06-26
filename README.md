@@ -29,7 +29,7 @@ remotes::install_github("muschellij2/didactr")
 
 ``` r
 library(didactr)
-yt_auth(json = "RClass-Youtube.json")
+auth = didactr_auth()
 ```
 
 ``` r
