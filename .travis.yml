@@ -4,7 +4,7 @@ cache: packages
 before_install:
 - if [[ -n $encrypted_d735996d425c_key ]]; 
   then 
-    openssl aes-256-cbc -K $encrypted_d735996d425c_key -iv $encrypted_d735996d425c_iv -in googlesheets_token.rds.enc -out tests/testthat/googlesheets_token.rds -d
+    openssl aes-256-cbc -K $encrypted_d735996d425c_key -iv $encrypted_d735996d425c_iv -in googlesheets_token.rds.enc -out tests/testthat/googlesheets_token.rds -d ;
   fi  
 - sudo apt-get -qq update
 - sudo apt-get install -y libpoppler-cpp-dev
