@@ -17,7 +17,7 @@ before_install:
 - sudo apt-get install -y imagemagick
 - which convert
 after_success:
-- if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::coveralls(type = "all")';
+- if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::codecov(type = "all")';
   fi
 warnings_are_errors: true
 before_deploy:
