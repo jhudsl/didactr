@@ -16,7 +16,7 @@ before_install:
 - sudo apt-get install -y ffmpeg
 - sudo apt-get -qq update
 - sudo apt-get install -y imagemagick
-- convert --help
+- which convert
 after_success:
 - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::coveralls(type = "all")';
   fi
