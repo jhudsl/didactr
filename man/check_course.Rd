@@ -4,7 +4,7 @@
 \alias{check_course}
 \title{Check Leanpub Course}
 \usage{
-check_course(course_dir = ".", course_title, save_metrics = TRUE,
+check_course(course_dir = ".", save_metrics = TRUE,
   timezone = "America/New_York", ...)
 }
 \arguments{

@@ -17,6 +17,11 @@ vids_to_youtube <- function(
   ...) {
   authorized = check_didactr_auth(...)
 
+  time_published = mod_time_vid = lesson_name = NULL
+  rm(list = c("time_published", "mod_time_vid", "lesson_name"))
+
+  make_video = lesson = NULL
+  rm(list = c("make_video", "lesson"))
   # not sure if this matters
   if (!is.null(json) && !authorized) {
     yt_auth(json = json)

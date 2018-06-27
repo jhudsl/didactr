@@ -16,6 +16,8 @@ update_youtube(up = NULL, file = NULL, lesson = NULL,
 
 \item{metric_path}{Path to the metrics file}
 
+\item{save_metrics}{Should an `rds` file be saved of the `data.frame`?}
+
 \item{timezone}{Timezone to be used?}
 }
 \value{

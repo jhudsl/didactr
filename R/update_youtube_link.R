@@ -9,6 +9,10 @@
 #' @export
 update_youtube_link <- function(course_status = NULL,
                                 youtube_uploads = NULL) {
+
+  time_published = yt_md_link = lesson = NULL
+  rm(list = c("time_published", "yt_md_link", "lesson"))
+
   if (is.character(course_status)) {
     course_status = check_course(course_dir = course_status)
   }

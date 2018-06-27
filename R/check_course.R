@@ -14,12 +14,18 @@
 #' @importFrom tidyr separate
 #' @import dplyr
 check_course = function(course_dir = ".",
-                        course_title, save_metrics = TRUE,
+                        save_metrics = TRUE,
                         timezone = "America/New_York",
                         ...) {
 
-  name = gs_name = drive_resource = NULL
-  rm(list = c("name", "gs_name", "drive_resource"))
+  lesson_name = gs_name = drive_resource = NULL
+  rm(list = c("lesson_name", "gs_name", "drive_resource"))
+
+  scr_para_length = yt_md_link = vid_file = NULL
+  rm(list = c("scr_para_length ", "yt_md_link ", "vid_file"))
+
+  mod_time_vid = mod_time_scr = lesson = NULL
+  rm(list = c("mod_time_vid", "mod_time_scr", "lesson"))
 
   pdf_pages = n_pngs = img_dir = lesson = NULL
   rm(list = c("img_dir", "lesson", "pdf_pages", "n_pngs"))

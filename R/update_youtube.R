@@ -5,6 +5,7 @@
 #' @param lesson object created in \code{\link{vids_to_youtube}}
 #' @param metric_path Path to the metrics file
 #' @param timezone Timezone to be used?
+#' @param save_metrics Should an `rds` file be saved of the `data.frame`?
 #'
 #' @return A \code{data.frame} of all uploaded youtube videos
 #' @importFrom dplyr distinct
@@ -17,8 +18,8 @@ update_youtube <- function(
   save_metrics = TRUE,
   timezone = "America/New_York") {
 
-  time_published = NULL
-  rm(list = c("time_published"))
+  yt_md_link = lesson = time_published = NULL
+  rm(list = c("yt_md_link", "lesson", "time_published"))
 
   if (is.null(metric_path)) {
     metric_path = up$metric_path
