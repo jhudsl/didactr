@@ -10,3 +10,4 @@
 ^codecov\.yml$
 ^googlesheets_token.rds.enc$
 tests/testthat/googlesheets_token.rds.enc
+vignettes/.httr-oauth$

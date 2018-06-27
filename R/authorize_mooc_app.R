@@ -1,4 +1,3 @@
-
 mooc_app = function() {
   httr::oauth_app(
     appname = "mooc-generator",
@@ -13,8 +12,10 @@ mooc_app = function() {
 #' @param cache A logical value or a string. \code{TRUE} means to cache
 #' using the default cache file \code{.httr-oauth}
 #' @param use_oob use a local webserver for the OAuth dance
+#' @param token_file If the \code{token} has been saved, use this file
+#' to load the credentials.
 #'
-#' @return The auth token
+#' @return The auth token, a Token class.
 #' @export
 #'
 #' @importFrom httr oauth_endpoints oauth2.0_token
@@ -22,23 +23,54 @@ mooc_app = function() {
 #' @examples \dontrun{
 #' didactr_auth()
 #' }
-didactr_auth = function(cache = FALSE, use_oob = FALSE) {
+didactr_auth = function(
+  token_file = NULL,
+  cache = FALSE,
+  use_oob = FALSE) {
 
-  cred <- httr::oauth2.0_token(
-    endpoint = httr::oauth_endpoints("google"),
-    app = mooc_app(),
-    scope = c("https://www.googleapis.com/auth/drive",
-              "https://www.googleapis.com/auth/youtube.force-ssl",
-              "https://www.googleapis.com/auth/presentations"),
-    cache = cache,
-    use_oob = use_oob)
+  if (is.null(token_file)) {
+    token_file = tempfile(fileext = ".rds")
+  }
+  if (!file.exists(token_file)) {
+    cred <- httr::oauth2.0_token(
+      endpoint = httr::oauth_endpoints("google"),
+      app = mooc_app(),
+      scope = c("https://www.googleapis.com/auth/drive",
+                "https://www.googleapis.com/auth/youtube.force-ssl",
+                "https://www.googleapis.com/auth/presentations"),
+      cache = cache,
+      use_oob = use_oob)
+  } else {
+    cred = readRDS(token_file)
+  }
 
   # for tuber
   options(google_token = cred)
-  tfile = tempfile(fileext = ".rds")
-  saveRDS(cred, tfile)
-  googledrive::drive_auth(oauth_token = tfile)
+  saveRDS(cred, token_file)
+  googledrive::drive_auth(oauth_token = token_file)
   return(invisible(cred))
 }
 
 
+#' @param ... Arguments passed to \code{\link{didactr_auth}}
+#' @rdname didactr_auth
+#' @export
+check_didactr_auth = function(...) {
+  token = getOption("google_token")
+  if (is.Token(token)) {
+    appname = token$app$appname
+    if (appname != mooc_app()$appname) {
+      token = didactr_auth(...)
+    }
+    args = list(...)
+    token_file = args$token_file
+    if (is.null(token_file)) {
+      token_file = tempfile(fileext = ".rds")
+    }
+    saveRDS(token, token_file)
+    googledrive::drive_auth(oauth_token = token_file)
+  } else {
+    token = didactr_auth(...)
+  }
+  return(is.Token(token))
+}

@@ -6,8 +6,10 @@
 #'
 #' @return Downloaded PDF and PNGs.
 #' @export
-
 create_images <- function(course_status = NULL, ...) {
+  if (is.character(course_status)) {
+    course_status = check_course(course_dir = course_status)
+  }
   df = course_status$course_summary
   paths = course_status$paths
 

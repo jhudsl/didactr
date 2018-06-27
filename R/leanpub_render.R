@@ -11,9 +11,10 @@
 #' @importFrom rmarkdown render
 #' @importFrom rstudioapi viewer isAvailable
 #' @importFrom utils browseURL
-leanpub_render = function(md_file,
-                          output_options = list(self_contained = FALSE),
-                          ...) {
+leanpub_render = function(
+  md_file,
+  output_options = list(self_contained = FALSE),
+  ...) {
   md_file = normalizePath(md_file, mustWork = TRUE)
   tfile = basename(tempfile())
   tfile = file.path(dirname(md_file), tfile)

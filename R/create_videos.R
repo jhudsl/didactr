@@ -15,6 +15,10 @@ create_videos <- function(course_status = NULL,
                           audio_codec = NULL,
                           verbose = TRUE,
                           ...){
+
+  if (is.character(course_status)) {
+    course_status = check_course(course_dir = course_status)
+  }
   df = course_status$course_summary
   paths = course_status$paths
 

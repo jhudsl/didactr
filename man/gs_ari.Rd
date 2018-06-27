@@ -2,9 +2,12 @@
 % Please edit documentation in R/gs_ari.R
 \name{gs_ari}
 \alias{gs_ari}
+\alias{gs_ari_spin}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
 gs_ari(id, output = NULL, verbose = TRUE, ...)
+
+gs_ari_spin(id, output = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{id}{Identifier of google slides presentation, passed to

@@ -4,14 +4,16 @@
 \alias{vids_to_youtube}
 \title{Upload videos to YouTube}
 \usage{
-vids_to_youtube(course_status = NULL, Course = NULL, json = NULL)
+vids_to_youtube(course_status, course_title = NULL, json = NULL, ...)
 }
 \arguments{
 \item{course_status}{object output from \code{\link{check_course}}}
 
-\item{Course}{Course to be used in title of youtube video}
+\item{course_title}{Course to be used in title of youtube video}
 
 \item{json}{Link to json file with credentials}
+
+\item{...}{arguments to pass to \code{\link{didactr_auth}}}
 }
 \value{
 A list from \code{\link{check_course}} with another field of

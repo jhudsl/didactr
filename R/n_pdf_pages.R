@@ -10,7 +10,7 @@ n_pdf_pages = function(file) {
   if (length(file) == 0 | is.na(file)) {
     return(NA)
   }
-  pdf_info(file)$pages
+  pdftools::pdf_info(file)$pages
 }
 
 

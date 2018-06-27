@@ -14,7 +14,7 @@ update_youtube_link(course_status = NULL, youtube_uploads = NULL)
 specified.}
 }
 \value{
-updated manuscript files
+An output after running \code{\link{check_course}}.
 }
 \description{
 Update Youtube Link

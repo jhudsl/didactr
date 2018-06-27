@@ -32,6 +32,10 @@ gs_ari = function(id, output = NULL,
   return(res)
 }
 
+#' @rdname gs_ari
+#' @export
+gs_ari_spin = gs_ari
+
 
 #' Convert Google Slides to Video and Upload to Youtube
 #'
@@ -48,10 +52,11 @@ gs_ari = function(id, output = NULL,
 #' \code{\link{upload_video}}
 #' @export
 #' @importFrom tuber upload_video
-gs_ari_upload = function(id, ...,
-                         ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"',
-                         snippet = NULL, status = NULL,
-                         open_url = TRUE) {
+gs_ari_upload = function(
+  id, ...,
+  ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"',
+  snippet = NULL, status = NULL,
+  open_url = TRUE) {
   res = gs_ari(id,
                ...,
                cleanup = FALSE,
@@ -60,7 +65,7 @@ gs_ari_upload = function(id, ...,
 
   ####### yt_authentication done here #####
 
-  vid = upload_video(file = res$output,
+  vid = tuber::upload_video(file = res$output,
                      status = status,
                      snippet = snippet,
                      open_url = open_url)

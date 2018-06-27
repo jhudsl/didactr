@@ -4,8 +4,8 @@
 \alias{check_course}
 \title{Check Leanpub Course}
 \usage{
-check_course(course_dir = ".", save_metrics = TRUE,
-  timezone = "America/New_York")
+check_course(course_dir = ".", course_title, save_metrics = TRUE,
+  timezone = "America/New_York", ...)
 }
 \arguments{
 \item{course_dir}{directory with course materials}
@@ -13,6 +13,8 @@ check_course(course_dir = ".", save_metrics = TRUE,
 \item{save_metrics}{Should an `rds` file be saved of the `data.frame`?}
 
 \item{timezone}{Timezone to be used?}
+
+\item{...}{arguments to pass to \code{\link{didactr_auth}}}
 }
 \value{
 A data frame of the checked course.

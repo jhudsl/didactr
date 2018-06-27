@@ -20,46 +20,52 @@ knitr::opts_chunk$set(
 ## load libraries
 library(didactr)
 library(git2r)
-course_url = "https://github.com/jhudsl/cds_githubbasics"
-tfile = tempfile()
+course_url = "https://github.com/muschellij2/cds_testclass"
+# tfile = tempfile()
+tfile = "~/Desktop"
+tfile = path.expand(tfile)
 dir.create(tfile, recursive = TRUE)
 local_path = file.path(tfile, basename(course_url))
 clone(course_url, 
       local_path = local_path, 
       credentials = cred_token())
 course_dir = local_path
-Course = "GitHub Basics"
+course_title = "Test CDS class"
 
 ##TO ADD generate lenpub structure
 ##TO ADD create_manuscript(".md")
 
+
 auth_file = "../tests/testthat/googlesheets_token.rds"
 if (file.exists(auth_file)) {
-  googledrive::drive_auth(auth_file)
+  didactr_auth(token_file = auth_file)
+} else {
+  x = didactr_auth()
 }
+check_didactr_auth()
 ## check course structure
 ## fill in missing directories
 paths <- check_structure(course_dir)
 
 ## get current status of course
-out <- check_course(course_dir)
-head(out$course_summary)
+course_status <- check_course(course_dir)
+head(course_status$course_summary)
 
 ## download PDFs and PNGs
 ## put them where they belong
-out <- create_images(out, extra.opts = "-density 400 -quality 200")
-head(out$course_summary)
+course_status <- create_images(course_status, 
+                               extra.opts = "-density 400 -quality 200")
+head(course_status$course_summary)
 ```
 
 ```{r, eval = FALSE}
 ## Create Videos
 ## tell R what AWS keys to use
 aws.signature::use_credentials(profile="polly")
-out <- create_videos(
-  out, 
-  audio_codec = "libfdk_aac"
+course_status <- create_videos(
+  course_status
 )
-head(out$course_summary)
+head(course_status$course_summary)
 ```
 
 
@@ -69,9 +75,7 @@ The following section is for uploading videos to YouTube.  This uploading is don
 
 ```{r, eval = FALSE}
 ## Upload Videos & Update YouTube log
-json_file = "YOUTUBE_JSON.json"
-# yt_auth(json_file)
-out <- vids_to_youtube(out, Course=Course, json = json_file)
+course_status <- vids_to_youtube(course_status, course_title=course_title)
 
 ## to take a look at youtube videos
 youtube_uploads <- readRDS(file.path(paths$met_path, "youtube_uploads.rds"))
@@ -83,10 +87,10 @@ Once the videos are uploaded you can upload the following links using:
 
 ```{r, eval = FALSE}
 ## Update Youtube Link in Manuscript file
-out <- update_youtube_link(out)
+course_status <- update_youtube_link(course_status)
 
 ## get current status of course
-head(out$course_summary)
+head(course_status$course_summary)
 
 ## TO ADD: check_quiz
 ```
