@@ -21,8 +21,7 @@ knitr::opts_chunk$set(
 library(didactr)
 library(git2r)
 course_url = "https://github.com/muschellij2/cds_testclass"
-# tfile = tempfile()
-tfile = "~/Desktop"
+tfile = tempfile()
 tfile = path.expand(tfile)
 dir.create(tfile, recursive = TRUE)
 local_path = file.path(tfile, basename(course_url))
