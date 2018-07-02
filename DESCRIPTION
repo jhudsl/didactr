@@ -37,7 +37,6 @@ Suggests:
     git2r,
     aws.signature
 Encoding: UTF-8
-Remotes: muschellij2/ari
 LazyData: true
 ByteCompile: true
 Type: Package
