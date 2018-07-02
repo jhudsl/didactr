@@ -29,6 +29,8 @@ A character vector of filenames
 Convert PDF to Other Images using ImageMagick
 }
 \examples{
+\dontrun{
 ex_file = system.file("extdata", "example.pdf", package = "didactr")
 res = pdf_to_images(ex_file)
+}
 }

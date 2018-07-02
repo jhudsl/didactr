@@ -13,9 +13,10 @@
 #' @export
 #'
 #' @importFrom animation ani.options im.convert
-#' @examples
+#' @examples \dontrun{
 #' ex_file = system.file("extdata", "example.pdf", package = "didactr")
 #' res = pdf_to_images(ex_file)
+#' }
 pdf_to_images = function(
   pdf_file,
   out_dir = NULL,
