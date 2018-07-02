@@ -38,6 +38,7 @@ Suggests:
     aws.signature
 Encoding: UTF-8
 LazyData: true
+Remotes: muschellij2/ari
 ByteCompile: true
 Type: Package
 VignetteBuilder: knitr
