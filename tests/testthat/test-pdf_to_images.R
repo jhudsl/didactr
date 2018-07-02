@@ -4,7 +4,7 @@ test_that("PDF converted to PNG", {
 
   skip_on_cran()
 
-  ex_file = system.file("extdata", "example.pdf", package = "didactr")
+  ex_file = "example.pdf"
   res = pdf_to_images(ex_file)
 
   expect_length(res, 2)
