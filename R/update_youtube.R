@@ -18,8 +18,8 @@ update_youtube <- function(
   save_metrics = TRUE,
   timezone = "America/New_York") {
 
-  yt_md_link = lesson = time_published = NULL
-  rm(list = c("yt_md_link", "lesson", "time_published"))
+  time_published = NULL
+  rm(list = c("time_published"))
 
   if (is.null(metric_path)) {
     metric_path = up$metric_path
