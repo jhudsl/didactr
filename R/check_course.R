@@ -22,7 +22,7 @@ check_course = function(course_dir = ".",
   rm(list = c("lesson_name", "gs_name", "drive_resource"))
 
   scr_para_length = yt_md_link = vid_file = NULL
-  rm(list = c("scr_para_length ", "yt_md_link ", "vid_file"))
+  rm(list = c("scr_para_length", "yt_md_link", "vid_file"))
 
   mod_time_vid = mod_time_scr = lesson = NULL
   rm(list = c("mod_time_vid", "mod_time_scr", "lesson"))
