@@ -1,5 +1,5 @@
 Package: didactr
-Version: 0.3.3.1
+Version: 0.3.4
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 
@@ -44,4 +44,4 @@ Type: Package
 VignetteBuilder: knitr
 URL: https://github.com/muschellij2/didactr
 BugReports: https://github.com/muschellij2/didactr/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

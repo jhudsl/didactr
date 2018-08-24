@@ -4,8 +4,8 @@
 \alias{create_videos}
 \title{Create video from script and PNGs}
 \usage{
-create_videos(course_status = NULL, voice = "Joanna", audio_codec = NULL,
-  verbose = TRUE, ...)
+create_videos(course_status = NULL, voice = "Joanna",
+  audio_codec = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{course_status}{output from \code{\link{check_course}}}

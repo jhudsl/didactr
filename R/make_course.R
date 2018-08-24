@@ -43,7 +43,15 @@ make_course = function(
     }
   }
 
+
+
   dirs_created <- sapply(paths, check_structure)
+
+  book_txt = file.path(man_path, "Book.txt")
+  if (!file.exists(book_txt)) {
+    writeLines("", con = book_txt)
+  }
+  paths$book_txt = book_txt
   return(paths)
 }
 

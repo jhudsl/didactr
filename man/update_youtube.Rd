@@ -5,7 +5,8 @@
 \title{Update RDS object that tracks YouTube uploads}
 \usage{
 update_youtube(up = NULL, file = NULL, lesson = NULL,
-  metric_path = NULL, save_metrics = TRUE, timezone = "America/New_York")
+  metric_path = NULL, save_metrics = TRUE,
+  timezone = "America/New_York")
 }
 \arguments{
 \item{up}{output from \code{\link{vids_to_youtube}}}

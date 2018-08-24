@@ -1,0 +1,10 @@
+00_types.md # Types of Communication
+01_reports.md
+02_presentations.md
+03_general.md
+04_technical.md ###Make a Techie
+05_blogpost.md   ###  Make a BLOG
+06_meetings.md
+07_one_on_one.md
+08_notebook.md
+09_graphs.md

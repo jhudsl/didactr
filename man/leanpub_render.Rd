@@ -4,7 +4,8 @@
 \alias{leanpub_render}
 \title{Render Leanpub document}
 \usage{
-leanpub_render(md_file, output_options = list(self_contained = FALSE), ...)
+leanpub_render(md_file, output_options = list(self_contained = FALSE),
+  ...)
 }
 \arguments{
 \item{md_file}{Path to markdown file}
