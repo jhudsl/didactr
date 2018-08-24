@@ -234,9 +234,11 @@ check_course = function(course_dir = ".",
     }
     x = length0_to_NA(x)
     if (length(x) > 1) {
+      msg = paste0("MULTIPLE LINES found for Youtube Link ", fname,
+                   ", keeping first")
+      message(msg)
       print(x)
-      warning(paste0("MULTIPLE LINES found for ", fname,
-                     ", keeping first"))
+      warning(msg)
       x = x[1]
     }
     return(x)

@@ -21,7 +21,7 @@ summary.course_check = function(object, ...) {
   if (nrow(bad_images) > 0) {
     cat(
       paste0(
-        "Images referenced in lesson do not exist in images directory:",
+        "Images referenced in lesson do not exist in images directory: ",
         paste(bad_images$lesson, collapse = ", "),
         "\n")
     )
@@ -31,7 +31,7 @@ summary.course_check = function(object, ...) {
   if (nrow(bad_scr) > 0) {
     cat(
       paste0(
-        "Script length and number of images do not agree:",
+        "Script length and number of images do not agree: ",
         paste(bad_scr$lesson, collapse = ", "),
         "\n")
     )
