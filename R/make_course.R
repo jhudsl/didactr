@@ -1,6 +1,8 @@
 #' Check for expected file structure and create missing
 #'
 #' @param course_dir directory with course materials
+#' @param book_txt A text file with names of markdown
+#'  files and course names
 #' @param verbose print diagnostic messages
 #'
 #' @return A list of the paths necessary for the course
@@ -13,6 +15,7 @@
 #' @rdname check_structure
 make_course = function(
   course_dir = ".",
+  book_txt = NULL,
   verbose = TRUE) {
 
   course_dir = normalizePath(course_dir, mustWork = TRUE)
@@ -47,11 +50,21 @@ make_course = function(
 
   dirs_created <- sapply(paths, check_structure)
 
-  book_txt = file.path(man_path, "Book.txt")
-  if (!file.exists(book_txt)) {
-    writeLines("", con = book_txt)
+  out_book_txt = file.path(man_path, "Book.txt")
+  if (!is.null(book_txt)) {
+    if (file.exists(book_txt)) {
+      if (!file.exists(out_book_txt)) {
+        file.copy(book_txt, out_book_txt)
+      } else {
+        warning(paste0(out_book_txt, " already exists and ",
+                       "book_txt specified, not overwriting!"))
+      }
+    }
   }
-  paths$book_txt = book_txt
+  if (!file.exists(out_book_txt)) {
+    writeLines("", con = out_book_txt)
+  }
+  paths$book_txt = out_book_txt
   paths$course_name = basename(course_dir)
   return(paths)
 }

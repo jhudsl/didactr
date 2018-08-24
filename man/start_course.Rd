@@ -4,13 +4,21 @@
 \alias{start_course}
 \title{Starting a Course, Light wrapper for \code{\link{make_course}}}
 \usage{
-start_course(course_name, root_path = ".")
+start_course(course_name, root_path = ".", book_txt = NULL,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{course_name}{Name of the course.  Any spaces will be set to
 underscores}
 
 \item{root_path}{The directory to put the course into.}
+
+\item{book_txt}{A text file with names of markdown
+files and course names}
+
+\item{verbose}{print diagnostic messages}
+
+\item{...}{additional argument to pass to \code{\link{make}}}
 }
 \value{
 The output of \code{\link{make_course}}.
@@ -22,4 +30,14 @@ Starting a Course, Light wrapper for \code{\link{make_course}}
 root_path = tempfile()
 course_name = "test this out"
 sc = start_course(course_name, root_path)
+
+
+root_path = tempfile()
+course_name = "test this out2"
+book_txt =  system.file("extdata", "Book.txt", package = "didactr")
+sc = start_course(course_name, root_path, book_txt = book_txt)
+readLines(sc$book_txt)
+md_files = list.files(sc$man_path, full.names = TRUE)
+md_files
+readLines(md_files[1])
 }

@@ -5,12 +5,15 @@
 \alias{check_structure}
 \title{Check for expected file structure and create missing}
 \usage{
-make_course(course_dir = ".", verbose = TRUE)
+make_course(course_dir = ".", book_txt = NULL, verbose = TRUE)
 
-check_structure(course_dir = ".", verbose = TRUE)
+check_structure(course_dir = ".", book_txt = NULL, verbose = TRUE)
 }
 \arguments{
 \item{course_dir}{directory with course materials}
+
+\item{book_txt}{A text file with names of markdown
+files and course names}
 
 \item{verbose}{print diagnostic messages}
 }

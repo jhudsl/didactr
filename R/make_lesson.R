@@ -130,6 +130,8 @@ make_lesson = function(
       if (!is.na(slide_id)) {
         template = gsub("Link to Slides", slide_url(slide_id),
                         template, fixed = TRUE)
+      } else {
+        slide_id = NULL
       }
 
     }
@@ -159,6 +161,7 @@ make_lesson = function(
 
   L = list(md_file = file_name,
            script_file = script_name)
+  L$slide_id = slide_id
   return(L)
 }
 
