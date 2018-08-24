@@ -7,7 +7,7 @@
 #' @param book_txt A text file with names of markdown
 #'  files and course names
 #' @param verbose print diagnostic messages
-#' @param ... additional argument to pass to \code{\link{make}}
+#' @param ... additional argument to pass to \code{\link{make_lesson}}
 #'
 #' @return The output of \code{\link{make_course}}.
 #' @export

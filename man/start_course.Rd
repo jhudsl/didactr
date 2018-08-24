@@ -18,7 +18,7 @@ files and course names}
 
 \item{verbose}{print diagnostic messages}
 
-\item{...}{additional argument to pass to \code{\link{make}}}
+\item{...}{additional argument to pass to \code{\link{make_lesson}}}
 }
 \value{
 The output of \code{\link{make_course}}.

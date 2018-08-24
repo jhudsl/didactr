@@ -13,6 +13,9 @@ paragraph_from_script <- function(x) {
 
 n_para = function(x) {
   x = paragraph_from_script(x)
+  if (length(x) == 0) {
+    return(0)
+  }
   ifelse(all(is.na(x)), NA, length(x))
 }
 
@@ -66,6 +69,9 @@ gs_id_from_slide = function(fname) {
   }
   x = readLines(fname, warn = FALSE)
   x = grep(x, pattern = "\\[(S|s)lides\\]", value = TRUE)
+  if (!any(grepl("http", x))) {
+    return(NA)
+  }
   x = sub(".*\\((http.*)\\).*", "\\1", x)
   x = unlist(sapply(x, function(r) parse_url(r)$path))
   x = sub("/edit$", "", x)
@@ -90,6 +96,9 @@ get_image_link_from_slide = function(fname) {
   x = readLines(fname, warn = FALSE)
   x = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)", value = TRUE)
   x = sub(x, pattern = "!\\[(.*)\\]\\((images.*)\\)", replacement = "\\1")
+  # if (length(x) == 0) {
+  #   return(NA)
+  # }
   return(x)
 }
 
@@ -101,6 +110,9 @@ get_image_from_slide = function(fname) {
   x = readLines(fname, warn = FALSE)
   x = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)", value = TRUE)
   x = sub(x, pattern = "!\\[.*\\]\\((images.*)\\)", replacement = "\\1")
+  # if (length(x) == 0) {
+  #   return(NA)
+  # }
   return(x)
 }
 

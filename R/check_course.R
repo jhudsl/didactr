@@ -5,7 +5,8 @@
 #' @param timezone Timezone to be used?
 #' @param ... arguments to pass to \code{\link{didactr_auth}}
 #'
-#' @return A data frame of the checked course.
+#' @return A list of data frames of the checked course. Will have
+#' class \code{course_check}
 #' @export
 #' @importFrom googledrive drive_get
 #' @importFrom lubridate ymd_hms with_tz
@@ -13,6 +14,13 @@
 #' @importFrom httr parse_url
 #' @importFrom tidyr separate
 #' @import dplyr
+#' @examples
+#' root_path = tempfile()
+#' course_name = "test this out2"
+#' book_txt =  system.file("extdata", "Book.txt", package = "didactr")
+#' sc = start_course(course_name, root_path, book_txt = book_txt)
+#' course_dir = sc$course_dir
+#' object = check_course(sc$course_dir)
 check_course = function(course_dir = ".",
                         save_metrics = TRUE,
                         timezone = "America/New_York",
@@ -61,7 +69,7 @@ check_course = function(course_dir = ".",
   if (any(is.na(df$id))) {
     message(
       paste0("Google Slides ID is missing from following lessons: ",
-             df$lesson[is.na(df$id)]))
+             paste0(df$lesson[is.na(df$id)], collapse = ", ")))
   }
 
   authorized = check_didactr_auth(...)
@@ -71,12 +79,15 @@ check_course = function(course_dir = ".",
   ######################################
   d <- df %>%
     filter(!is.na(id))
-  drive_info = drive_information(id = d$id, timezone = timezone)
-  if (!is.null(drive_info)) {
-    df = left_join(df, drive_info, by = "id")
-    df = distinct(df)
+  if (nrow(d) > 0) {
+    drive_info = drive_information(id = d$id, timezone = timezone)
+    if (!is.null(drive_info)) {
+      df = left_join(df, drive_info, by = "id")
+      df = distinct(df)
+    }
+  } else {
+    df$gs_name = NA
   }
-
   ######################################
   ## make image paths
   ######################################
@@ -98,11 +109,15 @@ check_course = function(course_dir = ".",
   ######################################
   if (anyDuplicated(df$id)) {
     dup_df = df %>%
+      filter(!is.na(id)) %>%
       dplyr::group_by(id) %>%
       dplyr::add_tally() %>%
       dplyr::filter(n > 1)
-    warning("Duplicated IDs (slideshow links) are present!  MD files are off")
-    print(dup_df)
+    if (nrow(dup_df) > 0) {
+      warning(paste0("Duplicated IDs (slideshow links) ",
+                     "are present!  MD files are off"))
+      print(dup_df)
+    }
   }
 
 
@@ -287,6 +302,8 @@ check_course = function(course_dir = ".",
            course_dir = course_dir)
   L$paths = paths
   L$save_metrics = save_metrics
+  class(L) = "course_check"
+  summary(L)
   return(L)
 }
 

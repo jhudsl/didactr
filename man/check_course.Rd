@@ -17,8 +17,17 @@ check_course(course_dir = ".", save_metrics = TRUE,
 \item{...}{arguments to pass to \code{\link{didactr_auth}}}
 }
 \value{
-A data frame of the checked course.
+A list of data frames of the checked course. Will have
+class \code{course_check}
 }
 \description{
 Check Leanpub Course
+}
+\examples{
+root_path = tempfile()
+course_name = "test this out2"
+book_txt =  system.file("extdata", "Book.txt", package = "didactr")
+sc = start_course(course_name, root_path, book_txt = book_txt)
+course_dir = sc$course_dir
+object = check_course(sc$course_dir)
 }
