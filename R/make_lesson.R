@@ -8,7 +8,9 @@
 #' @param md_file Output markdown file to create.  If not specified,
 #' will take the \code{lesson_name}, sub out spaces, lower case it,
 #' and use that for the file name.
-#' @param slide_link Link to slide deck on Google Slides.
+#' @param slide_id ID to slide deck on Google Slides.
+#' @param make_slide_deck Create a slide deck on Google Slides if
+#' no link is provided.
 #'
 #' @return A list of the created markdown manuscript file and script files.
 #' \code{make_lessons_from_book} will return a list of these lists,
@@ -25,6 +27,20 @@
 #' dir(sc$scr_path)
 #' readLines(sc$book_txt)
 #' readLines(out$md_file)
+#'
+#' \donttest{
+#' root_path = tempfile()
+#' course_name = "test"
+#' sc = start_course(course_name, root_path)
+#' verbose = TRUE
+#' out = make_lesson(lesson_name = "how to Do Things",
+#' course_dir = sc$course_dir,
+#' make_slide_deck = TRUE)
+#' dir(sc$man_path)
+#' dir(sc$scr_path)
+#' readLines(sc$book_txt)
+#' readLines(out$md_file)
+#' }
 #'
 #' root_path = tempfile()
 #' course_name = "test"
@@ -43,15 +59,13 @@ make_lesson = function(
   course_dir = ".",
   verbose = TRUE,
   md_file = NULL,
-  slide_link = NULL) {
+  make_slide_deck = FALSE,
+  slide_id = NULL) {
 
   template_file = system.file("extdata", "00_template.md", package = "didactr")
   template = readLines(template_file)
   template = gsub("Lesson Name", lesson_name, template, fixed = TRUE)
 
-  if (!is.null(slide_link)) {
-    template = gsub("Link to Slides", slide_link, template, fixed = TRUE)
-  }
   res = make_course(course_dir = course_dir, verbose = verbose)
   book_txt = readLines(res$book_txt)
   book_txt = book_txt[ book_txt != ""]
@@ -75,6 +89,51 @@ make_lesson = function(
   }
 
   template = gsub("00_filename", stub, template)
+
+
+  slide_url = function(slide_id) {
+    paste0("https://docs.google.com/presentation/d/",
+           slide_id,
+           "/edit?usp=sharing")
+  }
+  # if not missing slide id
+  if (!is.null(slide_id)) {
+    template = gsub("Link to Slides", slide_url(slide_id),
+                    template, fixed = TRUE)
+  } else {
+    if (make_slide_deck) {
+      # authorize
+      check_didactr_auth()
+
+      # make the name
+      # naming convention changed to course_NUMBER_lesson
+      gs_name = paste0(res$course_name, "_",
+                       stub)
+      # see if it exists
+      id_exists = googledrive::drive_find(
+        pattern = gs_name, type = "presentation",
+        n_max = 25)
+      # if so, make it the slide_id variable
+      slide_id = id_exists$id[1]
+      # if not, it will be set to NA
+      if (is.na(slide_id)) {
+
+        get_req = googledrive::drive_get(
+          id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE")
+        slide_id = googledrive::drive_cp(get_req,
+                                         path = gs_name,
+                                         verbose = verbose)
+        slide_id = slide_id$id
+      }
+      # if we have a slide id (either copied or already exists)
+      # paste it in
+      if (!is.na(slide_id)) {
+        template = gsub("Link to Slides", slide_url(slide_id),
+                        template, fixed = TRUE)
+      }
+
+    }
+  }
 
   md_file_name = file_name
   file_name = file.path(res$man_path, file_name)
@@ -104,10 +163,13 @@ make_lesson = function(
 }
 
 #' @rdname make_lesson
+#' @param ... additional arguments to pass to
+#' \code{\link{make_lesson}}
 #' @export
 make_lessons_from_book = function(
   course_dir = ".",
-  verbose = TRUE) {
+  verbose = TRUE,
+  ...) {
 
   md_file = txt = lesson_name = have_name = NULL
   rm(list = c("md_file", "txt", "lesson_name", "have_name"))
@@ -147,7 +209,8 @@ make_lessons_from_book = function(
     make_lesson(lesson_name = lesson_name,
                 course_dir = res$course_dir,
                 verbose = verbose,
-                md_file = md_file)
+                md_file = md_file,
+                ...)
 
   }, df$lesson_name, df$md_file, SIMPLIFY = FALSE)
 

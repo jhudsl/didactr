@@ -6,9 +6,9 @@
 \title{Make a Lesson}
 \usage{
 make_lesson(lesson_name, course_dir = ".", verbose = TRUE,
-  md_file = NULL, slide_link = NULL)
+  md_file = NULL, make_slide_deck = FALSE, slide_id = NULL)
 
-make_lessons_from_book(course_dir = ".", verbose = TRUE)
+make_lessons_from_book(course_dir = ".", verbose = TRUE, ...)
 }
 \arguments{
 \item{lesson_name}{Name of the Lesson to create.  This should be
@@ -22,7 +22,13 @@ human-readable and will be the title of your lesson in your course.}
 will take the \code{lesson_name}, sub out spaces, lower case it,
 and use that for the file name.}
 
-\item{slide_link}{Link to slide deck on Google Slides.}
+\item{make_slide_deck}{Create a slide deck on Google Slides if
+no link is provided.}
+
+\item{slide_id}{ID to slide deck on Google Slides.}
+
+\item{...}{additional arguments to pass to
+\code{\link{make_lesson}}}
 }
 \value{
 A list of the created markdown manuscript file and script files.
@@ -42,6 +48,20 @@ dir(sc$man_path)
 dir(sc$scr_path)
 readLines(sc$book_txt)
 readLines(out$md_file)
+
+\donttest{
+root_path = tempfile()
+course_name = "test"
+sc = start_course(course_name, root_path)
+verbose = TRUE
+out = make_lesson(lesson_name = "how to Do Things",
+course_dir = sc$course_dir,
+make_slide_deck = TRUE)
+dir(sc$man_path)
+dir(sc$scr_path)
+readLines(sc$book_txt)
+readLines(out$md_file)
+}
 
 root_path = tempfile()
 course_name = "test"

@@ -52,6 +52,7 @@ make_course = function(
     writeLines("", con = book_txt)
   }
   paths$book_txt = book_txt
+  paths$course_name = basename(course_dir)
   return(paths)
 }
 
