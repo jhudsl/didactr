@@ -46,7 +46,7 @@ verbose = TRUE
 out =make_lesson(lesson_name = "how to Do Things", course_dir = sc$course_dir)
 dir(sc$man_path)
 dir(sc$scr_path)
-readLines(sc$book_txt)
+readLines(sc$book_txt, warn = FALSE)
 readLines(out$md_file)
 
 \donttest{

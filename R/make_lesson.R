@@ -25,7 +25,7 @@
 #' out =make_lesson(lesson_name = "how to Do Things", course_dir = sc$course_dir)
 #' dir(sc$man_path)
 #' dir(sc$scr_path)
-#' readLines(sc$book_txt)
+#' readLines(sc$book_txt, warn = FALSE)
 #' readLines(out$md_file)
 #'
 #' \donttest{
@@ -63,11 +63,11 @@ make_lesson = function(
   slide_id = NULL) {
 
   template_file = system.file("extdata", "00_template.md", package = "didactr")
-  template = readLines(template_file)
+  template = readLines(template_file, warn = FALSE)
   template = gsub("Lesson Name", lesson_name, template, fixed = TRUE)
 
   res = make_course(course_dir = course_dir, verbose = verbose)
-  book_txt = readLines(res$book_txt)
+  book_txt = readLines(res$book_txt, warn = FALSE)
   book_txt = book_txt[ book_txt != ""]
 
   if (is.null(md_file)) {

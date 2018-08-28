@@ -29,5 +29,10 @@ course_name = "test this out2"
 book_txt =  system.file("extdata", "Book.txt", package = "didactr")
 sc = start_course(course_name, root_path, book_txt = book_txt)
 course_dir = sc$course_dir
+in_ci <- function() {
+nzchar(Sys.getenv("CI"))
+}
+if (!in_ci()) {
 object = check_course(sc$course_dir)
+}
 }
