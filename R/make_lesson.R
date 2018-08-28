@@ -31,7 +31,8 @@
 #' in_ci <- function() {
 #' nzchar(Sys.getenv("CI"))
 #' }
-#' \donttest{
+#' \dontrun{
+#' # requires authorization
 #' root_path = tempfile()
 #' course_name = "test"
 #' sc = start_course(course_name, root_path)
