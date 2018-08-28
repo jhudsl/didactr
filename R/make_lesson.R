@@ -27,7 +27,9 @@
 #' dir(sc$scr_path)
 #' readLines(sc$book_txt, warn = FALSE)
 #' readLines(out$md_file)
-#'
+#' in_ci <- function() {
+#' nzchar(Sys.getenv("CI"))
+#' }
 #' \donttest{
 #' root_path = tempfile()
 #' course_name = "test"
@@ -35,11 +37,11 @@
 #' verbose = TRUE
 #' out = make_lesson(lesson_name = "how to Do Things",
 #' course_dir = sc$course_dir,
-#' make_slide_deck = TRUE)
+#' make_slide_deck = !in_ci())
 #' dir(sc$man_path)
 #' dir(sc$scr_path)
-#' readLines(sc$book_txt)
-#' readLines(out$md_file)
+#' readLines(sc$book_txt, warn = FALSE)
+#' readLines(out$md_file, warn = FALSE)
 #' }
 #'
 #' root_path = tempfile()

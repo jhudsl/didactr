@@ -15,6 +15,9 @@
 #' object = check_course(sc$course_dir)
 #' summary(object)
 summary.course_check = function(object, ...) {
+
+  all_images_exist = scr_png_match = NULL
+  rm(list= c("all_images_exist", "scr_png_match"))
   cs = object$course_summary
   bad_images = cs %>%
     filter(!all_images_exist)
