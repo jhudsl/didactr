@@ -3,6 +3,8 @@
 #' @param course_dir directory with course materials
 #' @param save_metrics Should an `rds` file be saved of the `data.frame`?
 #' @param timezone Timezone to be used?
+#' @param require_authorization Should you authorize for Google
+#' Slides and such to check the modified time?
 #' @param ... arguments to pass to \code{\link{didactr_auth}}
 #'
 #' @return A list of data frames of the checked course. Will have
@@ -24,11 +26,12 @@
 #' nzchar(Sys.getenv("CI"))
 #' }
 #' if (!in_ci()) {
-#' object = check_course(sc$course_dir)
+#' object = check_course(sc$course_dir, require_authorization = FALSE)
 #' }
 check_course = function(course_dir = ".",
                         save_metrics = TRUE,
                         timezone = "America/New_York",
+                        require_authorization = TRUE,
                         ...) {
 
   lesson_name = gs_name = drive_resource = NULL
@@ -77,14 +80,18 @@ check_course = function(course_dir = ".",
              paste0(df$lesson[is.na(df$id)], collapse = ", ")))
   }
 
-  authorized = check_didactr_auth(...)
+  if (require_authorization) {
+    authorized = check_didactr_auth(...)
+  } else {
+    authorized = is_didactr_authorized()
+  }
 
   ######################################
   ## Get information from Google Drive
   ######################################
   d <- df %>%
     filter(!is.na(id))
-  if (nrow(d) > 0) {
+  if (nrow(d) > 0 && authorized) {
     drive_info = drive_information(id = d$id, timezone = timezone)
     if (!is.null(drive_info)) {
       df = left_join(df, drive_info, by = "id")
@@ -92,6 +99,7 @@ check_course = function(course_dir = ".",
     }
   } else {
     df$gs_name = NA
+    df$mod_time_gs = NA
   }
   ######################################
   ## make image paths

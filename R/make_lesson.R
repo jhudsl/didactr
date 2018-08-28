@@ -11,6 +11,7 @@
 #' @param slide_id ID to slide deck on Google Slides.
 #' @param make_slide_deck Create a slide deck on Google Slides if
 #' no link is provided.
+#' @param ... arguments passed to \code{\link{check_didactr_auth}}
 #'
 #' @return A list of the created markdown manuscript file and script files.
 #' \code{make_lessons_from_book} will return a list of these lists,
@@ -62,7 +63,8 @@ make_lesson = function(
   verbose = TRUE,
   md_file = NULL,
   make_slide_deck = FALSE,
-  slide_id = NULL) {
+  slide_id = NULL,
+  ...) {
 
   template_file = system.file("extdata", "00_template.md", package = "didactr")
   template = readLines(template_file, warn = FALSE)
@@ -105,7 +107,7 @@ make_lesson = function(
   } else {
     if (make_slide_deck) {
       # authorize
-      check_didactr_auth()
+      check_didactr_auth(...)
 
       # make the name
       # naming convention changed to course_NUMBER_lesson

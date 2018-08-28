@@ -74,3 +74,14 @@ check_didactr_auth = function(...) {
   }
   return(is.Token(token))
 }
+
+#' @rdname didactr_auth
+#' @export
+is_didactr_authorized = function() {
+  token = getOption("google_token")
+  if (!is.Token(token)) {
+    return(FALSE)
+  }
+  appname = token$app$appname
+  return(appname == mooc_app()$appname)
+}
