@@ -171,8 +171,6 @@ make_lesson = function(
 }
 
 #' @rdname make_lesson
-#' @param ... additional arguments to pass to
-#' \code{\link{make_lesson}}
 #' @export
 make_lessons_from_book = function(
   course_dir = ".",

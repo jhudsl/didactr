@@ -28,9 +28,6 @@ no link is provided.}
 \item{slide_id}{ID to slide deck on Google Slides.}
 
 \item{...}{arguments passed to \code{\link{check_didactr_auth}}}
-
-\item{...}{additional arguments to pass to
-\code{\link{make_lesson}}}
 }
 \value{
 A list of the created markdown manuscript file and script files.
