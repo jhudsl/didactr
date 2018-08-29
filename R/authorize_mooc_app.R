@@ -79,7 +79,7 @@ didactr_token = function(...) {
   } else {
     token = didactr_auth(...)
   }
-  return()
+  return(token)
 }
 
 #' @rdname didactr_auth
