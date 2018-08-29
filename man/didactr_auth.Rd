@@ -3,12 +3,15 @@
 \name{didactr_auth}
 \alias{didactr_auth}
 \alias{check_didactr_auth}
+\alias{didactr_token}
 \alias{is_didactr_authorized}
 \title{Authorize Application for didactr}
 \usage{
 didactr_auth(token_file = NULL, cache = FALSE, use_oob = FALSE)
 
 check_didactr_auth(...)
+
+didactr_token(...)
 
 is_didactr_authorized()
 }

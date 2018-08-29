@@ -56,6 +56,13 @@ didactr_auth = function(
 #' @rdname didactr_auth
 #' @export
 check_didactr_auth = function(...) {
+  token = didactr_token(...)
+  return(is.Token(token))
+}
+
+#' @rdname didactr_auth
+#' @export
+didactr_token = function(...) {
   token = getOption("google_token")
   if (is.Token(token)) {
     appname = token$app$appname
@@ -72,7 +79,7 @@ check_didactr_auth = function(...) {
   } else {
     token = didactr_auth(...)
   }
-  return(is.Token(token))
+  return()
 }
 
 #' @rdname didactr_auth
