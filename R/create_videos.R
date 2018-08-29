@@ -47,6 +47,8 @@ create_videos <- function(course_status = NULL,
                  paste0(slide_df$objectId, ".png"))
                if (!all(file.exists(slide_df$png))) {
                  run_old_way = TRUE
+               } else {
+                 files = slide_df$png
                }
              } else {
                string = ".*-(\\d*)[.]png"
