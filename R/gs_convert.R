@@ -59,9 +59,9 @@ gs_convert = function(id, verbose = TRUE,
     if (verbose) {
       message(paste0("Downloading the PPTX: ", pptx_file))
     }
-    pptx_dl = drive_download(id,
-                             path = pptx_file,
-                             type = "pptx")
+    pptx_dl = googledrive::drive_download(id,
+                                          path = pptx_file,
+                                          type = "pptx")
     if (verbose) {
       message("Getting Notes from PPTX")
     }

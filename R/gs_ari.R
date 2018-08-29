@@ -10,10 +10,14 @@
 #' @return A list of the images, script, and MP4 with the result.
 #' @export
 #' @importFrom ari ari_spin
-gs_ari = function(id, output = NULL,
-                  verbose = TRUE, ...) {
+gs_ari = function(
+  id, output = NULL,
+  verbose = TRUE, ...) {
 
-  res = gs_convert(id, verbose = verbose)
+  res = gs_convert(id,
+                   verbose = verbose,
+                   PPTX = TRUE,
+                   use_gs_ids = FALSE)
   images = res$images
   script = res$script
 
@@ -57,18 +61,19 @@ gs_ari_upload = function(
   ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"',
   snippet = NULL, status = NULL,
   open_url = TRUE) {
-  res = gs_ari(id,
-               ...,
-               cleanup = FALSE,
-               ffmpeg_opts = ffmpeg_opts
+  res = gs_ari(
+    id,
+    ...,
+    cleanup = FALSE,
+    ffmpeg_opts = ffmpeg_opts
   )
 
   ####### yt_authentication done here #####
 
   vid = tuber::upload_video(file = res$output,
-                     status = status,
-                     snippet = snippet,
-                     open_url = open_url)
+                            status = status,
+                            snippet = snippet,
+                            open_url = open_url)
   res$video = vid
   return(res)
 }

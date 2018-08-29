@@ -18,18 +18,28 @@ create_images <- function(course_status = NULL, ...) {
   ## do this if:
   ## PDF not yet downloaded, but google slides exist
   ## OR mod_time_gs > mod_time_pngs
+  # keep_df = df[ (is.na(df$pdf) & !is.na(df$id)) | (df$gs_more_recent), ]
   sapply(df$id,
          function(x) {
-           if(is.na(x)){}else if((is.na(df$pdf[which(df$id==x)]) & !is.na(x))|(df$gs_more_recent[which(df$id==x)])){
-             message(paste0("Converting PDFs for: ", df$lesson[which(df$id==x)]))
-             out_dir = file.path(paths$img_path, df$lesson[which(df$id==x)])
-             res = gs_convert(id = x, PPTX = FALSE,
-                              out_dir = out_dir,
-                              output_type = "png", ...)
-             filename =  paste0(df$course_info[which(df$id==x)],".pdf")
-             file.copy(res$pdf, to=file.path(paths$img_path,df$lesson[which(df$id==x)],filename),
-                       overwrite=TRUE)
-           }})
+           if (!is.na(x)){
+             index = which(df$id == x)
+             idf = df[index, ]
+             check = (is.na(idf$pdf) & !is.na(x)) | (idf$gs_more_recent)
+             if (check) {
+               message(paste0("Converting PDFs for: ", idf$lesson))
+               out_dir = file.path(paths$img_path, idf$lesson)
+               res = gs_convert(
+                 id = x,
+                 PPTX = FALSE,
+                 out_dir = out_dir,
+                 output_type = "png", ...)
+               filename =  paste0(idf$course_info,".pdf")
+               file.copy(res$pdf,
+                         to = file.path(paths$img_path, idf$lesson,filename),
+                         overwrite = TRUE)
+             }
+           }
+         })
   ret = check_course(course_dir = course_status$course_dir,
                      save_metrics = course_status$save_metrics)
 

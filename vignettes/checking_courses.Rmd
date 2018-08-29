@@ -53,7 +53,8 @@ head(course_status$course_summary)
 ## download PDFs and PNGs
 ## put them where they belong
 course_status <- create_images(course_status, 
-                               extra.opts = "-density 400 -quality 200")
+                               extra.opts = "-density 400 -quality 200",
+                               use_gs_ids = TRUE)
 head(course_status$course_summary)
 ```
 

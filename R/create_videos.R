@@ -30,44 +30,76 @@ create_videos <- function(course_status = NULL,
   ## OR if pngs are more recent than youtube video
   sapply(df$lesson,
          function(x) {
-           if(!df$has_vid_file[df$lesson==x]|df$vid_more_recent[df$lesson==x]|df$scr_more_recent[df$lesson==x] ){
-             files <- grep("[.]png", list.files(file.path(paths$img_path, x), full.names = TRUE),
-                           value = TRUE)
-
-             ## reorder image files if they end in -1 rather than -01
-             if(length(grep("[0][0-9].png",files[1]))<1){
-               files1 <- grep("[.]png", list.files(file.path(paths$img_path,x),
-                                                   pattern = "-[0123456789].png",
-                                                   full.names = TRUE),
-                              value = TRUE)
-               files2 <- grep("[.]png", list.files(file.path(paths$img_path, x),
-                                                   pattern = "-[0123456789][0123456789].png",
-                                                   full.names = TRUE),
-                              value = TRUE)
-               files <- c(files1, files2)
+           lesson_index = df$lesson == x
+           idf = df[lesson_index,]
+           if (!idf$has_vid_file | idf$vid_more_recent | idf$scr_more_recent ){
+             files <- list.files(
+               path = file.path(paths$img_path, x),
+               full.names = TRUE,
+               pattern = "[.]png")
+             # do all have the dash, then digit png?
+             check = all(grepl(".*-\\d*[.]png", files))
+             run_old_way = FALSE
+             if (!check) {
+               slide_df = gs_slide_df(idf$id)
+               slide_df$png = file.path(
+                 file.path(paths$img_path, idf$lesson),
+                 paste0(slide_df$objectId, ".png"))
+               if (!all(file.exists(slide_df$png))) {
+                 run_old_way = TRUE
+               }
+             } else {
+               string = ".*-(\\d*)[.]png"
+               index = sub(string, "\\1", basename(files))
+               index = as.numeric(index)
+               if (any(is.na(index))) {
+                 run_old_way = TRUE
+               } else {
+                 files = files[order(index)]
+               }
              }
 
-             para = readLines(file.path(paths$scr_path, paste0(x, '_script.md')), warn = FALSE)
+             # ## reorder im age files if they end in -1 rather than -01
+             if (run_old_way) {
+               if (length(grep("[0][0-9].png",files[1]))<1){
+                 files1 <- list.files(file.path(paths$img_path,x),
+                                      pattern = "-[0123456789].png",
+                                      full.names = TRUE)
+
+                 files2 <- list.files(file.path(paths$img_path, x),
+                                      pattern = "-[0123456789][0123456789].png",
+                                      full.names = TRUE)
+
+                 files <- c(files1, files2)
+               }
+             }
+
+             para = readLines(
+               file.path(paths$scr_path, paste0(x, '_script.md')),
+               warn = FALSE)
              para = para[ !para %in% c("", " ")]
 
-             if(length(para) == length(files)){
+             if (length(para) == length(files)) {
                message(paste0("generating video for: ", x))
                if (is.null(audio_codec)) {
                  audio_codec = ari::get_audio_codec()
                }
-               ari::ari_spin(paragraphs = para,
-                        images = files,
-                        voice = voice,
-                        output = file.path(paths$vid_path,paste0(x,'.mp4')),
-                        ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"',
-                        verbose = verbose,
-                        audio_codec = audio_codec,
-                        ...
+               ari::ari_spin(
+                 paragraphs = para,
+                 images = files,
+                 voice = voice,
+                 output = file.path(paths$vid_path,paste0(x,'.mp4')),
+                 ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"',
+                 verbose = verbose,
+                 audio_codec = audio_codec,
+                 ...
                )
+               ### Ask SHANNON - does this even matter since running
+               ### check_course below?
                ## update df
-               df$vid_file[df$lesson==x] <- file.path(paths$vid_path,paste0(x,'.mp4'))
-               df$has_vid_file[df$lesson==x] <- TRUE
-               df$mod_time_vid[df$lesson==x] <- ymd_hms(file.info(file.path(
+               df$vid_file[lesson_index] <- file.path(paths$vid_path,paste0(x,'.mp4'))
+               df$has_vid_file[lesson_index] <- TRUE
+               df$mod_time_vid[lesson_index] <- ymd_hms(file.info(file.path(
                  paths$vid_path,paste0(x,'.mp4')))$mtime)
              }else{
                message(paste0("attempted but failed to generate video for: ", x))
