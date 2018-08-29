@@ -4,7 +4,8 @@
 \alias{gs_convert}
 \title{Convert Google Slides to PNGs and a script}
 \usage{
-gs_convert(id, verbose = TRUE, PPTX = TRUE, auto_stub = TRUE, ...)
+gs_convert(id, verbose = TRUE, PPTX = TRUE, auto_stub = TRUE,
+  use_gs_ids = FALSE, ...)
 }
 \arguments{
 \item{id}{File id passed to \code{\link{drive_download}} after passing
@@ -20,6 +21,8 @@ If this is \code{FALSE}, then the script will not be generated.}
 the Google slide name?  If so, `stub` argument will
 be overridden in \code{\link{pdf_to_images}}}
 
+\item{use_gs_ids}{use Google slide identifiers for the naming}
+
 \item{...}{Additional options to send to \code{\link{pdf_to_images}}}
 }
 \value{
@@ -27,4 +30,12 @@ A list of the images and the notes for each script
 }
 \description{
 Convert Google Slides to PNGs and a script
+}
+\examples{
+\dontrun{
+id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
+PPTX = FALSE
+auto_stub = TRUE
+res = gs_convert(id, use_gs_ids = TRUE, PPTX = FALSE)
+}
 }

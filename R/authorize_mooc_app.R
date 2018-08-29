@@ -20,6 +20,7 @@ mooc_app = function() {
 #'
 #' @importFrom httr oauth_endpoints oauth2.0_token
 #' @importFrom googledrive drive_auth
+#' @importFrom rgoogleslides authorize
 #' @examples \dontrun{
 #' didactr_auth()
 #' }
@@ -32,7 +33,7 @@ didactr_auth = function(
     token_file = tempfile(fileext = ".rds")
   }
   if (!file.exists(token_file)) {
-    cred <- httr::oauth2.0_token(
+    token <- httr::oauth2.0_token(
       endpoint = httr::oauth_endpoints("google"),
       app = mooc_app(),
       scope = c("https://www.googleapis.com/auth/drive",
@@ -41,14 +42,15 @@ didactr_auth = function(
       cache = cache,
       use_oob = use_oob)
   } else {
-    cred = readRDS(token_file)
+    token = readRDS(token_file)
   }
 
   # for tuber
-  options(google_token = cred)
-  saveRDS(cred, token_file)
+  options(google_token = token)
+  saveRDS(token, token_file)
   googledrive::drive_auth(oauth_token = token_file)
-  return(invisible(cred))
+  rgoogleslides::authorize(token = token)
+  return(invisible(token))
 }
 
 
@@ -76,6 +78,7 @@ didactr_token = function(...) {
     }
     saveRDS(token, token_file)
     googledrive::drive_auth(oauth_token = token_file)
+    rgoogleslides::authorize(token = token)
   } else {
     token = didactr_auth(...)
   }
