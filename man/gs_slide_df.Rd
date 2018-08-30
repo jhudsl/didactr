@@ -3,18 +3,29 @@
 \name{gs_slide_df}
 \alias{gs_slide_df}
 \alias{notes_from_slide}
+\alias{notes_from_slide_output}
 \alias{gs_get_slides}
+\alias{gs_speaker_notes_id}
+\alias{gs_replace_notes}
 \title{Get Google Slide Elements IDs}
 \usage{
 gs_slide_df(id)
 
 notes_from_slide(id)
 
+notes_from_slide_output(slides)
+
 gs_get_slides(id)
+
+gs_speaker_notes_id(id)
+
+gs_replace_notes(id, notes, force = FALSE)
 }
 \arguments{
 \item{id}{Slide id passed to \code{\link{get_slides_properties}} after passing
 through \code{\link{as_id}}}
+
+\item{slides}{an output of \code{gs_slide_df(id)}}
 }
 \value{
 A \code{data.frame} of the identifiers and properties of the
@@ -26,8 +37,8 @@ Get Google Slide Elements IDs
 \examples{
 \dontrun{
 id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
-all_notes = notes_from_slide(id)
 slides = gs_slide_df(id)
+all_notes = notes_from_slide(id)
 slides$slideProperties$notesPage$pageElements[[1]]
 pe = slides$slideProperties$notesPage$pageElements
 text = pe[[1]]$shape$text$textElements[[2]]$textRun$content
@@ -42,6 +53,36 @@ res = ""
 paste(res, collapse = " ")
 })
 notes
-notes2 = notes_from_slide(id)
+}
+\dontrun{
+id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
+slides = gs_get_slides(id)
+tfile = tempfile(fileext = ".txt")
+writeLines(slides$content, con = tfile)
+ss = strsplit(slides$content, split = "\\n")[[1]]
+ind = grep("uthinkk", ss)
+ss[(ind -30):(ind + 5)]
+
+slides$parsed$slides$slideProperties$notesPage
+slides$parsed$slides$slideProperties$notesPage$pageElements
+
+
+}
+\dontrun{
+id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
+parsed = gs_get_slides(id)$parsed
+parsed$slides$slideProperties$notesPage$notesProperties$speakerNotesObjectId
+
+notes_id = gs_speaker_notes_id(id)
+
+}
+\dontrun{
+
+id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
+shape_ids = gs_speaker_notes_id(id)
+notes = sample(letters, size = length(shape_ids))
+res = gs_replace_notes(id, notes, force = TRUE)
+curr_notes = notes_from_slide(id)
+all(curr_notes == notes)
 }
 }

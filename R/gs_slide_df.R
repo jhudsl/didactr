@@ -9,8 +9,8 @@
 #' @importFrom rgoogleslides get_slides_properties
 #' @examples \dontrun{
 #' id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
-#' all_notes = notes_from_slide(id)
 #' slides = gs_slide_df(id)
+#' all_notes = notes_from_slide(id)
 #' slides$slideProperties$notesPage$pageElements[[1]]
 #' pe = slides$slideProperties$notesPage$pageElements
 #' text = pe[[1]]$shape$text$textElements[[2]]$textRun$content
@@ -25,7 +25,6 @@
 #' paste(res, collapse = " ")
 #' })
 #' notes
-#' notes2 = notes_from_slide(id)
 #' }
 gs_slide_df = function(id) {
   check_didactr_auth()
@@ -34,10 +33,10 @@ gs_slide_df = function(id) {
   }
   id = as.character(id)
   # if (TRUE){
-    res = rgoogleslides::get_slides_properties(id = id)
+  res = rgoogleslides::get_slides_properties(id = id)
   # } else {
-    # res = gs_get_slides(id)
-    # res = res$parsed
+  # res = gs_get_slides(id)
+  # res = res$parsed
   # }
   slides = res$slides
   return(slides)
@@ -47,6 +46,13 @@ gs_slide_df = function(id) {
 #' @rdname gs_slide_df
 notes_from_slide = function(id) {
   slides = gs_slide_df(id)
+  notes_from_slide_output(slides)
+}
+
+#' @export
+#' @rdname gs_slide_df
+#' @param slides an output of \code{gs_slide_df(id)}
+notes_from_slide_output = function(slides) {
   pe = slides$slideProperties$notesPage$pageElements
   notes = sapply(
     pe,
@@ -61,6 +67,7 @@ notes_from_slide = function(id) {
       }
       paste(res, collapse = " ")
     })
+  notes = sub("\n$", "", notes)
   notes
 }
 
@@ -68,6 +75,20 @@ notes_from_slide = function(id) {
 #' @rdname gs_slide_df
 #' @importFrom httr config GET accept_json content
 #' @importFrom jsonlite fromJSON
+#' @examples \dontrun{
+#' id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
+#' slides = gs_get_slides(id)
+#' tfile = tempfile(fileext = ".txt")
+#' writeLines(slides$content, con = tfile)
+#' ss = strsplit(slides$content, split = "\n")[[1]]
+#' ind = grep("uthinkk", ss)
+#' ss[(ind -30):(ind + 5)]
+#'
+#' slides$parsed$slides$slideProperties$notesPage
+#' slides$parsed$slides$slideProperties$notesPage$pageElements
+#'
+#'
+#' }
 gs_get_slides = function(id) {
   url = "https://slides.googleapis.com/v1/presentations/"
   url = paste0(url, id)
@@ -84,3 +105,109 @@ gs_get_slides = function(id) {
              parsed = result)
   return(res)
 }
+
+#' @export
+#' @rdname gs_slide_df
+#' @examples \dontrun{
+#' id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
+#' parsed = gs_get_slides(id)$parsed
+#' parsed$slides$slideProperties$notesPage$notesProperties$speakerNotesObjectId
+#'
+#' notes_id = gs_speaker_notes_id(id)
+#'
+#' }
+gs_speaker_notes_id = function(id) {
+  slides = gs_get_slides(id)
+  slides$parsed$slides$slideProperties$notesPage$notesProperties$speakerNotesObjectId
+}
+
+#' @export
+#' @rdname gs_slide_df
+#' @examples \dontrun{
+#'
+#' id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
+#' shape_ids = gs_speaker_notes_id(id)
+#' notes = sample(letters, size = length(shape_ids))
+#' res = gs_replace_notes(id, notes, force = TRUE)
+#' curr_notes = notes_from_slide(id)
+#' all(curr_notes == notes)
+#' }
+gs_replace_notes = function(
+  id, notes,
+  force = FALSE
+) {
+
+  notes = as.character(notes)
+  url = "https://slides.googleapis.com/v1/presentations/"
+  url = paste0(url, id, ":batchUpdate")
+  token = didactr_token()
+  config <- httr::config(token = token)
+
+  shape_ids = gs_speaker_notes_id(id)
+  shape_ids = unname(shape_ids)
+
+  curr_notes = notes_from_slide(id)
+  notes = unname(notes)
+  curr_notes = unname(curr_notes)
+
+  stopifnot(length(shape_ids) == length(notes))
+  make_delete = function(shape_id) {
+    list(
+      deleteText = list(
+        objectId =  shape_id,
+        textRange = list(type = 'ALL')
+      )
+    )
+  }
+  make_insert = function(shape_id, note) {
+    list(
+      insertText = list(
+        objectId = shape_id,
+        insertionIndex = 0,
+        text = note
+      )
+    )
+  }
+
+
+  all_results = vector(
+    mode = "list",
+    length = length(notes))
+  inote = 1
+  for (inote in seq_along(notes)) {
+    shape_id = shape_ids[[inote]]
+    note = notes[[inote]]
+    curr_note = curr_notes[[inote]]
+    if (identical(curr_note, note) || force) {
+      requests = list(
+        make_delete(shape_id),
+        make_insert(shape_id, note)
+      )
+      if (curr_note == "") {
+        requests = list(
+          make_insert(shape_id, note)
+        )
+      }
+
+      out_json = jsonlite::toJSON(
+        list(requests = requests),
+        auto_unbox = TRUE)
+      tfile = tempfile(fileext = ".json")
+      writeLines(out_json, tfile)
+      reqs = httr::upload_file(tfile)
+
+      call_result <- httr::POST(
+        url, config = config,
+        body = reqs,
+        httr::content_type_json())
+      httr::warn_for_status(call_result)
+      all_results[[inote]] = list(result = call_result,
+                                  request = requests,
+                                  request_file = tfile)
+    }
+  }
+  return(all_results)
+
+}
+
+
