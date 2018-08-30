@@ -25,6 +25,7 @@
 #' paste(res, collapse = " ")
 #' })
 #' notes
+#' notes2 = notes_from_slide(id)
 #' }
 gs_slide_df = function(id) {
   check_didactr_auth()
@@ -32,7 +33,12 @@ gs_slide_df = function(id) {
     id = id$id[1]
   }
   id = as.character(id)
-  res = rgoogleslides::get_slides_properties(id = id)
+  # if (TRUE){
+    res = rgoogleslides::get_slides_properties(id = id)
+  # } else {
+    # res = gs_get_slides(id)
+    # res = res$parsed
+  # }
   slides = res$slides
   return(slides)
 }
@@ -56,4 +62,25 @@ notes_from_slide = function(id) {
       paste(res, collapse = " ")
     })
   notes
+}
+
+#' @export
+#' @rdname gs_slide_df
+#' @importFrom httr config GET accept_json content
+#' @importFrom jsonlite fromJSON
+gs_get_slides = function(id) {
+  url = "https://slides.googleapis.com/v1/presentations/"
+  url = paste0(url, id)
+  token = didactr_token()
+  config <- httr::config(token = token)
+  call_result <- httr::GET(url, config = config, httr::accept_json())
+  if (httr::status_code(call_result) != 200) {
+    stop("ID provided does not point towards any slide")
+  }
+  run_content = httr::content(call_result, as = "text")
+  result = jsonlite::fromJSON(run_content)
+  res = list(response = call_result,
+             content = run_content,
+             parsed = result)
+  return(res)
 }

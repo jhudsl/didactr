@@ -10,11 +10,12 @@
 #' @importFrom ari ari_spin
 #' @export
 #'
-create_videos <- function(course_status = NULL,
-                          voice = "Joanna",
-                          audio_codec = NULL,
-                          verbose = TRUE,
-                          ...){
+create_videos <- function(
+  course_status = NULL,
+  voice = "Joanna",
+  audio_codec = NULL,
+  verbose = TRUE,
+  ...){
 
   if (is.character(course_status)) {
     course_status = check_course(course_dir = course_status)
@@ -32,7 +33,7 @@ create_videos <- function(course_status = NULL,
          function(x) {
            lesson_index = df$lesson == x
            idf = df[lesson_index,]
-           if (!idf$has_vid_file | idf$vid_more_recent | idf$scr_more_recent ){
+           if (!idf$has_vid_file | idf$vid_more_recent | idf$scr_more_recent) {
              files <- list.files(
                path = file.path(paths$img_path, x),
                full.names = TRUE,

@@ -3,11 +3,14 @@
 \name{gs_slide_df}
 \alias{gs_slide_df}
 \alias{notes_from_slide}
+\alias{gs_get_slides}
 \title{Get Google Slide Elements IDs}
 \usage{
 gs_slide_df(id)
 
 notes_from_slide(id)
+
+gs_get_slides(id)
 }
 \arguments{
 \item{id}{Slide id passed to \code{\link{get_slides_properties}} after passing
@@ -39,5 +42,6 @@ res = ""
 paste(res, collapse = " ")
 })
 notes
+notes2 = notes_from_slide(id)
 }
 }
