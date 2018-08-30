@@ -256,8 +256,8 @@ gs_replace_notes = function(
 
     all_results[[inote]] = list(
       response = res,
-      note = note,
-      shape_id = shape_id)
+      note = notes[inote],
+      shape_id = shape_ids[inote])
   }
   return(all_results)
 
