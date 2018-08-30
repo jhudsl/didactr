@@ -19,13 +19,16 @@ gs_get_slides(id)
 
 gs_speaker_notes_id(id)
 
-gs_replace_notes(id, notes, force = FALSE)
+gs_replace_notes(id, notes)
 }
 \arguments{
 \item{id}{Slide id passed to \code{\link{get_slides_properties}} after passing
 through \code{\link{as_id}}}
 
 \item{slides}{an output of \code{gs_slide_df(id)}}
+
+\item{notes}{a character vector of notes to be added to
+the slides}
 }
 \value{
 A \code{data.frame} of the identifiers and properties of the
@@ -81,7 +84,7 @@ notes_id = gs_speaker_notes_id(id)
 id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
 shape_ids = gs_speaker_notes_id(id)
 notes = sample(letters, size = length(shape_ids))
-res = gs_replace_notes(id, notes, force = TRUE)
+res = gs_replace_notes(id, notes)
 curr_notes = notes_from_slide(id)
 all(curr_notes == notes)
 }

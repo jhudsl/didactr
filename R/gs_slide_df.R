@@ -121,18 +121,8 @@ gs_speaker_notes_id = function(id) {
   slides$parsed$slides$slideProperties$notesPage$notesProperties$speakerNotesObjectId
 }
 
-#' @export
-#' @rdname gs_slide_df
-#' @examples \dontrun{
-#'
-#' id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
-#' shape_ids = gs_speaker_notes_id(id)
-#' notes = sample(letters, size = length(shape_ids))
-#' res = gs_replace_notes(id, notes, force = TRUE)
-#' curr_notes = notes_from_slide(id)
-#' all(curr_notes == notes)
-#' }
-gs_replace_notes = function(
+
+gs_replace_notes.deprecated = function(
   id, notes,
   force = FALSE
 ) {
@@ -183,6 +173,8 @@ gs_replace_notes = function(
         make_delete(shape_id),
         make_insert(shape_id, note)
       )
+      # don't delete if nothing there
+
       if (curr_note == "") {
         requests = list(
           make_insert(shape_id, note)
@@ -211,3 +203,62 @@ gs_replace_notes = function(
 }
 
 
+#' @export
+#' @rdname gs_slide_df
+#' @param notes a character vector of notes to be added to
+#' the slides
+#' @examples \dontrun{
+#'
+#' id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
+#' shape_ids = gs_speaker_notes_id(id)
+#' notes = sample(letters, size = length(shape_ids))
+#' res = gs_replace_notes(id, notes)
+#' curr_notes = notes_from_slide(id)
+#' all(curr_notes == notes)
+#' }
+gs_replace_notes = function(
+  id, notes
+) {
+
+  check_didactr_auth()
+
+  shape_ids = gs_speaker_notes_id(id)
+  shape_ids = unname(shape_ids)
+
+  notes = as.character(notes)
+  notes = unname(notes)
+
+  curr_notes = notes_from_slide(id)
+  curr_notes = unname(curr_notes)
+
+  stopifnot(length(shape_ids) == length(notes))
+
+  all_results = vector(
+    mode = "list",
+    length = length(notes))
+  inote = 1
+  for (inote in seq_along(notes)) {
+    gs_result = rgoogleslides::add_delete_text_request(
+      object_id = shape_ids[inote]
+    )
+    # don't delete if nothing there
+    curr_note = curr_notes[[inote]]
+    if (curr_note == "") {
+      gs_result = NULL
+    }
+    gs_result = rgoogleslides::add_insert_text_request(
+      google_slides_request = gs_result,
+      object_id = shape_ids[inote],
+      text = notes[inote])
+    res = rgoogleslides::commit_to_slides(
+      id = id,
+      google_slide_request = gs_result)
+
+    all_results[[inote]] = list(
+      response = res,
+      note = note,
+      shape_id = shape_id)
+  }
+  return(all_results)
+
+}
