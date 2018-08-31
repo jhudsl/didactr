@@ -3,6 +3,7 @@
 \name{gs_slide_df}
 \alias{gs_slide_df}
 \alias{notes_from_slide}
+\alias{gs_notes_from_slide}
 \alias{notes_from_slide_output}
 \alias{gs_get_slides}
 \alias{gs_speaker_notes_id}
@@ -12,6 +13,8 @@
 gs_slide_df(id)
 
 notes_from_slide(id)
+
+gs_notes_from_slide(id)
 
 notes_from_slide_output(slides)
 

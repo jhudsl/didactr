@@ -51,6 +51,10 @@ notes_from_slide = function(id) {
 
 #' @export
 #' @rdname gs_slide_df
+gs_notes_from_slide = notes_from_slide
+
+#' @export
+#' @rdname gs_slide_df
 #' @param slides an output of \code{gs_slide_df(id)}
 notes_from_slide_output = function(slides) {
   pe = slides$slideProperties$notesPage$pageElements
