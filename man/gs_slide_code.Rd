@@ -19,7 +19,7 @@ Get Slide Code from Google Slides
 }
 \examples{
 \dontrun{
-if (check_didactr_auth) {
+if (check_didactr_auth()) {
 id = "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8"
 gs_slide_code(id, open = TRUE)
 }
