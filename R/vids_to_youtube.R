@@ -90,13 +90,27 @@ vids_to_youtube <- function(
     for (irow in seq(nrow(df))) {
       idf = df[irow, ]
       message(paste0("uploading video to youtube for: ", idf$lesson_name))
-      up = tuber::upload_video(file = idf$vid_file,
-                        snippet = list(title = idf$lesson_title),
-                        status = list(privacyStatus = "unlisted",
-                                      license = "creativeCommon"))
+      up = tuber::upload_video(
+        file = idf$vid_file,
+        snippet = list(title = idf$lesson_title),
+        status = list(privacyStatus = "unlisted",
+                      license = "creativeCommon"))
+      cap_file = sub("[.]mp4$", ".srt", idf$vid_file)
+      cap_result = NULL
+      if (file.exists(cap_file)) {
+        cap_result = tryCatch({
+          tuber::upload_caption(
+            file = cap_file,
+            video_id = up$content$id,
+            caption_name = "ari_caption")
+        })
+      }
+      cap_uploaded = !inherits(cap_result, "try-error") &
+        !is.null(cap_result)
       up$file = idf$vid_file
       up$lesson = idf$lesson
       up$metric_path = paths$met_path
+      up$caption_uploaded = cap_uploaded
       #update uploaded videos data frame
       yt_up <- update_youtube(
         up,
