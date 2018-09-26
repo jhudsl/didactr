@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @importFrom rgoogleslides get_slides_properties
+#' @importFrom utils file.edit
 #'
 #' @examples \dontrun{
 #' if (check_didactr_auth) {
@@ -16,6 +17,9 @@
 #' }
 #' }
 gs_slide_code = function(id, open = FALSE) {
+
+  title = content = NULL
+  rm(list = c("title", "content"))
   pp = rgoogleslides::get_slides_properties(id)
 
 
@@ -68,10 +72,10 @@ gs_slide_code = function(id, open = FALSE) {
     sep = "", collapse = "|")
   install_code = grepl(install_code, all_code)
   all_code[install_code] = paste0("#", all_code[ install_code])
-  all_code = gsub("‘", "'", all_code)
-  all_code = gsub("’", "'", all_code)
-  all_code = gsub("“", '"', all_code)
-  all_code = gsub("”", '"', all_code)
+  all_code = gsub("\u2018", "'", all_code)
+  all_code = gsub("\u2019", "'", all_code)
+  all_code = gsub("\u201c", '"', all_code)
+  all_code = gsub("\u201d", '"', all_code)
 
   hdr = c("---",
           paste0('title: "Google Slide ID ', id, '"'),
