@@ -2,10 +2,10 @@ language: R
 sudo: true
 cache: packages
 before_install:
-- if [[ -n $encrypted_d735996d425c_key ]]; 
-  then 
+- if [[ -n $encrypted_d735996d425c_key ]];
+  then
     openssl aes-256-cbc -K $encrypted_d735996d425c_key -iv $encrypted_d735996d425c_iv -in googlesheets_token.rds.enc -out tests/testthat/googlesheets_token.rds -d ;
-  fi  
+  fi
 - sudo apt-get -qq update
 - sudo apt-get install -y libpoppler-cpp-dev
 - sudo apt-get -qq update
@@ -14,7 +14,7 @@ before_install:
 - sudo apt-get -qq update
 - sudo apt-get install -y ffmpeg --allow-unauthenticated
 - sudo apt-get -qq update
-- sudo apt-get install -y imagemagick
+- sudo apt-get install -y ghostscript imagemagick
 - which convert
 after_success:
 - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::codecov(type = "all")';
@@ -26,7 +26,7 @@ r_check_args: "--as-cran --install-args=--build"
 deploy:
   provider: releases
   skip_cleanup: true
-  api_key:  
+  api_key:
     secure: "GPfETsroqOUbJCQ63slq9vkVM/XkVspvK7aNxneUobTFkkRdnvTKM+uKIDlsxOYSgvx/kt9kBDuacsGwxRQ3iks17sNMkPQ/zeJYdQAFoExrwsgyyrbMorcnPUJbw7Zx+JLF5z2arQ+DHGAy4Gef80PDAhtmKp5jWCTxMvkqayXLNrY1dd+XT2dWJ+Ori22lriN7yHD1XUQRmuLIdY/Gs5Y2v/92g/oi9m9Mk7ad5NjEVEmOjgCs3P7TFKEqYSaqZQ6OPYf1WUvVPUNmbiyrF33OLV9RdL3sk2xuwuchuX1ldEXyr/CDhB7qQujrVvejfYe/r6aP3qcpJ/uuO25pKdmVVk4mkAAdRckJ4zOs1WhHIqmdf1UFeiZ/zmhwdoFDm7Nt0s/BkPLEEe2bPINJvpFe9lwIzMbckY393KGxdJMJz/cUNGhlHu5AlV3tSqF2QDC4uJX/DMyd+YK7tje8nzysBD3q8rWe1dVuUr7TtT6JNnKWSQARX7waF5mh0B1bpfhF/VxUgq5o4rgX9Z1STUDlDllIopUDSZkOs8ayMj38273b5aqjc2p1VBcOYMVgiIXpPWvEnE27Q/qW+g9Ad5iGA++5BQu0xVRhWGpFhfg/bmw1qb5nBXcQvL/0OABOwErrB/EfJCd/l3RN1Fai/foOVSO3781Vb1UE3Z4gazg="
   file_glob: true
   file: didactr*.t*gz
