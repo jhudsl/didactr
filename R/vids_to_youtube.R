@@ -3,6 +3,7 @@
 #' @param course_status object output from \code{\link{check_course}}
 #' @param course_title Course to be used in title of youtube video
 #' @param json Link to json file with credentials
+#' @param verbose print diagnostic messages
 #' @param ... arguments to pass to \code{\link{didactr_auth}}
 #'
 #' @return A list from \code{\link{check_course}} with another field of
@@ -14,6 +15,7 @@ vids_to_youtube <- function(
   course_status,
   course_title = NULL,
   json = NULL,
+  verbose = TRUE,
   ...) {
   authorized = check_didactr_auth(...)
 
@@ -89,7 +91,10 @@ vids_to_youtube <- function(
 
     for (irow in seq(nrow(df))) {
       idf = df[irow, ]
-      message(paste0("uploading video to youtube for: ", idf$lesson_name))
+      if (verbose) {
+        message(paste0("uploading video to youtube for: ",
+                       idf$lesson_name))
+      }
       up = tuber::upload_video(
         file = idf$vid_file,
         snippet = list(title = idf$lesson_title),
@@ -98,6 +103,10 @@ vids_to_youtube <- function(
       cap_file = sub("[.]mp4$", ".srt", idf$vid_file)
       cap_result = NULL
       if (file.exists(cap_file)) {
+        if (verbose) {
+          message(paste0("uploading caption for video: ",
+                         idf$lesson_name))
+        }
         cap_result = tryCatch({
           tuber::upload_caption(
             file = cap_file,
@@ -107,6 +116,10 @@ vids_to_youtube <- function(
       }
       cap_uploaded = !inherits(cap_result, "try-error") &
         !is.null(cap_result)
+      if (verbose & !cap_uploaded) {
+        message(paste0("caption not uploaded for video: ",
+                       idf$lesson_name))
+      }
       up$file = idf$vid_file
       up$lesson = idf$lesson
       up$metric_path = paths$met_path

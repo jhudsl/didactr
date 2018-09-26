@@ -4,7 +4,8 @@
 \alias{vids_to_youtube}
 \title{Upload videos to YouTube}
 \usage{
-vids_to_youtube(course_status, course_title = NULL, json = NULL, ...)
+vids_to_youtube(course_status, course_title = NULL, json = NULL,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{course_status}{object output from \code{\link{check_course}}}
@@ -12,6 +13,8 @@ vids_to_youtube(course_status, course_title = NULL, json = NULL, ...)
 \item{course_title}{Course to be used in title of youtube video}
 
 \item{json}{Link to json file with credentials}
+
+\item{verbose}{print diagnostic messages}
 
 \item{...}{arguments to pass to \code{\link{didactr_auth}}}
 }
