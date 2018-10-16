@@ -6,6 +6,9 @@
 
 ### Additional Resources
 
+Here is some text for you to translate.  [Does this link work?](http://johnmuschelli.com).  [When Everything Is Uppercase It Fails](http://google.com)
+
+![Lesson Name](YouTube Link)
 
 
 ### Slides and Video
@@ -22,8 +25,11 @@
 {choose-answers: 4}
 ? 
 
+C) The answer to this one
+o) Not the answer
+
 C) 
-o)
+m)
 
 {/quiz}
 
