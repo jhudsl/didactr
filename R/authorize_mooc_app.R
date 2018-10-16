@@ -14,6 +14,7 @@ mooc_app = function() {
 #' @param use_oob use a local webserver for the OAuth dance
 #' @param token_file If the \code{token} has been saved, use this file
 #' to load the credentials.
+#' @param language Should the language API be authorized (experimental)
 #'
 #' @return The auth token, a Token class.
 #' @export
@@ -27,20 +28,25 @@ mooc_app = function() {
 didactr_auth = function(
   token_file = NULL,
   cache = FALSE,
+  language = FALSE,
   use_oob = FALSE) {
 
   if (is.null(token_file)) {
     token_file = tempfile(fileext = ".rds")
   }
   if (!file.exists(token_file)) {
+    scope = c("https://www.googleapis.com/auth/drive",
+              "https://www.googleapis.com/auth/youtube.force-ssl",
+              "https://www.googleapis.com/auth/presentations")
+    if (language) {
+      scope = c(scope,
+                "https://www.googleapis.com/auth/cloud-language",
+                "https://www.googleapis.com/auth/cloud-platform")
+    }
     token <- httr::oauth2.0_token(
       endpoint = httr::oauth_endpoints("google"),
       app = mooc_app(),
-      scope = c("https://www.googleapis.com/auth/drive",
-                "https://www.googleapis.com/auth/youtube.force-ssl",
-                "https://www.googleapis.com/auth/presentations",
-                "https://www.googleapis.com/auth/cloud-language",
-                  "https://www.googleapis.com/auth/cloud-platform"),
+      scope = scope,
       cache = cache,
       use_oob = use_oob)
   } else {
@@ -52,6 +58,11 @@ didactr_auth = function(
   saveRDS(token, token_file)
   googledrive::drive_auth(oauth_token = token_file)
   rgoogleslides::authorize(token = token)
+  if (language) {
+    options(googleAuthR.client_id =  mooc_app()$key,
+            googleAuthR.client_secret =  mooc_app()$secret)
+    googleAuthR::gar_auth(token = token)
+  }
   return(invisible(token))
 }
 
@@ -81,6 +92,13 @@ didactr_token = function(...) {
     saveRDS(token, token_file)
     googledrive::drive_auth(oauth_token = token_file)
     rgoogleslides::authorize(token = token)
+    if (!is.null(args$language)) {
+      if (args$language) {
+        options(googleAuthR.client_id =  mooc_app()$key,
+                googleAuthR.client_secret =  mooc_app()$secret)
+        googleAuthR::gar_auth(token = token)
+      }
+    }
   } else {
     token = didactr_auth(...)
   }

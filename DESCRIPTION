@@ -1,5 +1,5 @@
 Package: didactr
-Version: 0.5.0
+Version: 0.5.1
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 
@@ -30,7 +30,8 @@ Imports:
     ari (>= 0.2.0),
     rmarkdown,
     rgoogleslides (>= 0.3.1),
-    googleLanguageR
+    googleLanguageR,
+    googleAuthR
 Suggests: 
     knitr,
     covr,

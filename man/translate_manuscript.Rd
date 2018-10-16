@@ -4,15 +4,19 @@
 \alias{translate_manuscript}
 \alias{translate_script}
 \alias{chunk_google_translate}
+\alias{gl_detect_file}
 \title{Translate Mansucript File}
 \usage{
 translate_manuscript(file, target = "es", chunk = TRUE,
-  verbose = TRUE, ...)
+  fix_header = TRUE, verbose = TRUE, ...)
 
-translate_script(file, target = "es", chunk = TRUE, verbose = TRUE,
-  ...)
+translate_script(file, target = "es", chunk = TRUE,
+  fix_header = FALSE, verbose = TRUE, ...)
 
-chunk_google_translate(file, chunk = TRUE, target = "es", ...)
+chunk_google_translate(file, chunk = TRUE, target = "es",
+  fix_header = TRUE, ...)
+
+gl_detect_file(file)
 }
 \arguments{
 \item{file}{Manuscript markdown file}
@@ -20,6 +24,9 @@ chunk_google_translate(file, chunk = TRUE, target = "es", ...)
 \item{target}{target language, see \code{\link{gl_translate}}}
 
 \item{chunk}{Should the calls to Google Translate be chunked?}
+
+\item{fix_header}{should the header information be fixed,
+such as `{ course-completeness: 100 }`.}
 
 \item{verbose}{Print diagnostic messages}
 

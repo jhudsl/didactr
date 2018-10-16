@@ -1,15 +1,16 @@
-
-
 #' Translate Mansucript File
 #'
 #' @param file Manuscript markdown file
 #' @param chunk Should the calls to Google Translate be chunked?
 #' @param verbose Print diagnostic messages
+#' @param fix_header should the header information be fixed,
+#' such as `{ course-completeness: 100 }`.
 #' @param target target language, see \code{\link{gl_translate}}
 #' @param ... additional arguments to pass to
 #'  \code{\link{gl_translate}}
 #' @importFrom dplyr mutate select
 #' @importFrom googleLanguageR gl_translate
+#' @importFrom stats runif
 #'
 #' @return A `data.frame` of the text and translated text
 #' @note The following changes of the translated text are
@@ -33,13 +34,21 @@ translate_manuscript = function(
   file,
   target = "es",
   chunk = TRUE,
+  fix_header = TRUE,
   verbose = TRUE,
   ...) {
+  translatedText = NULL
+  rm(list = "translatedText")
+
   df = chunk_google_translate(
     file,
     target = target,
     chunk = chunk,
+    fix_header = fix_header,
     ...)
+  xdf = df
+
+  df = xdf
   df = df %>%
     mutate(original_translated_text = translatedText)
   df = fix_image_links(df, verbose = verbose)
@@ -55,18 +64,24 @@ translate_manuscript = function(
   return(df)
 }
 
+
 #' @export
 #' @rdname translate_manuscript
 translate_script = function(
   file,
   target = "es",
   chunk = TRUE,
+  fix_header = FALSE,
   verbose = TRUE,
   ...) {
+  translatedText = NULL
+  rm(list = "translatedText")
+
   df = chunk_google_translate(
     file,
     target = target,
     chunk = chunk,
+    fix_header = fix_header,
     ...)
   df = df %>%
     mutate(original_translated_text = translatedText)
@@ -83,13 +98,18 @@ translate_script = function(
 }
 
 
+
 #' @export
 #' @rdname translate_manuscript
 chunk_google_translate = function(file, chunk = TRUE,
                                   target = "es",
+                                  fix_header = TRUE,
                                   ...) {
-  txt = readLines(file)
+  txt = readLines(file, warn = FALSE)
 
+  if (fix_header) {
+    hdr = manuscript_header(txt)
+  }
 
   # need to do this because of ` to '
   make_bad_string = function() {
@@ -108,35 +128,57 @@ chunk_google_translate = function(file, chunk = TRUE,
     }
   }
 
-  # bad_string = paste(rep("Z", 10), collapse = "")
-  if (any(grepl(bad_string, txt))) {
+  nc = nchar(txt)
+  original_df = data.frame(text = txt,
+                           nc = nc,
+                           stringsAsFactors = FALSE)
+
+
+  code = grep("^```", original_df$text)
+  if (length(code) > 0) {
+    # has to have start/stop
+    if (length(code) %% 2 != 0) {
+      stop("Code blocks are not balanced (one open for one ending), stopping!")
+    }
+    code_start = code[seq(1, length(code) - 1, by = 2)]
+    code_end = code[seq(2, length(code), by = 2)]
+    code_indices = mapply(function(start, stop) {
+      seq(start, stop)
+    }, code_start, code_end, SIMPLIFY = FALSE)
+    code_indices = c(unlist(code_indices))
+    original_df$is_code = FALSE
+    original_df$is_code[code_indices] = TRUE
+    original_df$original_text = original_df$text
+    original_df$text[ original_df$is_code ] = ""
+  }
+
+  # single backticks
+    # bad_string = paste(rep("Z", 10), collapse = "")
+  if (any(grepl(bad_string, original_df$text))) {
     stop("need a different bad string")
   }
-  txt = gsub("`", bad_string, txt)
+  original_df$text = gsub("`", bad_string, original_df$text)
 
   # distinguish where the quotes are supposed to go
   quote_string = paste0('" ', bad_quote_string)
   quote_string2 = sub(" ", "", quote_string)
 
-  if (any(grepl(quote_string, txt) |
-          grepl(quote_string2, txt))) {
+  if (any(grepl(quote_string, original_df$text) |
+          grepl(quote_string2, original_df$text))) {
     stop("need a different bad string for quotes")
   }
-  txt = gsub('" ', quote_string, txt)
+  original_df$text = gsub('" ', quote_string, original_df$text)
 
 
   beginning_jump = beginning_space = extra_link_text = has_tag = NULL
   is_image_link = link_text = link_value = tag = NULL
   text = translatedText = NULL
-  rm(list=c("beginning_jump", "beginning_space", "extra_link_text",
-            "has_tag", "is_image_link", "link_text", "link_value",
-            "tag", "text", "translatedText"))
+  rm(list = c("beginning_jump", "beginning_space", "extra_link_text",
+              "has_tag", "is_image_link", "link_text", "link_value",
+              "tag", "text", "translatedText"))
 
   if (chunk) {
-    nc = nchar(txt)
-    df = data.frame(text = txt,
-                    nc = nc,
-                    stringsAsFactors = FALSE)
+    df = original_df
     df = df %>%
       mutate(item = floor(cumsum(nc) / 5000) + 1)
 
@@ -177,6 +219,15 @@ chunk_google_translate = function(file, chunk = TRUE,
         nc = nchar(text),
         item = floor(cumsum(nc) / 5000) + 1)
   }
+  if (length(code) > 0) {
+    code_log_ind = original_df$is_code
+    # replace the code back
+    rep_txt = original_df$original_text[code_log_ind]
+    df$translatedText[ code_log_ind] = rep_txt
+    df$text[ code_log_ind] = rep_txt
+    df$original_text[ code_log_ind] = rep_txt
+
+  }
   df = df %>%
     mutate(
       text = gsub(bad_string, "`", text),
@@ -201,8 +252,36 @@ chunk_google_translate = function(file, chunk = TRUE,
     )
   df = df %>%
     select(-nc)
+  if (fix_header) {
+    if (!is.null(hdr)) {
+      ind = seq(hdr$start_ind, hdr$end_ind)
+      df$translatedText[ind] = df$text[ind]
+    }
+  }
   df
 }
+
+
+#' @export
+#' @rdname translate_manuscript
+gl_detect_file = function(file) {
+  txt = readLines(file, warn = FALSE)
+  nc = nchar(txt)
+  df = data.frame(text = txt,
+                  nc = nc,
+                  stringsAsFactors = FALSE)
+  df = df %>%
+    mutate(item = floor(cumsum(nc) / 5000) + 1)
+  # get the chunk to run
+  ind =  df$item == 1 & df$text != ""
+  run_txt = df$text[ ind ]
+  run_txt = paste(run_txt, collapse = "\n")
+  res = googleLanguageR::gl_translate_detect(run_txt)
+  res$text = NULL
+  res = as.list(res)
+  return(res)
+}
+
 
 replace_NA = function(df) {
   beginning_jump = beginning_space = extra_link_text = has_tag = NULL
@@ -500,10 +579,34 @@ fix_exercises = function(df, verbose = TRUE) {
                                "")
         )
       ddf = ddf %>%
-        mutate(translatedText = sub("^.*\\)", ")", translatedText),
-               translatedText = paste0(answer, translatedText)
+        mutate(translatedText = ifelse(is_answer,
+                                       sub("^.*\\)", ")", translatedText),
+                                       translatedText),
+               translatedText = ifelse(is_answer,
+                                       paste0(answer, translatedText),
+                                       translatedText)
         ) %>%
         select(-is_answer, -answer)
+      # ? 3 in translated should turn into ?3 if that's how it is in text
+      ddf = ddf %>%
+        mutate(is_question = grepl("^\\s*[?]", text),
+               question_with_space = grepl("^\\s*[?]\\s", text),
+               translatedText =
+                 ifelse(is_question & !question_with_space,
+                        sub("[?]\\s*", "?", translatedText),
+                        translatedText)
+        )
+
+      # keep regular expressions as is
+      ddf = ddf %>%
+        mutate(is_regex = grepl("^\\s*[!]\\s*/", text),
+               translatedText =
+                 ifelse(is_regex,
+                        text,
+                        translatedText)
+        ) %>%
+        select( -is_regex)
+
       ddf = ddf[, colnames(df)]
       df[indices, ] = ddf
     }
@@ -618,3 +721,18 @@ fix_image_links = function(df, verbose = TRUE) {
 
 
 
+
+manuscript_header = function(txt) {
+  ttxt = trimws(txt)
+  empty =  which(ttxt == "")[1]
+  start_ind = grep("^\\{", ttxt)[1]
+  end_ind = grep("\\}$", ttxt)[1]
+  if (end_ind <= empty + 1) {
+    hdr = txt[seq(start_ind, end_ind)]
+    return(list(header = hdr,
+                start_ind = start_ind,
+                end_ind = end_ind))
+  } else {
+    return(NULL)
+  }
+}

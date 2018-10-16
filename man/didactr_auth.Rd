@@ -7,7 +7,8 @@
 \alias{is_didactr_authorized}
 \title{Authorize Application for didactr}
 \usage{
-didactr_auth(token_file = NULL, cache = FALSE, use_oob = FALSE)
+didactr_auth(token_file = NULL, cache = FALSE, language = FALSE,
+  use_oob = FALSE)
 
 check_didactr_auth(...)
 
@@ -21,6 +22,8 @@ to load the credentials.}
 
 \item{cache}{A logical value or a string. \code{TRUE} means to cache
 using the default cache file \code{.httr-oauth}}
+
+\item{language}{Should the language API be authorized (experimental)}
 
 \item{use_oob}{use a local webserver for the OAuth dance}
 
