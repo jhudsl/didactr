@@ -46,10 +46,38 @@ translate_manuscript = function(
   df = fix_bolding(df, verbose = verbose)
   df = fix_at(df, verbose = verbose)
   df = fix_links(df, verbose = verbose)
+
   df = fix_back_ticks(df, verbose = verbose)
   df = fix_tags(df, verbose = verbose)
   df = fix_underscore(df, verbose = verbose)
   df = fix_exercises(df, verbose = verbose)
+
+  return(df)
+}
+
+#' @export
+#' @rdname translate_manuscript
+translate_script = function(
+  file,
+  target = "es",
+  chunk = TRUE,
+  verbose = TRUE,
+  ...) {
+  df = chunk_google_translate(
+    file,
+    target = target,
+    chunk = chunk,
+    ...)
+  df = df %>%
+    mutate(original_translated_text = translatedText)
+  # df = fix_image_links(df, verbose = verbose)
+  # df = fix_bolding(df, verbose = verbose)
+  df = fix_at(df, verbose = verbose)
+  df = fix_links(df, verbose = verbose)
+  df = fix_back_ticks(df, verbose = verbose)
+  # df = fix_tags(df, verbose = verbose)
+  # df = fix_underscore(df, verbose = verbose)
+  # df = fix_exercises(df, verbose = verbose)
 
   return(df)
 }
@@ -61,6 +89,41 @@ chunk_google_translate = function(file, chunk = TRUE,
                                   target = "es",
                                   ...) {
   txt = readLines(file)
+
+
+  # need to do this because of ` to '
+  make_bad_string = function() {
+    round(runif(1, min = 1e5, max = 1000000))
+  }
+
+  bad_string =  make_bad_string()
+  bad_quote_string = make_bad_string()
+  for (i in 1:10) {
+    # just make another
+    if (any(grepl(bad_string, txt))) {
+      bad_string =  make_bad_string()
+    }
+    if (any(grepl(bad_quote_string, txt))) {
+      bad_quote_string =  make_bad_string()
+    }
+  }
+
+  # bad_string = paste(rep("Z", 10), collapse = "")
+  if (any(grepl(bad_string, txt))) {
+    stop("need a different bad string")
+  }
+  txt = gsub("`", bad_string, txt)
+
+  # distinguish where the quotes are supposed to go
+  quote_string = paste0('" ', bad_quote_string)
+  quote_string2 = sub(" ", "", quote_string)
+
+  if (any(grepl(quote_string, txt) |
+          grepl(quote_string2, txt))) {
+    stop("need a different bad string for quotes")
+  }
+  txt = gsub('" ', quote_string, txt)
+
 
   beginning_jump = beginning_space = extra_link_text = has_tag = NULL
   is_image_link = link_text = link_value = tag = NULL
@@ -107,13 +170,37 @@ chunk_google_translate = function(file, chunk = TRUE,
     stopifnot(all(no_trans == ""))
   } else {
     df = googleLanguageR::gl_translate(
-      txt, target = "es",
+      txt, target = target,
       source = "en")
     df = df %>%
       mutate(
         nc = nchar(text),
         item = floor(cumsum(nc) / 5000) + 1)
   }
+  df = df %>%
+    mutate(
+      text = gsub(bad_string, "`", text),
+      translatedText = gsub(bad_string, "`", translatedText),
+
+      # get quoting right
+      text = gsub(paste0(" ", quote_string2), '" ', text),
+      translatedText = gsub(paste0(" ", quote_string2), '" ', translatedText),
+
+      # get quoting right
+      text = gsub(paste0(" ", quote_string), '" ', text),
+      translatedText = gsub(paste0(" ", quote_string), '" ', translatedText),
+
+
+      text = gsub(quote_string2, '" ', text),
+      translatedText = gsub(quote_string2, '" ', translatedText),
+
+      # get quoting right
+      text = gsub(quote_string, '" ', text),
+      translatedText = gsub(quote_string, '" ', translatedText),
+
+    )
+  df = df %>%
+    select(-nc)
   df
 }
 
@@ -167,7 +254,7 @@ fix_tags = function(df, verbose = TRUE) {
             "tag", "text", "translatedText"))
 
   if (verbose) {
-    msg = "Fixing Tags"
+    msg = "Fixing Tags, such as {quiz}"
     message(msg)
   }
   front_tag = "^\\{.*\\}"
@@ -207,6 +294,12 @@ fix_underscore = function(df, verbose = TRUE) {
     message(msg)
   }
   split_join = function(x, split = "_") {
+    add_space = function(x) {
+      ind = grepl("_$", x)
+      x[ind] = paste0(x[ind], " ")
+      x
+    }
+    x = add_space(x)
     ss = strsplit(x, split = split)
     ss = sapply(ss, function(r) {
       n = length(r)
@@ -244,14 +337,32 @@ fix_back_ticks = function(df, verbose = TRUE) {
   }
 
   split_join = function(text, translatedText, split = "`") {
+    # need to add " " for split
+    add_space = function(x) {
+      ind = grepl("`$", x)
+      x[ind] = paste0(x[ind], " ")
+      x
+    }
+    text = add_space(text)
+    translatedText = add_space(translatedText)
+
     ss = strsplit(text, split = split)
     ss_trans = strsplit(translatedText, split = split)
 
     ss = mapply(function(translated, orig) {
       n = length(translated)
       if (n > 1) {
-        indices = seq(2, n - 1, by = 2)
-        translated[indices] = orig[indices]
+        if (n == 2) {
+          msg = paste0("Something went wrong with the ",
+                       "backticks (orig then trans):")
+          warning(msg)
+          message(msg)
+          message(orig)
+          message(translated)
+        } else {
+          indices = seq(2, n - 1, by = 2)
+          translated[indices] = orig[indices]
+        }
       }
       translated = paste(translated, collapse = "`")
       return(translated)
@@ -262,7 +373,8 @@ fix_back_ticks = function(df, verbose = TRUE) {
   }
 
 
-
+  text = df$text
+  translatedText = df$translatedText
   df = df %>%
     mutate(translatedText = split_join(text, translatedText))
   df = replace_NA(df)
@@ -304,6 +416,12 @@ fix_bolding = function(df, verbose = TRUE) {
   xx = df
 
   split_join = function(x, split = "[*]") {
+    add_space = function(x) {
+      ind = grepl("[*]$", x)
+      x[ind] = paste0(x[ind], " ")
+      x
+    }
+    x = add_space(x)
     ss = strsplit(x, split = split)
     ss = sapply(ss, function(r) {
       n = length(r)
@@ -384,7 +502,7 @@ fix_exercises = function(df, verbose = TRUE) {
       ddf = ddf %>%
         mutate(translatedText = sub("^.*\\)", ")", translatedText),
                translatedText = paste0(answer, translatedText)
-               ) %>%
+        ) %>%
         select(-is_answer, -answer)
       ddf = ddf[, colnames(df)]
       df[indices, ] = ddf

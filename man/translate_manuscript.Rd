@@ -2,11 +2,15 @@
 % Please edit documentation in R/translate_manuscript.R
 \name{translate_manuscript}
 \alias{translate_manuscript}
+\alias{translate_script}
 \alias{chunk_google_translate}
 \title{Translate Mansucript File}
 \usage{
 translate_manuscript(file, target = "es", chunk = TRUE,
   verbose = TRUE, ...)
+
+translate_script(file, target = "es", chunk = TRUE, verbose = TRUE,
+  ...)
 
 chunk_google_translate(file, chunk = TRUE, target = "es", ...)
 }

@@ -38,7 +38,9 @@ didactr_auth = function(
       app = mooc_app(),
       scope = c("https://www.googleapis.com/auth/drive",
                 "https://www.googleapis.com/auth/youtube.force-ssl",
-                "https://www.googleapis.com/auth/presentations"),
+                "https://www.googleapis.com/auth/presentations",
+                "https://www.googleapis.com/auth/cloud-language",
+                  "https://www.googleapis.com/auth/cloud-platform"),
       cache = cache,
       use_oob = use_oob)
   } else {
