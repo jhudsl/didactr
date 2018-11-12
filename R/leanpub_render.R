@@ -16,7 +16,7 @@ leanpub_render = function(
   output_options = list(self_contained = FALSE),
   ...) {
   md_file = normalizePath(md_file, mustWork = TRUE)
-  tfile = basename(tempfile())
+  tfile = basename(tempfile(fileext = ".md"))
   tfile = file.path(dirname(md_file), tfile)
   file.copy(md_file, tfile)
   on.exit({
