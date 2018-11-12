@@ -13,14 +13,18 @@
 #' @importFrom utils browseURL
 leanpub_render = function(
   md_file,
-  output_options = list(self_contained = FALSE),
+  output_options = list(self_contained = TRUE),
   ...) {
   md_file = normalizePath(md_file, mustWork = TRUE)
   tfile = basename(tempfile(fileext = ".md"))
-  tfile = file.path(dirname(md_file), tfile)
+  run_dir = dirname(md_file)
+  tfile = file.path(run_dir, tfile)
+  stub = sub("[.]md$", "", tfile)
   file.copy(md_file, tfile)
   on.exit({
-    unlink(tfile)
+    file.remove(tfile)
+    file.remove(paste0(stub, ".html"))
+    unlink(paste0(stub, "_files"), recursive = TRUE)
   })
   x = readLines(tfile, warn = FALSE)
   image_lines = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)")
@@ -33,16 +37,19 @@ leanpub_render = function(
                          fixed = TRUE)
   }
   writeLines(x, con = tfile)
-  res = rmarkdown::render(
+  res = tempfile(fileext = ".html")
+  result = rmarkdown::render(
     input = tfile,
-    output_dir = tempdir(),
+    output_dir = run_dir,
     output_format = "html_document",
     output_options = output_options,
     ...)
+  file.copy(result, res)
   if (rstudioapi::isAvailable()) {
     rstudioapi::viewer(res)
   } else {
     browseURL(res)
   }
+  # Sys.sleep(time = 2)
   return(res)
 }
