@@ -554,9 +554,14 @@ fix_exercises = function(df, verbose = TRUE) {
             "has_tag", "is_image_link", "link_text", "link_value",
             "tag", "text", "translatedText"))
 
-  tags = c("quiz", "exercise", "exercises")
+  is_answer = answer = question_with_space = NULL
+  rm(list = c("is_answer", "answer", "question_with_space"))
+
+  is_question = is_regex = NULL
+  rm(list = c("is_regex", "is_question"))
   itag = "exercises"
 
+  tags = c("quiz", "exercise")
   for (itag in tags) {
     start_tag = paste0("^\\{", itag)
     end_tag = paste0("^\\{/", itag, "\\}")
