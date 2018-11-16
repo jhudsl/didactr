@@ -26,6 +26,7 @@
 #' info$name))
 #' id = xid
 #' translated = translate_slide(id, target = "es")
+#' drive_trash(id)
 #' }
 #'
 #' }
@@ -48,7 +49,7 @@ translate_slide = function(
   pages = sp$slides$objectId
 
   if (!is_language_auth()) {
-    warning("Google Language is not Authorized, see gl_auth")
+    stop("Google Language is not Authorized, see gl_auth")
   }
   page_id = pages[2]
   n_pages = length(pages)

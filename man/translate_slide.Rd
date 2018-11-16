@@ -36,6 +36,7 @@ xid = drive_cp(info, name = paste0("Translated ",
 info$name))
 id = xid
 translated = translate_slide(id, target = "es")
+drive_trash(id)
 }
 
 }
