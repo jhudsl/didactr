@@ -66,6 +66,8 @@ translate_slide = function(
     length = n_pages)
   names(result_list) = pages
 
+  # Get all slide text
+  tb_data = result_list
   for (page_id in pages) {
 
     if (verbose) {
@@ -76,54 +78,56 @@ translate_slide = function(
       page_object_id = page_id)
     tb_df = pp$get_text_boxes()
     tb_df = tb_df %>%
-      filter(text_content != "") %>%
-      mutate(text_content = sub("\n$", "", text_content))
-    tb = tb_df$text_content
-
-    if (length(tb) > 0) {
-      file = tempfile()
-      writeLines(tb, con = file)
-      if (detect) {
-        out = gl_detect_file(file)
-        if (out$language == target) {
-          message(page_id, " already in target language")
-          next;
-        }
-      }
-      if (verbose) {
-        message("Temporary File Created", file)
-        message("Translating ", page_id, " page_id")
-      }
-      df = chunk_google_translate(
-        file,
-        target = target,
-        chunk = TRUE,
-        fix_header = FALSE)
-      tb_new = df$translatedText
-      stopifnot(length(tb) == length(tb_new))
-      request = NULL
-      tb_df$text_replacement = tb_new
-      for (itb in seq_along(tb)) {
-        # request = add_replace_all_text_request(
-        #   google_slides_request = request,
-        #   replace_text = tb_new[itb],
-        #   text = tb[itb])
-
-        # delete text
-        request = add_delete_text_request(
-          google_slides_request = request,
-          object_id = tb_df$object_id[itb])
-        # add text
-        request = add_insert_text_request(
-          google_slides_request = request,
-          object_id = tb_df$object_id[itb],
-          text = tb_df$text_replacement[itb]
-        )
-      }
-      res = rgoogleslides::commit_to_slides(id, request)
-      result_list[[page_id]] = list(request_result = res,
-                                    table_of_changes = tb_df)
-    }
+      dplyr::filter(text_content != "") %>%
+      dplyr::mutate(text_content = sub("\n$", "", text_content))
+    tb_data[[page_id]] = tb_df
   }
-  return(result_list)
+  tb_df = dplyr::bind_rows(tb_data, .id = "page_id")
+
+  # Actually translate
+  L = list(table_of_changes = tb_df)
+  if (nrow(tb_df) > 0) {
+    tb = tb_df$text_content
+    file = tempfile()
+    writeLines(tb, con = file)
+    if (verbose) {
+      message("Temporary File Created", file)
+    }
+    if (detect) {
+      if (verbose) {
+        message("Detecting Language")
+      }
+      out = gl_detect_file(file)
+      if (out$language == target) {
+        message(page_id, " already in target language")
+        return(NULL);
+      }
+    }
+
+    df = chunk_google_translate(
+      file,
+      target = target,
+      chunk = TRUE,
+      fix_header = FALSE)
+    tb_new = df$translatedText
+    stopifnot(length(tb) == length(tb_new))
+    request = NULL
+    tb_df$text_replacement = tb_new
+    for (itb in seq_along(tb)) {
+      # delete text
+      request = add_delete_text_request(
+        google_slides_request = request,
+        object_id = tb_df$object_id[itb])
+      # add text
+      request = add_insert_text_request(
+        google_slides_request = request,
+        object_id = tb_df$object_id[itb],
+        text = tb_df$text_replacement[itb]
+      )
+    }
+    res = rgoogleslides::commit_to_slides(id, request)
+    L$table_of_changes = tb_df
+    L$request_result = res
+  }
+  return(L)
 }
