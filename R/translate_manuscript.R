@@ -187,7 +187,10 @@ chunk_google_translate = function(file, chunk = TRUE,
     df$translatedText = NA
     for (iitem in items) {
       # get the chunk to run
-      ind =  df$item == iitem & df$text != ""
+      ind =  df$item == iitem &
+        df$text != "" &
+        # added for " "
+        trimws(df$text) != ""
       run_txt = df$text[ ind ]
       # remove just ""
       if (sum(ind) != length(run_txt)) {
@@ -209,7 +212,7 @@ chunk_google_translate = function(file, chunk = TRUE,
     no_trans = df$text[is.na(df$translatedText)]
     df = df %>%
       select(translatedText, text, everything())
-    stopifnot(all(no_trans == ""))
+    stopifnot(all(trimws(no_trans) == ""))
   } else {
     df = googleLanguageR::gl_translate(
       txt, target = target,
