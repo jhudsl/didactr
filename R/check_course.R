@@ -5,6 +5,10 @@
 #' @param timezone Timezone to be used?
 #' @param require_authorization Should you authorize for Google
 #' Slides and such to check the modified time?
+#' @param use_book Use \code{Book.txt} to keep only the
+#' manuscript files that were specified.
+#'
+#'
 #' @param ... arguments to pass to \code{\link{didactr_auth}}
 #'
 #' @return A list of data frames of the checked course. Will have
@@ -28,11 +32,13 @@
 #' if (!in_ci()) {
 #' object = check_course(sc$course_dir, require_authorization = FALSE)
 #' }
-check_course = function(course_dir = ".",
-                        save_metrics = TRUE,
-                        timezone = "America/New_York",
-                        require_authorization = TRUE,
-                        ...) {
+check_course = function(
+  course_dir = ".",
+  save_metrics = TRUE,
+  timezone = "America/New_York",
+  require_authorization = TRUE,
+  use_book = FALSE,
+  ...) {
 
   lesson_name = gs_name = drive_resource = NULL
   rm(list = c("lesson_name", "gs_name", "drive_resource"))
@@ -61,7 +67,15 @@ check_course = function(course_dir = ".",
     pattern = ".md$",
     path = paths$man_path,
     full.names = TRUE)
+
+  if (use_book) {
+    book_txt = readLines(paths$book_txt)
+    book_txt = trimws(book_txt)
+    manuscript_files = manuscript_files[
+      basename(manuscript_files) %in% book_txt]
+  }
   man_stubs = sub("[.]md$", "", basename(manuscript_files))
+
 
   # md file has highest precedence
   df = data_frame(lesson = man_stubs, md_file = manuscript_files)

@@ -5,7 +5,8 @@
 \title{Check Leanpub Course}
 \usage{
 check_course(course_dir = ".", save_metrics = TRUE,
-  timezone = "America/New_York", require_authorization = TRUE, ...)
+  timezone = "America/New_York", require_authorization = TRUE,
+  use_book = FALSE, ...)
 }
 \arguments{
 \item{course_dir}{directory with course materials}
@@ -16,6 +17,9 @@ check_course(course_dir = ".", save_metrics = TRUE,
 
 \item{require_authorization}{Should you authorize for Google
 Slides and such to check the modified time?}
+
+\item{use_book}{Use \code{Book.txt} to keep only the
+manuscript files that were specified.}
 
 \item{...}{arguments to pass to \code{\link{didactr_auth}}}
 }
