@@ -13,6 +13,9 @@
 #' \code{\link{translate_script}}
 #' @param sleep_time time in seconds to sleep before running
 #' next call
+#' @param use_book Use \code{Book.txt} to keep only the
+#' manuscript files that were specified, passed to
+#' \code{\link{check_course}}
 #'
 #' @return A result from \code{\link{check_course}}
 #' @export

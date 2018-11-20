@@ -19,6 +19,10 @@ Must be google Language authorized using \code{\link{gl_auth}}}
 
 \item{verbose}{Print diagnostic messages}
 
+\item{use_book}{Use \code{Book.txt} to keep only the
+manuscript files that were specified, passed to
+\code{\link{check_course}}}
+
 \item{overwrite}{Should files be overwritten?
 If not, they are put in a temporary directory and translated.}
 
