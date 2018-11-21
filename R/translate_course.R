@@ -66,6 +66,7 @@ translate_course = function(
   res = check_course(
     course_dir,
     require_authorization = FALSE,
+    save_metrics = FALSE,
     use_book = use_book)
   cdf = res$course_summary
   # if (use_book) {
@@ -116,7 +117,9 @@ translate_course = function(
 
   res = check_course(
     course_dir,
-    require_authorization = FALSE)
+    require_authorization = FALSE,
+    save_metrics = FALSE,
+    use_book = use_book)
 
   return(res)
 }

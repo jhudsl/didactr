@@ -55,7 +55,9 @@ didactr_auth = function(
 
   # for tuber
   options(google_token = token)
-  saveRDS(token, token_file)
+  if (!file.exists(token_file)) {
+    saveRDS(token, token_file)
+  }
   googledrive::drive_auth(oauth_token = token_file)
   rgoogleslides::authorize(token = token)
   if (language) {

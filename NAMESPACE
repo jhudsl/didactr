@@ -3,6 +3,7 @@
 S3method(summary,course_check)
 export(check_course)
 export(check_didactr_auth)
+export(check_manuscript_backticks)
 export(check_structure)
 export(chunk_google_translate)
 export(create_images)

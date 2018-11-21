@@ -40,6 +40,8 @@ translate_manuscript = function(
   translatedText = NULL
   rm(list = "translatedText")
 
+  check_manuscript_backticks(file)
+
   df = chunk_google_translate(
     file,
     target = target,
@@ -733,8 +735,19 @@ fix_image_links = function(df, verbose = TRUE) {
 manuscript_header = function(txt) {
   ttxt = trimws(txt)
   empty =  which(ttxt == "")[1]
-  start_ind = grep("^\\{", ttxt)[1]
-  end_ind = grep("\\}$", ttxt)[1]
+  start_ind = grepl("^\\{", ttxt)
+  end_ind = grepl("\\}$", ttxt)
+  if (!any(start_ind) & !any(end_ind)) {
+    return(NULL)
+  }
+  start_ind = which(start_ind)[1]
+  end_ind = which(end_ind)[1]
+  if (is.na(start_ind) | is.na(end_ind)) {
+    stop(paste0("Error in parsing manuscript header, ",
+                "start_ind: ", start_ind,
+                ", end_ind: ", end_ind))
+  }
+
   if (end_ind <= empty + 1) {
     hdr = txt[seq(start_ind, end_ind)]
     return(list(header = hdr,
