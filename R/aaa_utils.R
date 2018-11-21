@@ -63,14 +63,21 @@ drive_information = function(id,
 
 
 
-gs_id_from_slide = function(fname) {
-  if (!file.exists(fname)) {
-    return(NA)
+#' Google Slides Helper Functions
+#'
+#' @param file markdown file for manuscript
+#'
+#' @return A scalar character vector
+#' @export
+#' @rdname gs_helpers
+gs_id_from_slide = function(file) {
+  if (!file.exists(file)) {
+    return(NA_character_)
   }
-  x = readLines(fname, warn = FALSE)
+  x = readLines(file, warn = FALSE)
   x = grep(x, pattern = "\\[(S|s)lides\\]", value = TRUE)
   if (!any(grepl("http", x))) {
-    return(NA)
+    return(NA_character_)
   }
   x = sub(".*\\((http.*)\\).*", "\\1", x)
   x = unlist(sapply(x, function(r) parse_url(r)$path))
@@ -80,11 +87,11 @@ gs_id_from_slide = function(fname) {
   if (length(x) > 1) {
     warning(paste0("Multiple sheets identified! Taking first.",
                    "  Please check ",
-                   fname))
+                   file))
     x = x[1]
   }
   if (length(x) == 0 || grepl("\\(\\)", x)) {
-    return(NA)
+    return(NA_character_)
   }
   return(x)
 }
@@ -92,8 +99,10 @@ gs_id_from_slide = function(fname) {
 ######################################
 # this returns the actual links in the text
 ######################################
-get_image_link_from_slide = function(fname) {
-  x = readLines(fname, warn = FALSE)
+#' @export
+#' @rdname gs_helpers
+get_image_link_from_slide = function(file) {
+  x = readLines(file, warn = FALSE)
   x = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)", value = TRUE)
   x = sub(x, pattern = "!\\[(.*)\\]\\((images.*)\\)", replacement = "\\1")
   # if (length(x) == 0) {
@@ -106,8 +115,10 @@ get_image_link_from_slide = function(fname) {
 # this returns the actual image filenames referenced
 # we will check to see if all images referenced exist
 ######################################
-get_image_from_slide = function(fname) {
-  x = readLines(fname, warn = FALSE)
+#' @export
+#' @rdname gs_helpers
+get_image_from_slide = function(file) {
+  x = readLines(file, warn = FALSE)
   x = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)", value = TRUE)
   x = sub(x, pattern = "!\\[.*\\]\\((images.*)\\)", replacement = "\\1")
   # if (length(x) == 0) {
