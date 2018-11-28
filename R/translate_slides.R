@@ -84,14 +84,32 @@ translate_slide = function(
   }
   tb_df = dplyr::bind_rows(tb_data, .id = "page_id")
 
+  make_bad_string = function() {
+    x = round(runif(1, min = 1e5, max = 1000000))
+    x = paste0(x, ";")
+  }
+
+
   # Actually translate
   L = list(table_of_changes = tb_df)
   if (nrow(tb_df) > 0) {
+    bad_string =  make_bad_string()
+    for (i in 1:10) {
+      # just make another
+      if (any(grepl(bad_string, tb_df$text_content))) {
+        bad_string =  make_bad_string()
+      }
+    }
+    stopifnot(!any(grepl(bad_string, tb_df$text_content)))
+    tb_df$text_content = gsub("\n", bad_string,
+                              tb_df$text_content)
+
     tb = tb_df$text_content
     file = tempfile()
     writeLines(tb, con = file)
     if (verbose) {
-      message("Temporary File Created", file)
+      message("Temporary File Created: ", file,
+              " with bad_string: ", bad_string)
     }
     if (detect) {
       if (verbose) {
@@ -109,8 +127,20 @@ translate_slide = function(
       target = target,
       chunk = TRUE,
       fix_header = FALSE)
+    df$translatedText = gsub(
+      bad_string, "\n",
+      df$translatedText)
+    df$text = gsub(
+      bad_string, "\n",
+      df$text)
+    tb_df$text_content = gsub(
+      bad_string, "\n", tb_df$text_content)
+    tb = gsub(bad_string, "\n", tb)
+
     tb_new = df$translatedText
     stopifnot(length(tb) == length(tb_new))
+    stopifnot(!any(grepl(bad_string, tb_new)))
+    stopifnot(!any(grepl(bad_string, tb)))
     request = NULL
     tb_df$text_replacement = tb_new
     for (itb in seq_along(tb)) {

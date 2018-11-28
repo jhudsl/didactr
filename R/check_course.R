@@ -252,6 +252,8 @@ check_course = function(
     x = sub("(^!\\[.+\\]\\()(.+)(\\))","\\2",x[line])
     # remove images
     x = x[!startsWith(x, "images")]
+    # remove images if accidentally with resources
+    x = x[!startsWith(x, "resources/images")]
     if (length0(x)) {
       return(NA)
     }

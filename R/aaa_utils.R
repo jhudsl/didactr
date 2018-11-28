@@ -62,6 +62,22 @@ drive_information = function(id,
 }
 
 
+drive_find_folder = function(
+  pattern = "^cds",
+  ..., shared_with_me = FALSE) {
+
+  args = list(...)
+  args$pattern = pattern
+  if (shared_with_me) {
+    if ("q" %in% names(args)) {
+      warning("q is overridden when finding")
+    }
+    args$q = "sharedWithMe"
+  }
+  args$type = "folder"
+  do.call(googledrive::drive_find, args = args)
+}
+
 
 #' Google Slides Helper Functions
 #'
@@ -115,8 +131,6 @@ get_image_link_from_slide = function(file) {
 # this returns the actual image filenames referenced
 # we will check to see if all images referenced exist
 ######################################
-#' @export
-#' @rdname gs_helpers
 get_image_from_slide = function(file) {
   x = readLines(file, warn = FALSE)
   x = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)", value = TRUE)
