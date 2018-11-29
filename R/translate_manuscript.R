@@ -226,7 +226,7 @@ chunk_google_translate = function(file, chunk = TRUE,
         nc = nchar(text),
         item = floor(cumsum(nc) / 5000) + 1)
   }
-  if (length(code) > 0) {
+  if (sum(original_df$is_code) > 0) {
     code_log_ind = original_df$is_code
     # replace the code back
     rep_txt = original_df$original_text[code_log_ind]

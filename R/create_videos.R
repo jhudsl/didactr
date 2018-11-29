@@ -40,8 +40,14 @@ create_videos <- function(
   sapply(df$lesson,
          function(x) {
            lesson_index = df$lesson == x
+
            idf = df[lesson_index,]
-           if (!idf$has_vid_file | idf$vid_more_recent | idf$scr_more_recent) {
+
+           if (
+             na_true(
+               (!idf$has_vid_file | idf$vid_more_recent | idf$scr_more_recent)
+             )
+           ){
              files <- list.files(
                path = file.path(paths$img_path, x),
                full.names = TRUE,

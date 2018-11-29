@@ -15,9 +15,9 @@
 #'  res = strip_manuscript(file)
 strip_manuscript = function(file) {
   header = is_code = item_number = item_list = NULL
-  bold_header = NULL
+  text = image = bold_header = NULL
   rm(list = c("is_code", "item_list", "item_number",
-              "header", "bold_header"))
+              "header", "bold_header", "text", "image"))
   x = readLines(file, warn = FALSE)
   df = flag_code_chunks(x = x)
   # remove images
