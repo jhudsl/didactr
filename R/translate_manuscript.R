@@ -131,28 +131,30 @@ chunk_google_translate = function(file, chunk = TRUE,
   }
 
   nc = nchar(txt)
-  original_df = data.frame(text = txt,
-                           nc = nc,
-                           stringsAsFactors = FALSE)
+  original_df = flag_code_chunks(txt)
+  original_df$nc = nc
+  # original_df = data.frame(text = txt,
+  #                          nc = nc,
+  #                          stringsAsFactors = FALSE)
 
-
-  code = grep("^```", original_df$text)
-  if (length(code) > 0) {
-    # has to have start/stop
-    if (length(code) %% 2 != 0) {
-      stop("Code blocks are not balanced (one open for one ending), stopping!")
-    }
-    code_start = code[seq(1, length(code) - 1, by = 2)]
-    code_end = code[seq(2, length(code), by = 2)]
-    code_indices = mapply(function(start, stop) {
-      seq(start, stop)
-    }, code_start, code_end, SIMPLIFY = FALSE)
-    code_indices = c(unlist(code_indices))
-    original_df$is_code = FALSE
-    original_df$is_code[code_indices] = TRUE
-    original_df$original_text = original_df$text
-    original_df$text[ original_df$is_code ] = ""
-  }
+  # res = flag_code_chunks()
+  # code = grep("^```", original_df$text)
+  # if (length(code) > 0) {
+  #   # has to have start/stop
+  #   if (length(code) %% 2 != 0) {
+  #     stop("Code blocks are not balanced (one open for one ending), stopping!")
+  #   }
+  #   code_start = code[seq(1, length(code) - 1, by = 2)]
+  #   code_end = code[seq(2, length(code), by = 2)]
+  #   code_indices = mapply(function(start, stop) {
+  #     seq(start, stop)
+  #   }, code_start, code_end, SIMPLIFY = FALSE)
+  #   code_indices = c(unlist(code_indices))
+  #   original_df$is_code = FALSE
+  #   original_df$is_code[code_indices] = TRUE
+  #   original_df$original_text = original_df$text
+  #   original_df$text[ original_df$is_code ] = ""
+  # }
 
   # single backticks
     # bad_string = paste(rep("Z", 10), collapse = "")

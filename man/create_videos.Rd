@@ -5,12 +5,22 @@
 \title{Create video from script and PNGs}
 \usage{
 create_videos(course_status = NULL, voice = "Joanna",
+  ffmpeg_opts = "-minrate 16M -vf \\"scale=1200:720\\"",
+  divisible_height = FALSE, video_bitrate = "16M",
   audio_codec = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{course_status}{output from \code{\link{check_course}}}
 
 \item{voice}{Voice to pass to \code{\link{ari_spin}}}
+
+\item{ffmpeg_opts}{ffmpeg options to pass to \code{\link{ari_spin}}}
+
+\item{divisible_height}{should heights be divisible?
+Advanced usage to pass to \code{\link{ari_spin}}}
+
+\item{video_bitrate}{video bitrate to enforce.
+Advanced usage to pass to \code{\link{ari_spin}}}
 
 \item{audio_codec}{audio codec to pass to \code{\link{ari_spin}}}
 

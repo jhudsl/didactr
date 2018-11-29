@@ -4,6 +4,11 @@
 #' @param voice Voice to pass to \code{\link{ari_spin}}
 #' @param audio_codec audio codec to pass to \code{\link{ari_spin}}
 #' @param verbose Should diagnostic messages be printed
+#' @param ffmpeg_opts ffmpeg options to pass to \code{\link{ari_spin}}
+#' @param divisible_height should heights be divisible?
+#' Advanced usage to pass to \code{\link{ari_spin}}
+#' @param video_bitrate video bitrate to enforce.
+#' Advanced usage to pass to \code{\link{ari_spin}}
 #' @param ... additional arguments passed to \code{\link{ari_spin}}
 #'
 #' @return A `data.frame` output from \code{\link{check_course}}
@@ -13,6 +18,9 @@
 create_videos <- function(
   course_status = NULL,
   voice = "Joanna",
+  ffmpeg_opts = '-minrate 16M -vf "scale=1200:720"',
+  divisible_height = FALSE,
+  video_bitrate = "16M",
   audio_codec = NULL,
   verbose = TRUE,
   ...){
@@ -87,16 +95,29 @@ create_videos <- function(
                if (is.null(audio_codec)) {
                  audio_codec = ari::get_audio_codec()
                }
-               ari::ari_spin(
+               # ari::ari_spin(
+               #   paragraphs = para,
+               #   images = files,
+               #   voice = voice,
+               #   output = file.path(paths$vid_path,paste0(x,'.mp4')),
+               #   ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"',
+               #   verbose = verbose,
+               #   audio_codec = audio_codec,
+               #   ...
+               # )
+               res = ari::ari_spin(
                  paragraphs = para,
                  images = files,
                  voice = voice,
                  output = file.path(paths$vid_path,paste0(x,'.mp4')),
-                 ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"',
+                 divisible_height = divisible_height,
+                 video_bitrate = video_bitrate,
+                 ffmpeg_opts = ffmpeg_opts,
                  verbose = verbose,
                  audio_codec = audio_codec,
                  ...
                )
+
                ### Ask SHANNON - does this even matter since running
                ### check_course below?
                ## update df
