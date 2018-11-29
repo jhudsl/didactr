@@ -203,7 +203,7 @@ check_course = function(
   ## to be used to see if slides have been updated more recently
   ## (images should then be re-rendered)
   mod_files = list.files(
-    pattern = "-1.png",
+    pattern = "-(0|)1.png",
     path = file.path(paths$img_path, df$lesson),
     full.names = TRUE)
   mod_times = bind_cols(
@@ -301,7 +301,7 @@ check_course = function(
   df = df %>%
     mutate(
       mod_time_vid = mod_time_to_tz_time(vid_file, timezone = timezone),
-      has_vid_file = ifelse(is.na(vid_file), FALSE, TRUE),
+      has_vid_file = file.exists(vid_file),
       vid_more_recent = ifelse(is.na(mod_time_vid), TRUE, mod_time_pngs > mod_time_vid),
       scr_more_recent = ifelse(is.na(has_scr_file), TRUE , mod_time_scr > mod_time_vid)
     )

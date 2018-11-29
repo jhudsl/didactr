@@ -26,7 +26,8 @@ create_videos <- function(
   ...){
 
   if (is.character(course_status)) {
-    course_status = check_course(course_dir = course_status)
+    course_status = check_course(course_dir = course_status,
+                                 require_authorization = FALSE)
   }
   df = course_status$course_summary
   paths = course_status$paths
@@ -140,6 +141,7 @@ create_videos <- function(
            }
          })
   ret = check_course(course_dir = course_status$course_dir,
-                     save_metrics = course_status$save_metrics)
+                     save_metrics = course_status$save_metrics,
+                     require_authorization = FALSE)
   return(ret)
 }
