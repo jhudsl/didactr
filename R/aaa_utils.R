@@ -119,8 +119,8 @@ gs_id_from_slide = function(file) {
 #' @rdname gs_helpers
 get_image_link_from_slide = function(file) {
   x = readLines(file, warn = FALSE)
-  x = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)", value = TRUE)
-  x = sub(x, pattern = "!\\[(.*)\\]\\((images.*)\\)", replacement = "\\1")
+  x = grep(x, pattern = "!\\[.*\\]\\(((resources/|)images.*)\\)", value = TRUE)
+  x = sub(x, pattern = "!\\[(.*)\\]\\(((resources/|)images.*)\\)", replacement = "\\1")
   # if (length(x) == 0) {
   #   return(NA)
   # }
@@ -131,10 +131,12 @@ get_image_link_from_slide = function(file) {
 # this returns the actual image filenames referenced
 # we will check to see if all images referenced exist
 ######################################
+#' @export
+#' @rdname gs_helpers
 get_image_from_slide = function(file) {
   x = readLines(file, warn = FALSE)
-  x = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)", value = TRUE)
-  x = sub(x, pattern = "!\\[.*\\]\\((images.*)\\)", replacement = "\\1")
+  x = grep(x, pattern = "!\\[.*\\]\\(((resources/|)images.*)\\)", value = TRUE)
+  x = sub(x, pattern = "!\\[.*\\]\\(((resources/|)images.*)\\)", replacement = "\\1")
   # if (length(x) == 0) {
   #   return(NA)
   # }
