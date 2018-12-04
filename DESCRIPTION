@@ -32,7 +32,8 @@ Imports:
     rgoogleslides (>= 0.3.1),
     googleLanguageR,
     googleAuthR,
-    english
+    english,
+    yaml
 Suggests: 
     knitr,
     covr,

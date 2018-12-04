@@ -28,13 +28,10 @@ Translate Swirl YAML to another language
 }
 \examples{
 \dontrun{
-library(googledrive)
-check_didactr_auth()
-x = c("- Class: meta", 
-"  Course: Test Class", "  Lesson: Test lesson", 
-"  Author: Shannon Ellis", "", "- Class: text", 
+x = c("- Class: meta",
+"  Course: Test Class", "  Lesson: Test lesson",
+"  Author: Shannon Ellis", "", "- Class: text",
 "  Output: This is an example with code `df`.")
-)
 tfile = tempfile(fileext = ".yml")
 writeLines(x, tfile)
 translate_swirl(tfile, outfile = tfile)

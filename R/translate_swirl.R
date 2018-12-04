@@ -14,15 +14,13 @@
 #' @importFrom rgoogleslides add_delete_text_request add_insert_text_request
 #' @importFrom googledrive is_dribble
 #'
+#' @importFrom yaml yaml.load_file write_yaml
 #' @examples
 #' \dontrun{
-#' library(googledrive)
-#' check_didactr_auth()
-#' x = c("- Class: meta", 
-#' "  Course: Test Class", "  Lesson: Test lesson", 
-#' "  Author: Shannon Ellis", "", "- Class: text", 
+#' x = c("- Class: meta",
+#' "  Course: Test Class", "  Lesson: Test lesson",
+#' "  Author: Shannon Ellis", "", "- Class: text",
 #' "  Output: This is an example with code `df`.")
-#' )
 #' tfile = tempfile(fileext = ".yml")
 #' writeLines(x, tfile)
 #' translate_swirl(tfile, outfile = tfile)
@@ -34,41 +32,36 @@ translate_swirl = function(
   target = "es",
   detect = TRUE,
   verbose = TRUE) {
-  
-  files = list.files(pattern = "[.]y(a|)ml$", recursive = TRUE)
-  file =files[1]
-  
-  library(yaml)
-  yamls = lapply(files, yaml.load_file)
-  yaml = yaml.load_file(file)
-  
-  # only options are 
-  # c("Class", "Output", "CorrectAnswer", "AnswerTests", "Hint", 
+
+  yaml = yaml::yaml.load_file(file)
+
+  # only options are
+  # c("Class", "Output", "CorrectAnswer", "AnswerTests", "Hint",
   # "AnswerChoices")
-  
+
   hints = lapply(yaml, `[[`, "Hint")
   output = lapply(yaml, `[[`, "Output")
-  
+
   null_empty = function(x) {
     if (is.null(x)) {
       x = ""
     }
     x
   }
-  
+
   new_hints = sapply(hints, null_empty)
   new_out = sapply(output, null_empty)
-  
+
   if (!is_language_auth()) {
     stop("Google Language is not Authorized, see gl_auth")
   }
   # Get all slide text
-  
+
   make_bad_string = function() {
     x = round(runif(1, min = 1e5, max = 1000000))
     x = paste0(x, ";")
   }
-  
+
   tb_df = dplyr::bind_rows(
     data_frame(
       text_content = new_hints,
@@ -90,7 +83,7 @@ translate_swirl = function(
     stopifnot(!any(grepl(bad_string, tb_df$text_content)))
     tb_df$text_content = gsub("\n", bad_string,
                               tb_df$text_content)
-    
+
     tb = tb_df$text_content
     file = tempfile()
     writeLines(tb, con = file)
@@ -108,7 +101,7 @@ translate_swirl = function(
         return(NULL);
       }
     }
-    
+
     df = chunk_google_translate(
       file,
       target = target,
@@ -123,16 +116,16 @@ translate_swirl = function(
     tb_df$text_content = gsub(
       bad_string, "\n", tb_df$text_content)
     tb = gsub(bad_string, "\n", tb)
-    
+
     tb_new = df$translatedText
     stopifnot(length(tb) == length(tb_new))
     stopifnot(!any(grepl(bad_string, tb_new)))
     stopifnot(!any(grepl(bad_string, tb)))
-    
+
     df$type = tb_df$type
     df$translatedText[ is.na(df$translatedText)] = ""
     new_data = split(df, df$type)
-    
+
     i = 1
     out_yaml = yaml
     for (i in seq_along(yaml)) {
@@ -144,10 +137,10 @@ translate_swirl = function(
       if ("Output" %in% names(x) &
           !is.null(x$Output)) {
         x$Output = new_data$Output$translatedText[i]
-      }  
+      }
       out_yaml[[i]] = x
     }
-    
+
     yaml::write_yaml(x = out_yaml, file = outfile)
     return(outfile)
   } else {
