@@ -7,12 +7,11 @@
 #' Must be google Language authorized using \code{\link{gl_auth}}
 #' @param target language to translate to, see \code{\link{gl_translate}}
 #' @param verbose Print diagnostic messages
+#' @param ... additional options to pass to \code{\link{write_yaml}}
 #'
-#' @return A list of results from \code{\link{commit_to_slides}}
+#' @return A filename of the output file.  The attribute
+#'  \code{target_language} is also given to the filename.
 #' @export
-#'
-#' @importFrom rgoogleslides add_delete_text_request add_insert_text_request
-#' @importFrom googledrive is_dribble
 #'
 #' @importFrom yaml yaml.load_file write_yaml
 #' @examples
@@ -31,7 +30,8 @@ translate_swirl = function(
   outfile = tempfile(fileext = ".yml"),
   target = "es",
   detect = TRUE,
-  verbose = TRUE) {
+  verbose = TRUE,
+  ...) {
 
   yaml = yaml::yaml.load_file(file)
 
@@ -97,7 +97,7 @@ translate_swirl = function(
       }
       out = gl_detect_file(file)
       if (out$language == target) {
-        message(page_id, " already in target language")
+        message(file, " already in target language")
         return(NULL);
       }
     }
@@ -141,7 +141,7 @@ translate_swirl = function(
       out_yaml[[i]] = x
     }
 
-    yaml::write_yaml(x = out_yaml, file = outfile)
+    yaml::write_yaml(x = out_yaml, file = outfile, ...)
     return(outfile)
   } else {
     if (file != outfile) {

@@ -5,7 +5,7 @@
 \title{Translate Swirl YAML to another language}
 \usage{
 translate_swirl(file, outfile = tempfile(fileext = ".yml"),
-  target = "es", detect = TRUE, verbose = TRUE)
+  target = "es", detect = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{YAML file for Swirl lesson}
@@ -19,9 +19,12 @@ check that the language is not currently the target?
 Must be google Language authorized using \code{\link{gl_auth}}}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{...}{additional options to pass to \code{\link{write_yaml}}}
 }
 \value{
-A list of results from \code{\link{commit_to_slides}}
+A filename of the output file.  The attribute
+ \code{target_language} is also given to the filename.
 }
 \description{
 Translate Swirl YAML to another language
