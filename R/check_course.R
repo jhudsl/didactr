@@ -266,13 +266,14 @@ check_course = function(
       has_you = grepl("you", x)
       if (sum(has_you) == 1) {
         x = x[has_you]
+      } else {
+        msg = paste0("MULTIPLE LINES found for Youtube Link ", fname,
+                     ", keeping first")
+        message(msg)
+        print(x)
+        warning(msg)
+        x = x[1]
       }
-      msg = paste0("MULTIPLE LINES found for Youtube Link ", fname,
-                   ", keeping first")
-      message(msg)
-      print(x)
-      warning(msg)
-      x = x[1]
     }
     if (!is.na(x)) {
       if (!grepl("you", x)) {
