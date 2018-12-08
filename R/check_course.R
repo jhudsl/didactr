@@ -254,6 +254,7 @@ check_course = function(
     x = x[!startsWith(x, "images")]
     # remove images if accidentally with resources
     x = x[!startsWith(x, "resources/images")]
+    x = x[!grepl(pattern = "docs[.]google[.]com/", x)]
     if (length0(x)) {
       return(NA)
     }

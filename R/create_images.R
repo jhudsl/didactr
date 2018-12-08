@@ -2,11 +2,16 @@
 #' Create PDF and PNGs from Google Slides
 #'
 #' @param course_status output from \code{\link{check_course}}
+#' @param use_gs_ids use Google slide identifiers for the naming,
+#' passed to \code{\link{gs_convert}}
 #' @param ... additional arguments passed to \code{\link{gs_convert}}
 #'
 #' @return Downloaded PDF and PNGs.
 #' @export
-create_images <- function(course_status = NULL, ...) {
+create_images <- function(
+  course_status = NULL,
+  use_gs_ids = FALSE,
+  ...) {
   if (is.character(course_status)) {
     course_status = check_course(course_dir = course_status)
   }
@@ -32,7 +37,9 @@ create_images <- function(course_status = NULL, ...) {
                  id = x,
                  PPTX = FALSE,
                  out_dir = out_dir,
-                 output_type = "png", ...)
+                 output_type = "png",
+                 use_gs_ids = use_gs_ids,
+                 ...)
                filename =  paste0(idf$course_info,".pdf")
                file.copy(res$pdf,
                          to = file.path(paths$img_path, idf$lesson,filename),

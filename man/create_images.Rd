@@ -4,10 +4,13 @@
 \alias{create_images}
 \title{Create PDF and PNGs from Google Slides}
 \usage{
-create_images(course_status = NULL, ...)
+create_images(course_status = NULL, use_gs_ids = FALSE, ...)
 }
 \arguments{
 \item{course_status}{output from \code{\link{check_course}}}
+
+\item{use_gs_ids}{use Google slide identifiers for the naming,
+passed to \code{\link{gs_convert}}}
 
 \item{...}{additional arguments passed to \code{\link{gs_convert}}}
 }
