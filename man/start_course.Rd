@@ -2,10 +2,14 @@
 % Please edit documentation in R/start_course.R
 \name{start_course}
 \alias{start_course}
+\alias{create_course}
 \title{Starting a Course, Light wrapper for \code{\link{make_course}}}
 \usage{
 start_course(course_name, root_path = ".", book_txt = NULL,
-  verbose = TRUE, ...)
+  verbose = TRUE, rstudio = FALSE, open = FALSE, ...)
+
+create_course(course_name, root_path = ".", book_txt = NULL,
+  verbose = TRUE, rstudio = FALSE, open = FALSE, ...)
 }
 \arguments{
 \item{course_name}{Name of the course.  Any spaces will be set to
@@ -17,6 +21,13 @@ underscores}
 files and course names}
 
 \item{verbose}{print diagnostic messages}
+
+\item{rstudio}{If \code{TRUE}, calls \code{use_rstudio()} to
+make the new package or project into an RStudio Project.}
+
+\item{open}{If \code{TRUE}, activates the new project:
+If RStudio desktop, the package is opened in a new session.
+Otherwise, the working directory and active project is changed.}
 
 \item{...}{additional argument to pass to \code{\link{make_lesson}}}
 }
