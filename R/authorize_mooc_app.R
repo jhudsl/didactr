@@ -15,6 +15,8 @@ mooc_app = function() {
 #' @param token_file If the \code{token} has been saved, use this file
 #' to load the credentials.
 #' @param language Should the language API be authorized (experimental)
+#' @param token you can pass the token directly instead of the file
+#' if you want
 #'
 #' @return The auth token, a Token class.
 #' @export
@@ -29,28 +31,31 @@ didactr_auth = function(
   token_file = NULL,
   cache = FALSE,
   language = FALSE,
-  use_oob = FALSE) {
+  use_oob = FALSE,
+  token = NULL) {
 
   if (is.null(token_file)) {
     token_file = tempfile(fileext = ".rds")
   }
-  if (!file.exists(token_file)) {
-    scope = c("https://www.googleapis.com/auth/drive",
-              "https://www.googleapis.com/auth/youtube.force-ssl",
-              "https://www.googleapis.com/auth/presentations")
-    if (language) {
-      scope = c(scope,
-                "https://www.googleapis.com/auth/cloud-language",
-                "https://www.googleapis.com/auth/cloud-platform")
+  if (is.null(token)) {
+    if (!file.exists(token_file)) {
+      scope = c("https://www.googleapis.com/auth/drive",
+                "https://www.googleapis.com/auth/youtube.force-ssl",
+                "https://www.googleapis.com/auth/presentations")
+      if (language) {
+        scope = c(scope,
+                  "https://www.googleapis.com/auth/cloud-language",
+                  "https://www.googleapis.com/auth/cloud-platform")
+      }
+      token <- httr::oauth2.0_token(
+        endpoint = httr::oauth_endpoints("google"),
+        app = mooc_app(),
+        scope = scope,
+        cache = cache,
+        use_oob = use_oob)
+    } else {
+      token = readRDS(token_file)
     }
-    token <- httr::oauth2.0_token(
-      endpoint = httr::oauth_endpoints("google"),
-      app = mooc_app(),
-      scope = scope,
-      cache = cache,
-      use_oob = use_oob)
-  } else {
-    token = readRDS(token_file)
   }
 
   # for tuber

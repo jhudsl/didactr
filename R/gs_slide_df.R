@@ -39,6 +39,15 @@ gs_slide_df = function(id) {
   # res = res$parsed
   # }
   slides = res$slides
+  slides$png_url = paste0(
+    "https://docs.google.com/presentation/d/",
+    id, "/export/png?id=", id,
+    "&pageid=", slides$objectId)
+  slides$png_df = dplyr::tibble(
+    page_id = slides$objectId,
+    png_url = slides$png_url
+  )
+
   return(slides)
 }
 
@@ -266,3 +275,18 @@ gs_replace_notes = function(
   return(all_results)
 
 }
+
+# gs_slide_dt = function(id) {
+#   png_url = png = page_id = NULL
+#   rm(list = c("png", "png_url", "page_id"))
+#
+#   slides = gs_slide_df(id)
+#   df = slides$png_df
+#   df = df %>%
+#     mutate(
+#       png = paste0('<img src="', png_url, '">')
+#       # png = paste0("![Image](", png_url, ")")
+#     ) %>%
+#     select(page_id, png)
+#   dt = DT::datatable(df, escape = FALSE)
+# }

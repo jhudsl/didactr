@@ -11,6 +11,7 @@
 #' @param slide_id ID to slide deck on Google Slides.
 #' @param make_slide_deck Create a slide deck on Google Slides if
 #' no link is provided.
+#' @param rmd Should an Rmd (Rmarkdown) be made versus a Markdown?
 #' @param ... arguments passed to \code{\link{check_didactr_auth}}
 #'
 #' @return A list of the created markdown manuscript file and script files.
@@ -65,9 +66,12 @@ make_lesson = function(
   md_file = NULL,
   make_slide_deck = FALSE,
   slide_id = NULL,
+  rmd = FALSE,
   ...) {
 
-  template_file = system.file("extdata", "00_template.md", package = "didactr")
+  ext = ifelse(rmd, ".Rmd", ".md")
+  fname = paste0("00_template", ext)
+  template_file = system.file("extdata", fname, package = "didactr")
   template = readLines(template_file, warn = FALSE)
   template = gsub("Lesson Name", lesson_name, template, fixed = TRUE)
 

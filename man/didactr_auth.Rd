@@ -8,7 +8,7 @@
 \title{Authorize Application for didactr}
 \usage{
 didactr_auth(token_file = NULL, cache = FALSE, language = FALSE,
-  use_oob = FALSE)
+  use_oob = FALSE, token = NULL)
 
 check_didactr_auth(...)
 
@@ -26,6 +26,9 @@ using the default cache file \code{.httr-oauth}}
 \item{language}{Should the language API be authorized (experimental)}
 
 \item{use_oob}{use a local webserver for the OAuth dance}
+
+\item{token}{you can pass the token directly instead of the file
+if you want}
 
 \item{...}{Arguments passed to \code{\link{didactr_auth}}}
 }

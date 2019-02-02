@@ -6,7 +6,7 @@
 \usage{
 pdf_to_images(pdf_file, out_dir = NULL,
   extra.opts = "-density 300 -quality 100", stub = "img_\%04d",
-  output_type = "png")
+  output_type = "png", convert = "convert")
 }
 \arguments{
 \item{pdf_file}{Filename of PDF file}
@@ -21,6 +21,8 @@ will be overwritten}
 digits and such}
 
 \item{output_type}{Type of output, such as `png` or `jpg`}
+
+\item{convert}{converter passed to \code{\link{im.convert}}}
 }
 \value{
 A character vector of filenames

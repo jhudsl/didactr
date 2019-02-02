@@ -8,6 +8,7 @@
 #' @param out_dir Output directory.  If `NULL`, then a temporary directory
 #' will be used.  If files of the same name are in the `out_dir`, these
 #' will be overwritten
+#' @param convert converter passed to \code{\link{im.convert}}
 #'
 #' @return A character vector of filenames
 #' @export
@@ -22,7 +23,8 @@ pdf_to_images = function(
   out_dir = NULL,
   extra.opts = "-density 300 -quality 100" ,
   stub = "img_%04d",
-  output_type = "png"){
+  output_type = "png",
+  convert = "convert"){
   Sys.setenv(MAGICK_THREAD_LIMIT = 1);
 
   pdf_file = normalizePath(pdf_file, mustWork = TRUE)
@@ -50,7 +52,8 @@ pdf_to_images = function(
   # convert it
   im.convert(pdf_file,
              output = png_types,
-             extra.opts = extra.opts)
+             extra.opts = extra.opts,
+             convert = convert)
   results = list.files(path = tdir,
                        full.names = TRUE)
   if (!is.null(out_dir)) {

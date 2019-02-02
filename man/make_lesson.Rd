@@ -6,7 +6,8 @@
 \title{Make a Lesson}
 \usage{
 make_lesson(lesson_name, course_dir = ".", verbose = TRUE,
-  md_file = NULL, make_slide_deck = FALSE, slide_id = NULL, ...)
+  md_file = NULL, make_slide_deck = FALSE, slide_id = NULL,
+  rmd = FALSE, ...)
 
 make_lessons_from_book(course_dir = ".", verbose = TRUE, ...)
 }
@@ -26,6 +27,8 @@ and use that for the file name.}
 no link is provided.}
 
 \item{slide_id}{ID to slide deck on Google Slides.}
+
+\item{rmd}{Should an Rmd (Rmarkdown) be made versus a Markdown?}
 
 \item{...}{arguments passed to \code{\link{check_didactr_auth}}}
 }

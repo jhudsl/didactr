@@ -33,6 +33,7 @@ Imports:
     googleLanguageR,
     googleAuthR,
     english,
+    usethis,
     yaml
 Suggests: 
     knitr,
