@@ -7,7 +7,7 @@
 \usage{
 create_lesson(lesson_name, course_dir = ".", verbose = TRUE,
   md_file = NULL, make_slide_deck = FALSE, slide_id = NULL,
-  rmd = FALSE, open = FALSE, ...)
+  extract_code = FALSE, rmd = extract_code, open = FALSE, ...)
 
 create_lessons_from_book(course_dir = ".", verbose = TRUE, ...)
 }
@@ -27,6 +27,10 @@ and use that for the file name.}
 no link is provided.}
 
 \item{slide_id}{ID to slide deck on Google Slides.}
+
+\item{extract_code}{If you have text with \code{#rstats} in the
+slide or \code{#rstats} in the Alt-text title, code will be
+included}
 
 \item{rmd}{Should an Rmd (Rmarkdown) be made versus a Markdown?}
 

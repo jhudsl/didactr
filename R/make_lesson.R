@@ -13,6 +13,9 @@
 #' no link is provided.
 #' @param rmd Should an Rmd (Rmarkdown) be made versus a Markdown?
 #' @param open should the file be opened for editing?
+#' @param extract_code If you have text with \code{#rstats} in the
+#' slide or \code{#rstats} in the Alt-text title, code will be
+#' included
 #' @param ... arguments passed to \code{\link{check_didactr_auth}}
 #'
 #' @return A list of the created markdown manuscript file and script files.
@@ -69,7 +72,8 @@ create_lesson = function(
   md_file = NULL,
   make_slide_deck = FALSE,
   slide_id = NULL,
-  rmd = FALSE,
+  extract_code = FALSE,
+  rmd = extract_code,
   open = FALSE,
   ...) {
 
@@ -94,7 +98,7 @@ create_lesson = function(
     # add in quiz name and such
     stub = paste0(number, "_", file_name)
 
-    file_name = paste0(stub, ".md")
+    file_name = paste0(stub, ext)
   } else {
     md_file = trimws(md_file)
     stopifnot(grepl("md$", md_file))
@@ -161,13 +165,17 @@ create_lesson = function(
     slide_df = gs_slide_df(slide_id)
     notes = notes_from_slide_output(slide_df)
     markdown_pngs = slide_df$png_markdown
+    code = slide_df$code
+    code[ is.na(code) ] = ""
     # add the notes to the
     script = notes
     script[ script %in% ""] = ";"
     script = gsub("\n", " ", script)
     notes = paste0("<!-- Notes from Slide ", slide_df$objectId, "-->\n",
                    notes, "\n")
-
+    if (extract_code) {
+      notes = paste0(notes, code, "\n")
+    }
     # markdown_pngs = c(t(cbind(notes, markdown_pngs)))
     markdown_pngs = paste0(notes, markdown_pngs)
     ind = grep("SLIDESHERE", template, fixed = TRUE)

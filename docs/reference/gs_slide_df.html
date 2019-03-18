@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">didactr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>gs_slide_df</span>(<span class='no'>id</span>)
+    <pre class="usage"><span class='fu'>gs_slide_df</span>(<span class='no'>id</span>, <span class='kw'>extract_code</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>notes_from_slide</span>(<span class='no'>id</span>)
 
@@ -149,6 +149,12 @@
       <th>id</th>
       <td><p>Slide id passed to <code>get_slides_properties</code> after passing
 through <code>as_id</code></p></td>
+    </tr>
+    <tr>
+      <th>extract_code</th>
+      <td><p>If you have text with <code>#rstats</code> in the
+slide or <code>#rstats</code> in the Alt-text title, code will be
+included</p></td>
     </tr>
     <tr>
       <th>slides</th>

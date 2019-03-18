@@ -2,6 +2,9 @@
 #'
 #' @param id Slide id passed to \code{\link{get_slides_properties}} after passing
 #' through \code{\link{as_id}}
+#' @param extract_code If you have text with \code{#rstats} in the
+#' slide or \code{#rstats} in the Alt-text title, code will be
+#' included
 #'
 #' @return A \code{data.frame} of the identifiers and properties of the
 #' slides
@@ -26,7 +29,7 @@
 #' })
 #' notes
 #' }
-gs_slide_df = function(id) {
+gs_slide_df = function(id, extract_code = TRUE) {
   check_didactr_auth()
   if (inherits(id, "data.frame")) {
     id = id$id[1]
@@ -50,7 +53,9 @@ gs_slide_df = function(id) {
     png_markdown = slides$png_markdown
   )
   slides = tibble::as_tibble(slides)
-
+  if (extract_code) {
+    slides$code = gs_code_from_slides(slides)
+  }
   return(slides)
 }
 
