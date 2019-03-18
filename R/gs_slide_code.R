@@ -79,7 +79,7 @@ grab_shape_text = function(shape) {
   if (is.null(tc) & is.null(st)) {
     return(NULL)
   }
-  df = tibble::tibble(
+  df = dplyr::tibble(
     shape_type = st,
     content = tc
   )
@@ -118,6 +118,8 @@ grab_slide_text = function(slides) {
 
 
 gs_code_from_slides = function(slides) {
+  title = NULL
+  rm(list = c("title"))
   texts = grab_slide_text(slides)
 
   # i = 1
