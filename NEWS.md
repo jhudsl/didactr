@@ -1,3 +1,11 @@
+# didactr 0.6.0
+
+* `make_lesson` now can create a slide deck with the pngs embedded. 
+
+# didactr 0.5.12
+
+* `make_lesson` now can create a slide deck with the pngs embedded. 
+
 # didactr 0.3.1
 
 * CRAN submission candidate.

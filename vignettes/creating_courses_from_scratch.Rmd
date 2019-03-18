@@ -1,0 +1,111 @@
+---
+title: "Creating Courses from Scratch"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating Courses from Scratch}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(didactr)
+auth_file = "../tests/testthat/googlesheets_token.rds"
+if (file.exists(auth_file)) {
+  didactr_auth(token_file = auth_file)
+} else {
+  x = didactr_auth()
+}
+check_didactr_auth()
+```
+
+```{r setup}
+library(didactr)
+```
+
+# Setting up a Temporary Course
+
+Here we will work in temporary directories in `R`.  In your cases, you'd want to change `root_path` to a folder on your computer where your class will live.  The class folder will be in `root_path/course_name`.  Here we will call our course name `test`.  For course names, these should not have any spaces; all slide decks will have `course_name` prepended on them.  The `create_course` function will create the course.  FYI - the `start_course` function is identical to `create_course`.
+
+```{r}
+root_path = tempfile()
+course_name = "test"
+sc = create_course(course_name, root_path)
+sc
+```
+
+We see the paths that have been created for the project.
+
+Note, by default, the videos directory is excluded from `git`:
+```{r}
+readLines(file.path(sc$course_dir, ".gitignore"))
+```
+
+Now we will create a lesson in that course.  There are a few ways to do this.  If you have Markdown/`md` files already and have a `Book.txt`, which is required for Leanpub, then you want to look at the `create_lessons_from_book` function.  As we are starting from **scratch**, we will assume you have at most a Google Slides deck, but this is not required.
+
+
+### A note on authorization
+
+You must authorize `didactr` to be able to read and copy on your Google Drive/Google Slides.  The `create_lesson` function will authorize using OAuth for this and other things.  Authorization for YouTube will be used later for uploading videos.  We bundled all the authorizations into one in `didactr` so that you only have to authorize once.  If you do not want to authorize for YouTube, that is fine for now.
+
+
+## Starting with a Google Slide Deck
+
+If you start with a Google Slide deck, you need the Slide ID.  If you don't have a deck, you can simply run the `create_lesson` command and it will create a Google Slide deck copy from one we provide.  Here you must supply a `lesson_name`.  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` is the slide identifier for a Google Slide deck.  The ID can be found after `https://docs.google.com/presentation/d/` in the URL when you are editing the slides.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  The `md_file` argument allows you to override the standard naming convention we recommend, the `rmd` argument says whether you'd like to use an Rmarkdown vs. Markdown document and `open` determines if you'd like to edit the document and script after creating it.  **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
+
+```{r}
+out = create_lesson(
+  lesson_name = "How to Do Things",
+  course_dir = sc$course_dir,
+  make_slide_deck = TRUE,
+  open = FALSE)
+out
+```
+
+We see the output is the Markdown file, slide ID for the deck, and the output script file (to be spoken over the slides).  Here is the output of the MD file:
+
+```{r}
+readLines(out$md_file)
+```
+
+Notably, we see that any area of "Notes" in the Google Slide deck is copied to the manuscript.  This is also done for the `script`:
+
+```{r}
+readLines(out$script_file)
+```
+
+## Viewing the Lesson 
+
+If you are using an `Rmd` instead of an `md`, you need to `knit` the `Rmd` to create the `md` and make sure an `md` was the output.  Now that you have the `md` file, you can run `leanpub_render` to view the output of the `md` as it should be shown on Leanpub.
+
+```{r}
+if (interactive()) {
+  leanpub_render(out$md_file)
+}
+```
+
+If you are including `png` or other files with **links** and not included in the `manuscript/resources/images` folder in your course, then you must specify the format before the Markdown.  For example if you want to include a PNG from Google Slides, we can use the following lines:
+
+```yaml
+{format: png}
+![](https://docs.google.com/presentation/d/143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE/export/png?id=143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE&pageid=p)
+```
+
+## Specification for a Script
+
+A script file must have as many non-empty lines as there are slides.  If you don't want any text read over the slide, simply add a simple semicolon `";"` or comman `","`.  
+
+# Checking a Course
+
+The `check_course` function is the main function for determining if the structure of the course is setup correctly.  This checks **a lot** of different folders and such.  If you've created the course using `create_course`, these should likely have been created already.  Videos and other resources _
+
+```{r}
+result = check_course(course_dir = sc$course_dir, check_youtube_links = FALSE)
+result$course_summary
+```
+If there are multiple warnings, this may be due to the YouTube links not included, the Google Slide ID not included, or the number of paragraphs in the scripts not matching up with the number of slides.  
+
+

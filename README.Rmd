@@ -1,5 +1,5 @@
 ---
-  output: github_document
+output: github_document
 ---
 
 [![Travis build status](https://travis-ci.com/muschellij2/didactr.svg?branch=master)](https://travis-ci.com/muschellij2/didactr)

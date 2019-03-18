@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Upload videos to YouTube — vids_to_youtube • didactr</title>
+<title>Translate Swirl YAML to another language — translate_swirl • didactr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Upload videos to YouTube — vids_to_youtube" />
+<meta property="og:title" content="Translate Swirl YAML to another language — translate_swirl" />
 
-<meta property="og:description" content="Upload videos to YouTube" />
+<meta property="og:description" content="Translate Swirl YAML to another language" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,51 +117,68 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Upload videos to YouTube</h1>
-    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/vids_to_youtube.R'><code>R/vids_to_youtube.R</code></a></small>
-    <div class="hidden name"><code>vids_to_youtube.Rd</code></div>
+    <h1>Translate Swirl YAML to another language</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/translate_swirl.R'><code>R/translate_swirl.R</code></a></small>
+    <div class="hidden name"><code>translate_swirl.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Upload videos to YouTube</p>
+    <p>Translate Swirl YAML to another language</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vids_to_youtube</span>(<span class='no'>course_status</span>, <span class='kw'>course_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>json</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>translate_swirl</span>(<span class='no'>file</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".yml"</span>),
+  <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>, <span class='kw'>detect</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>course_status</th>
-      <td><p>object output from <code><a href='check_course.html'>check_course</a></code></p></td>
+      <th>file</th>
+      <td><p>YAML file for Swirl lesson</p></td>
     </tr>
     <tr>
-      <th>course_title</th>
-      <td><p>Course to be used in title of youtube video</p></td>
+      <th>outfile</th>
+      <td><p>output YAML file for translated Swirl lesson</p></td>
     </tr>
     <tr>
-      <th>json</th>
-      <td><p>Link to json file with credentials</p></td>
+      <th>target</th>
+      <td><p>language to translate to, see <code>gl_translate</code></p></td>
+    </tr>
+    <tr>
+      <th>detect</th>
+      <td><p>Should <code><a href='translate_manuscript.html'>gl_detect_file</a></code> be run to
+check that the language is not currently the target?
+Must be google Language authorized using <code>gl_auth</code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>print diagnostic messages</p></td>
+      <td><p>Print diagnostic messages</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments to pass to <code><a href='didactr_auth.html'>didactr_auth</a></code></p></td>
+      <td><p>additional options to pass to <code>write_yaml</code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list from <code><a href='check_course.html'>check_course</a></code> with another field of
-<code>youtube_uploads</code>.</p>
+    <p>A filename of the output file.  The attribute
+ <code>target_language</code> is also given to the filename.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"- Class: meta"</span>,
+<span class='st'>"  Course: Test Class"</span>, <span class='st'>"  Lesson: Test lesson"</span>,
+<span class='st'>"  Author: Shannon Ellis"</span>, <span class='st'>""</span>, <span class='st'>"- Class: text"</span>,
+<span class='st'>"  Output: This is an example with code `df`."</span>)
+<span class='no'>tfile</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".yml"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/writeLines'>writeLines</a></span>(<span class='no'>x</span>, <span class='no'>tfile</span>)
+<span class='fu'>translate_swirl</span>(<span class='no'>tfile</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tfile</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>tfile</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -169,7 +186,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

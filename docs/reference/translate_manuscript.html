@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authorize Application for didactr — didactr_auth • didactr</title>
+<title>Translate Mansucript File — check_manuscript_backticks • didactr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Authorize Application for didactr — didactr_auth" />
+<meta property="og:title" content="Translate Mansucript File — check_manuscript_backticks" />
 
-<meta property="og:description" content="Authorize Application for didactr" />
+<meta property="og:description" content="Translate Mansucript File" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,67 +117,85 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Authorize Application for didactr</h1>
-    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/authorize_mooc_app.R'><code>R/authorize_mooc_app.R</code></a></small>
-    <div class="hidden name"><code>didactr_auth.Rd</code></div>
+    <h1>Translate Mansucript File</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/check_manuscript_backticks.R'><code>R/check_manuscript_backticks.R</code></a>, <a href='https://github.com/muschellij2/didactr/blob/master/R/translate_manuscript.R'><code>R/translate_manuscript.R</code></a></small>
+    <div class="hidden name"><code>translate_manuscript.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Authorize Application for didactr</p>
+    <p>Translate Mansucript File</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>didactr_auth</span>(<span class='kw'>token_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>language</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>use_oob</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>check_manuscript_backticks</span>(<span class='no'>file</span>)
 
-<span class='fu'>check_didactr_auth</span>(<span class='no'>...</span>)
+<span class='fu'>translate_manuscript</span>(<span class='no'>file</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>, <span class='kw'>chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>fix_header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
-<span class='fu'>didactr_token</span>(<span class='no'>...</span>)
+<span class='fu'>translate_script</span>(<span class='no'>file</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>, <span class='kw'>chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>fix_header</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
-<span class='fu'>is_didactr_authorized</span>()</pre>
+<span class='fu'>chunk_google_translate</span>(<span class='no'>file</span>, <span class='kw'>chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>,
+  <span class='kw'>fix_header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='fu'>gl_detect_file</span>(<span class='no'>file</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>token_file</th>
-      <td><p>If the <code>token</code> has been saved, use this file
-to load the credentials.</p></td>
+      <th>file</th>
+      <td><p>Manuscript markdown file</p></td>
     </tr>
     <tr>
-      <th>cache</th>
-      <td><p>A logical value or a string. <code>TRUE</code> means to cache
-using the default cache file <code>.httr-oauth</code></p></td>
+      <th>target</th>
+      <td><p>target language, see <code>gl_translate</code></p></td>
     </tr>
     <tr>
-      <th>language</th>
-      <td><p>Should the language API be authorized (experimental)</p></td>
+      <th>chunk</th>
+      <td><p>Should the calls to Google Translate be chunked?</p></td>
     </tr>
     <tr>
-      <th>use_oob</th>
-      <td><p>use a local webserver for the OAuth dance</p></td>
+      <th>fix_header</th>
+      <td><p>should the header information be fixed,
+such as ` course-completeness: 100 `.</p></td>
     </tr>
     <tr>
-      <th>token</th>
-      <td><p>you can pass the token directly instead of the file
-if you want</p></td>
+      <th>verbose</th>
+      <td><p>Print diagnostic messages</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to <code>didactr_auth</code></p></td>
+      <td><p>additional arguments to pass to
+<code>gl_translate</code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The auth token, a Token class.</p>
+    <p>A `data.frame` of the text and translated text</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>The following changes of the translated text are
+attempted:
+Change `] (` without spaces for links
+Keep links to be the link from original text
+Replace asterisks and underscores for bolding
+Keep back-ticked code as is</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>didactr_auth</span>()
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='no'>auth_file</span> <span class='kw'>=</span> <span class='st'>"~/Dropbox/Projects/cbds_translate/RClass-Translator.json"</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.exists</a></span>(<span class='no'>auth_file</span>)) {
+<span class='kw pkg'>googleLanguageR</span><span class='kw ns'>::</span><span class='fu'><a href='https://code.markedmondson.me/googleLanguageR//reference/gl_auth.html'>gl_auth</a></span>(<span class='no'>auth_file</span>)
+<span class='no'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>
+<span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+ <span class='no'>chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='no'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"00_template.md"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"didactr"</span>)
+<span class='no'>df</span> <span class='kw'>=</span> <span class='fu'>translate_manuscript</span>(<span class='no'>file</span>)
+}</div><div class='output co'>#&gt; <span class='warning'>Warning: Possible HTML found in input text, but format != 'html'</span></div><div class='output co'>#&gt; <span class='message'>2019-03-18 16:46:10 -- Translating text: 623 characters - </span></div><div class='output co'>#&gt; <span class='message'>Fixing Image Links</span></div><div class='output co'>#&gt; <span class='message'>Fixing Bolding</span></div><div class='output co'>#&gt; <span class='message'>Fixing @</span></div><div class='output co'>#&gt; <span class='message'>Fixing Links</span></div><div class='output co'>#&gt; <span class='message'>Fixing Back Ticks</span></div><div class='output co'>#&gt; <span class='message'>Fixing Tags, such as {quiz}</span></div><div class='output co'>#&gt; <span class='message'>Fixing Underscores</span></div><div class='output co'>#&gt; <span class='message'>Fixing Exercises/quizes</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -185,6 +203,8 @@ if you want</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

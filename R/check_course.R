@@ -7,6 +7,8 @@
 #' Slides and such to check the modified time?
 #' @param use_book Use \code{Book.txt} to keep only the
 #' manuscript files that were specified.
+#' @param check_youtube_links Should YouTube links be checked?  If starting a
+#' course, set to \code{FALSE}
 #'
 #'
 #' @param ... arguments to pass to \code{\link{didactr_auth}}
@@ -38,6 +40,7 @@ check_course = function(
   timezone = "America/New_York",
   require_authorization = TRUE,
   use_book = FALSE,
+  check_youtube_links = TRUE,
   ...) {
 
   lesson_name = gs_name = drive_resource = NULL
@@ -49,8 +52,8 @@ check_course = function(
   mod_time_vid = mod_time_scr = lesson = NULL
   rm(list = c("mod_time_vid", "mod_time_scr", "lesson"))
 
-  pdf_pages = n_pngs = img_dir = lesson = NULL
-  rm(list = c("img_dir", "lesson", "pdf_pages", "n_pngs"))
+  n_slides = pdf_pages = n_pngs = img_dir = lesson = NULL
+  rm(list = c("img_dir", "lesson", "pdf_pages", "n_pngs", "n_slides"))
 
   mod_time_pngs = gs_more_recent = NULL
   rm(list = c("mod_time_pngs", "gs_more_recent"))
@@ -108,12 +111,16 @@ check_course = function(
   if (nrow(d) > 0 && authorized) {
     drive_info = drive_information(id = d$id, timezone = timezone)
     if (!is.null(drive_info)) {
+      drive_info$n_slides = sapply(drive_info$id, function(id) {
+        nrow(gs_slide_df(id))
+      })
       df = left_join(df, drive_info, by = "id")
       df = distinct(df)
     }
   } else {
     df$gs_name = NA
     df$mod_time_gs = NA
+    df$n_slides = NA
   }
   ######################################
   ## make image paths
@@ -191,6 +198,10 @@ check_course = function(
   png_names = lapply(df$img_dir, list.files,
                      pattern = "[.]png")
   df$n_pngs = sapply(png_names, length)
+  df = df %>%
+    mutate(n_pngs = ifelse(n_pngs == 0 & !is.na(n_slides),
+                           n_slides, n_pngs)
+    )
 
   # need this because of NA
   # setting those to FALSE
@@ -239,7 +250,7 @@ check_course = function(
       mod_time_scr =  mod_time_to_tz_time(scr_file, timezone = timezone))
 
 
-  youtube_link_in_md = function(fname) {
+  youtube_link_in_md = function(fname, check_youtube_links = TRUE) {
     x = readLines(fname, warn = FALSE)
     # will find better singular regex for this eventually...
     line <- grep(pattern = png_pattern(),
@@ -278,10 +289,12 @@ check_course = function(
     }
     if (!is.na(x)) {
       if (!grepl("you", x)) {
-        msg = paste0("Youtube Link doesn't contain YOU for:", fname)
-        message(msg)
-        print(x)
-        warning(msg)
+        if (check_youtube_links) {
+          msg = paste0("Youtube Link doesn't contain YOU for:\n", fname, "\n")
+          message(msg)
+          print(x)
+          warning(msg)
+        }
       }
     }
     return(x)
@@ -289,7 +302,8 @@ check_course = function(
 
 
   ## Get YouTube Links currently in the markdown file
-  df$yt_md_link = unlist(sapply(df$md_file, youtube_link_in_md))
+  df$yt_md_link = unlist(sapply(df$md_file, youtube_link_in_md,
+                                check_youtube_links = check_youtube_links))
 
 
   ## make sure expected vid file is there

@@ -43,10 +43,13 @@ gs_slide_df = function(id) {
     "https://docs.google.com/presentation/d/",
     id, "/export/png?id=", id,
     "&pageid=", slides$objectId)
+  slides$png_markdown = paste0("{format: png}\n![](", slides$png_url, ")\n")
   slides$png_df = dplyr::tibble(
     page_id = slides$objectId,
-    png_url = slides$png_url
+    png_url = slides$png_url,
+    png_markdown = slides$png_markdown
   )
+  slides = tibble::as_tibble(slides)
 
   return(slides)
 }

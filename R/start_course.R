@@ -12,7 +12,7 @@
 #' Otherwise, the working directory and active project is changed.
 #' @param rstudio If \code{TRUE}, calls \code{use_rstudio()} to
 #' make the new package or project into an RStudio Project.
-#' @param ... additional argument to pass to \code{\link{make_lesson}}
+#' @param ... additional argument to pass to \code{\link{create_lesson}}
 #'
 #' @importFrom usethis proj_set use_rstudio proj_activate
 #' @return The output of \code{\link{make_course}}.
@@ -52,7 +52,7 @@ start_course = function(course_name, root_path = ".",
   book_txt = book_txt[ book_txt != ""]
 
   if (length(book_txt) > 0) {
-    lessons = make_lessons_from_book(
+    lessons = create_lessons_from_book(
       course_dir = res$course_dir,
       verbose = verbose,
       ...)
@@ -69,6 +69,9 @@ start_course = function(course_name, root_path = ".",
       on.exit()
     }
   }
+  # make sure videos don't go up there.
+  usethis::use_git_ignore("manuscript/resources/videos")
+
   return(res)
 }
 

@@ -29,7 +29,7 @@ make the new package or project into an RStudio Project.}
 If RStudio desktop, the package is opened in a new session.
 Otherwise, the working directory and active project is changed.}
 
-\item{...}{additional argument to pass to \code{\link{make_lesson}}}
+\item{...}{additional argument to pass to \code{\link{create_lesson}}}
 }
 \value{
 The output of \code{\link{make_course}}.

@@ -6,7 +6,7 @@
 \usage{
 check_course(course_dir = ".", save_metrics = TRUE,
   timezone = "America/New_York", require_authorization = TRUE,
-  use_book = FALSE, ...)
+  use_book = FALSE, check_youtube_links = TRUE, ...)
 }
 \arguments{
 \item{course_dir}{directory with course materials}
@@ -20,6 +20,9 @@ Slides and such to check the modified time?}
 
 \item{use_book}{Use \code{Book.txt} to keep only the
 manuscript files that were specified.}
+
+\item{check_youtube_links}{Should YouTube links be checked?  If starting a
+course, set to \code{FALSE}}
 
 \item{...}{arguments to pass to \code{\link{didactr_auth}}}
 }

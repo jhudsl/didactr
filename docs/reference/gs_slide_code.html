@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Upload videos to YouTube — vids_to_youtube • didactr</title>
+<title>Get Slide Code from Google Slides — gs_slide_code • didactr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Upload videos to YouTube — vids_to_youtube" />
+<meta property="og:title" content="Get Slide Code from Google Slides — gs_slide_code" />
 
-<meta property="og:description" content="Upload videos to YouTube" />
+<meta property="og:description" content="Get Slide Code from Google Slides" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,51 +117,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Upload videos to YouTube</h1>
-    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/vids_to_youtube.R'><code>R/vids_to_youtube.R</code></a></small>
-    <div class="hidden name"><code>vids_to_youtube.Rd</code></div>
+    <h1>Get Slide Code from Google Slides</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/gs_slide_code.R'><code>R/gs_slide_code.R</code></a></small>
+    <div class="hidden name"><code>gs_slide_code.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Upload videos to YouTube</p>
+    <p>Get Slide Code from Google Slides</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vids_to_youtube</span>(<span class='no'>course_status</span>, <span class='kw'>course_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>json</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gs_slide_code</span>(<span class='no'>id</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>course_status</th>
-      <td><p>object output from <code><a href='check_course.html'>check_course</a></code></p></td>
+      <th>id</th>
+      <td><p>ID of Google Slides</p></td>
     </tr>
     <tr>
-      <th>course_title</th>
-      <td><p>Course to be used in title of youtube video</p></td>
-    </tr>
-    <tr>
-      <th>json</th>
-      <td><p>Link to json file with credentials</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>print diagnostic messages</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>arguments to pass to <code><a href='didactr_auth.html'>didactr_auth</a></code></p></td>
+      <th>open</th>
+      <td><p>Should the `Rmd` be opened to an editor</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list from <code><a href='check_course.html'>check_course</a></code> with another field of
-<code>youtube_uploads</code>.</p>
+    <p>The output temporary_file</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='kw'>if</span> (<span class='fu'><a href='didactr_auth.html'>check_didactr_auth</a></span>()) {
+<span class='no'>id</span> <span class='kw'>=</span> <span class='st'>"1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8"</span>
+<span class='fu'>gs_slide_code</span>(<span class='no'>id</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+}
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -169,7 +162,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

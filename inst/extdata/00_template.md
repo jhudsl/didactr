@@ -1,35 +1,43 @@
+
 # Lesson Name
 
+<!-- Google Slide ID -->
+<!-- SLIDEID -->
+
+<!-- Include a slide PNG with Page_ID from this Slide Deck: -->
+<!-- ![](https://docs.google.com/presentation/d/SLIDEID/export/png?id=SLIDEID&pageid=PAGE_ID) -->
+<!-- or use  `didactr::gs_slide_df("SLIDEID")$png_markdown` -->
+
 ### Sections
+
+SLIDESHERE
 
 ### Summary
 
 ### Additional Resources
 
-Here is some text for you to translate.  [Does this link work?](http://johnmuschelli.com).  [When Everything Is Uppercase It Fails](http://google.com)
-
-![Lesson Name](YouTube Link)
-
-
 ### Slides and Video
 
-![Lesson Name](YouTube Link)
+<!-- ![Lesson Name](YouTube Link) -->
 
-* [Slides](Link to Slides)
+  - [Slides](Link to Slides)
 
-
-{quiz, id: quiz_00_filename}
+{quiz, id: quiz\_00\_filename}
 
 ### Lesson Name quiz
 
-{choose-answers: 4}
-? 
+{choose-answers: 4} ?
 
-C) The answer to this one
-o) Not the answer
+3)  The answer to this one
 
-C) 
-m)
+<!-- end list -->
 
+15) Not the answer
+
+<!-- end list -->
+
+3)  
+<!-- end list -->
+
+13) 
 {/quiz}
-
