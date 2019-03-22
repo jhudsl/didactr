@@ -194,3 +194,26 @@ na_true = function(test) {
   test[ is.na(test)] = TRUE
   test
 }
+
+add_gh_collaborator = function(owner, repo,
+                               collaborator = "leanpub",
+                               auth_token) {
+  lapply(collaborator, function(collab) {
+    gh::gh(paste0(
+      "PUT /repos/", owner, "/",
+      repo, "/collaborators/",
+      collab), .token = auth_token)
+  })
+  res = gh::gh(paste0(
+    "GET /repos/", owner, "/",
+    repo, "/collaborators"), .token = auth_token)
+  collabs = sapply(res, function(x) {
+    x$login
+  })
+  result = collaborator %in% collabs
+  names(result) = collaborator
+  if (!all(result)) {
+    warning("Not all collaborators have been added!")
+  }
+  result
+}

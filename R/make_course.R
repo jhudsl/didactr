@@ -4,6 +4,8 @@
 #' @param book_txt A text file with names of markdown
 #'  files and course names
 #' @param verbose print diagnostic messages
+#' @param warn_book_exists Should a warning be sent if \code{Book.txt}
+#' already exists.
 #'
 #' @return A list of the paths necessary for the course
 #' @export
@@ -16,7 +18,8 @@
 make_course = function(
   course_dir = ".",
   book_txt = NULL,
-  verbose = TRUE) {
+  verbose = TRUE,
+  warn_book_exists = TRUE) {
 
   course_dir = normalizePath(course_dir, mustWork = TRUE)
   met_path = file.path(course_dir, "metrics")
@@ -56,8 +59,10 @@ make_course = function(
       if (!file.exists(out_book_txt)) {
         file.copy(book_txt, out_book_txt)
       } else {
-        warning(paste0(out_book_txt, " already exists and ",
-                       "book_txt specified, not overwriting!"))
+        if (warn_book_exists) {
+          warning(paste0(out_book_txt, " already exists and ",
+                         "book_txt specified, not overwriting!"))
+        }
       }
     }
   }
@@ -66,6 +71,7 @@ make_course = function(
   }
   paths$book_txt = out_book_txt
   paths$course_name = basename(course_dir)
+  class(paths) = "structure_check"
   return(paths)
 }
 

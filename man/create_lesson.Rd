@@ -6,10 +6,13 @@
 \title{Create a Lesson}
 \usage{
 create_lesson(lesson_name, course_dir = ".", verbose = TRUE,
-  md_file = NULL, make_slide_deck = FALSE, slide_id = NULL,
-  extract_code = FALSE, rmd = extract_code, open = FALSE, ...)
+  md_file = NULL, make_slide_deck = TRUE, slide_id = NULL,
+  extract_code = FALSE, rmd = extract_code, open = FALSE,
+  template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
+  ...)
 
-create_lessons_from_book(course_dir = ".", verbose = TRUE, ...)
+create_lessons_from_book(course_dir = ".", verbose = TRUE,
+  make_slide_deck = FALSE, ...)
 }
 \arguments{
 \item{lesson_name}{Name of the Lesson to create.  This should be
@@ -26,7 +29,8 @@ and use that for the file name.}
 \item{make_slide_deck}{Create a slide deck on Google Slides if
 no link is provided.}
 
-\item{slide_id}{ID to slide deck on Google Slides.}
+\item{slide_id}{ID to slide deck on Google Slides.  Caution,
+this will publish the slide deck to the web.}
 
 \item{extract_code}{If you have text with \code{#rstats} in the
 slide or \code{#rstats} in the Alt-text title, code will be
@@ -35,6 +39,9 @@ included}
 \item{rmd}{Should an Rmd (Rmarkdown) be made versus a Markdown?}
 
 \item{open}{should the file be opened for editing?}
+
+\item{template_slide_id}{Slide ID for a template.  This template
+will be copied to your new slide deck.}
 
 \item{...}{arguments passed to \code{\link{check_didactr_auth}}}
 }
@@ -52,7 +59,9 @@ course_name = "test"
 sc = start_course(course_name, root_path)
 verbose = TRUE
 out =create_lesson(lesson_name = "how to Do Things",
-course_dir = sc$course_dir)
+course_dir = sc$course_dir,
+make_slide_deck = FALSE,
+open = FALSE)
 dir(sc$man_path)
 dir(sc$scr_path)
 readLines(sc$book_txt, warn = FALSE)
@@ -83,7 +92,9 @@ verbose = TRUE
 x =  system.file("extdata", "Book.txt", package = "didactr")
 file.copy(x, sc$book_txt, overwrite = TRUE)
 course_dir = sc$course_dir
-res = create_lessons_from_book(course_dir = sc$course_dir)
+res = create_lessons_from_book(course_dir = sc$course_dir, open = FALSE,
+make_slide_deck = FALSE
+)
 dir(sc$man_path)
 dir(sc$scr_path)
 readLines(sc$book_txt)

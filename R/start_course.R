@@ -14,7 +14,7 @@
 #' make the new package or project into an RStudio Project.
 #' @param ... additional argument to pass to \code{\link{create_lesson}}
 #'
-#' @importFrom usethis proj_set use_rstudio proj_activate
+#' @importFrom usethis proj_set use_rstudio proj_activate create_project
 #' @return The output of \code{\link{make_course}}.
 #' @export
 #' @examples
@@ -34,7 +34,7 @@
 start_course = function(course_name, root_path = ".",
                         book_txt = NULL,
                         verbose = TRUE,
-                        rstudio = FALSE,
+                        rstudio = TRUE,
                         open = FALSE,
                         ...){
   course_name = gsub(" ", "_", course_name)
@@ -42,25 +42,35 @@ start_course = function(course_name, root_path = ".",
   course_dir = file.path(root_path, course_name)
   dir.create(course_dir, showWarnings = FALSE, recursive = TRUE)
 
+
   old_project <- usethis::proj_set(course_dir, force = TRUE)
   on.exit(usethis::proj_set(old_project), add = TRUE)
 
+  # usethis::create_project(path = course_dir, open = FALSE)
+
   res = make_course(course_dir = course_dir, book_txt = book_txt,
-                    verbose = verbose)
+                    verbose = verbose, warn_book_exists = FALSE)
   book_txt = readLines(res$book_txt, warn = FALSE)
   book_txt = trimws(book_txt)
   book_txt = book_txt[ book_txt != ""]
 
-  if (length(book_txt) > 0) {
-    lessons = create_lessons_from_book(
-      course_dir = res$course_dir,
-      verbose = verbose,
-      ...)
-    res$lessons = lessons
+  make_md_files = !all(file.exists(file.path(res$man_path, book_txt)))
+
+  if (make_md_files) {
+    if (length(book_txt) > 0) {
+      lessons = create_lessons_from_book(
+        course_dir = res$course_dir,
+        verbose = verbose,
+        ...)
+      res$lessons = lessons
+    }
   }
 
   if (rstudio) {
-    usethis::use_rstudio()
+    rproj_file = file.path(course_dir, paste0(course_name, ".Rproj"))
+    if (!file.exists(rproj_file)) {
+      usethis::use_rstudio()
+    }
   }
 
   if (open) {
@@ -78,3 +88,14 @@ start_course = function(course_name, root_path = ".",
 #' @export
 #' @rdname start_course
 create_course = start_course
+
+#' @export
+#' @rdname start_course
+create_github_course = function(
+  ...) {
+  res = create_course(...)
+  usethis::use_git()
+  usethis::use_github()
+
+  return(res)
+}

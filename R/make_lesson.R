@@ -8,7 +8,8 @@
 #' @param md_file Output markdown file to create.  If not specified,
 #' will take the \code{lesson_name}, sub out spaces, lower case it,
 #' and use that for the file name.
-#' @param slide_id ID to slide deck on Google Slides.
+#' @param slide_id ID to slide deck on Google Slides.  Caution,
+#' this will publish the slide deck to the web.
 #' @param make_slide_deck Create a slide deck on Google Slides if
 #' no link is provided.
 #' @param rmd Should an Rmd (Rmarkdown) be made versus a Markdown?
@@ -16,6 +17,8 @@
 #' @param extract_code If you have text with \code{#rstats} in the
 #' slide or \code{#rstats} in the Alt-text title, code will be
 #' included
+#' @param template_slide_id Slide ID for a template.  This template
+#' will be copied to your new slide deck.
 #' @param ... arguments passed to \code{\link{check_didactr_auth}}
 #'
 #' @return A list of the created markdown manuscript file and script files.
@@ -23,13 +26,17 @@
 #' one for each lesson in the \code{Book.txt} file.
 #' @export
 #'
+#' @importFrom googledrive as_id drive_share drive_cp drive_get
+#'
 #' @examples
 #' root_path = tempfile()
 #' course_name = "test"
 #' sc = start_course(course_name, root_path)
 #' verbose = TRUE
 #' out =create_lesson(lesson_name = "how to Do Things",
-#' course_dir = sc$course_dir)
+#' course_dir = sc$course_dir,
+#' make_slide_deck = FALSE,
+#' open = FALSE)
 #' dir(sc$man_path)
 #' dir(sc$scr_path)
 #' readLines(sc$book_txt, warn = FALSE)
@@ -60,7 +67,9 @@
 #' x =  system.file("extdata", "Book.txt", package = "didactr")
 #' file.copy(x, sc$book_txt, overwrite = TRUE)
 #' course_dir = sc$course_dir
-#' res = create_lessons_from_book(course_dir = sc$course_dir)
+#' res = create_lessons_from_book(course_dir = sc$course_dir, open = FALSE,
+#' make_slide_deck = FALSE
+#' )
 #' dir(sc$man_path)
 #' dir(sc$scr_path)
 #' readLines(sc$book_txt)
@@ -70,11 +79,12 @@ create_lesson = function(
   course_dir = ".",
   verbose = TRUE,
   md_file = NULL,
-  make_slide_deck = FALSE,
+  make_slide_deck = TRUE,
   slide_id = NULL,
   extract_code = FALSE,
   rmd = extract_code,
   open = FALSE,
+  template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
   ...) {
 
   ext = ifelse(rmd, ".Rmd", ".md")
@@ -118,6 +128,12 @@ create_lesson = function(
   if (!is.null(slide_id)) {
     template = gsub("Link to Slides", slide_url(slide_id),
                     template, fixed = TRUE)
+    if (verbose) {
+      message("Publishing Slide")
+    }
+    googledrive::drive_share(file = googledrive::as_id(slide_id),
+                             verbose = verbose,
+                             type = "anyone")
   } else {
     if (make_slide_deck) {
       # authorize
@@ -131,15 +147,22 @@ create_lesson = function(
       id_exists = googledrive::drive_find(
         pattern = gs_name, type = "presentation",
         n_max = 25)
+      if (nrow(id_exists) > 0) {
+        warning(paste0("Slide deck with name ", gs_name, " already exists"))
+        print(id_exists)
+      }
+      if (is.null(slide_id)) {
+        slide_id = NA
+      }
       # if so, make it the slide_id variable
-      slide_id = id_exists$id[1]
+      # slide_id = id_exists$id[1]
+
       # if not, it will be set to NA
       if (is.na(slide_id)) {
 
         # this is a public slide deck I believe
         # need to try with other OAuth account
-        get_req = googledrive::drive_get(
-          id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE")
+        get_req = googledrive::drive_get(id = template_slide_id)
         if (verbose) {
           message("Copying over lecture")
         }
@@ -153,6 +176,9 @@ create_lesson = function(
       if (!is.na(slide_id)) {
         template = gsub("Link to Slides", slide_url(slide_id),
                         template, fixed = TRUE)
+        googledrive::drive_share(file = googledrive::as_id(slide_id),
+                                 verbose = verbose,
+                                 type = "anyone")
       } else {
         slide_id = NULL
       }
@@ -187,7 +213,7 @@ create_lesson = function(
   }
 
 
-  md_file_name = file_name
+  md_file_name = sub("[.]Rmd", ".md", file_name)
   file_name = file.path(res$man_path, file_name)
   if (file.exists(file_name)) {
     warning("File exists, will not overwrite!")
@@ -214,7 +240,8 @@ create_lesson = function(
     usethis::edit_file(script_name)
   }
   L = list(md_file = file_name,
-           script_file = script_name)
+           script_file = script_name,
+           course_dir = course_dir)
   L$slide_id = slide_id
   return(L)
 }
@@ -224,6 +251,7 @@ create_lesson = function(
 create_lessons_from_book = function(
   course_dir = ".",
   verbose = TRUE,
+  make_slide_deck = FALSE,
   ...) {
 
   md_file = txt = lesson_name = have_name = NULL
@@ -237,7 +265,7 @@ create_lessons_from_book = function(
   if (length(book_txt) == 0) {
     stop("Book.txt is empty!  No lessons to create")
   }
-  df = data_frame(txt = book_txt)
+  df = dplyr::tibble(txt = book_txt)
   df = df %>%
     mutate(have_name = grepl("#", txt),
            md_file = sub("(.*)#(.*)", "\\1", txt),
@@ -261,12 +289,13 @@ create_lessons_from_book = function(
   df$lesson_name[ !df$have_name] = x
 
   results = mapply(function(lesson_name, md_file) {
-    create_lesson(lesson_name = lesson_name,
-                course_dir = res$course_dir,
-                verbose = verbose,
-                md_file = md_file,
-                ...)
-
+    create_lesson(
+      lesson_name = lesson_name,
+      course_dir = res$course_dir,
+      verbose = verbose,
+      md_file = md_file,
+      make_slide_deck = make_slide_deck,
+      ...)
   }, df$lesson_name, df$md_file, SIMPLIFY = FALSE)
 
   return(results)

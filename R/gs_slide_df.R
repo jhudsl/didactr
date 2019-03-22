@@ -52,7 +52,7 @@ gs_slide_df = function(id, extract_code = TRUE) {
     png_url = slides$png_url,
     png_markdown = slides$png_markdown
   )
-  slides = tibble::as_tibble(slides)
+  slides = dplyr::as_tibble(slides)
   if (extract_code) {
     slides$code = gs_code_from_slides(slides)
   }

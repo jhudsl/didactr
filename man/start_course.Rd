@@ -3,13 +3,16 @@
 \name{start_course}
 \alias{start_course}
 \alias{create_course}
+\alias{create_github_course}
 \title{Starting a Course, Light wrapper for \code{\link{make_course}}}
 \usage{
 start_course(course_name, root_path = ".", book_txt = NULL,
-  verbose = TRUE, rstudio = FALSE, open = FALSE, ...)
+  verbose = TRUE, rstudio = TRUE, open = FALSE, ...)
 
 create_course(course_name, root_path = ".", book_txt = NULL,
-  verbose = TRUE, rstudio = FALSE, open = FALSE, ...)
+  verbose = TRUE, rstudio = TRUE, open = FALSE, ...)
+
+create_github_course(...)
 }
 \arguments{
 \item{course_name}{Name of the course.  Any spaces will be set to
