@@ -33,7 +33,7 @@ Imports:
     googleLanguageR,
     googleAuthR,
     english,
-    usethis,
+    usethis (>= 1.4.0.9000),
     gh,
     yaml
 Suggests: 
@@ -45,7 +45,7 @@ Suggests:
     aws.signature
 Encoding: UTF-8
 LazyData: true
-Remotes: muschellij2/ari, soodoku/tuber, hairizuanbinnoorazman/rgoogleslides
+Remotes: muschellij2/ari, soodoku/tuber, hairizuanbinnoorazman/rgoogleslides, r-lib/usethis
 ByteCompile: true
 Type: Package
 VignetteBuilder: knitr
