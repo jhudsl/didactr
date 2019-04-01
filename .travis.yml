@@ -1,21 +1,35 @@
 language: R
 sudo: true
 cache: packages
+env:
+  global: 
+    - RGL_USE_NULL=TRUE
+    - DISPLAY=:99.0
+    - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
+
 before_install:
 - if [[ -n $encrypted_d735996d425c_key ]];
   then
     openssl aes-256-cbc -K $encrypted_d735996d425c_key -iv $encrypted_d735996d425c_iv -in googlesheets_token.rds.enc -out tests/testthat/googlesheets_token.rds -d ;
   fi
-- sudo apt-get -qq update
-- sudo apt-get install -y libpoppler-cpp-dev
-- sudo apt-get -qq update
-- sudo apt-get install -y software-properties-common
-- sudo add-apt-repository -y ppa:mc3man/trusty-media
-- sudo apt-get -qq update
-- sudo apt-get install -y ffmpeg --allow-unauthenticated
-- sudo apt-get -qq update
-- sudo apt-get install -y ghostscript imagemagick
-- which convert
+- export PROJ_DIR=`basename $PWD`
+- fname=travis_helpers.sh
+- wget -O ${fname} http://bit.ly/travis_helpers
+- cat ${fname}; source ${fname}; rm ${fname}
+- cat DESCRIPTION
+- start_xvfb ;
+- ffmpeg_install ;
+- magick_install ;
+- poppler_install ;
+- imagemagick_install ;
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; 
+  then 
+    no_open_mp ; 
+  fi
+
+
+
+
 after_success:
 - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::codecov(type = "all")';
   fi
