@@ -138,6 +138,7 @@ slide_df$objectId
 ## Code inside a text box
 
 If you have code in a Google Slide deck and want to extract it, you must mark in the Google Slide Deck.  You can either:
+
 1. You can add `#rstats` to the text box anywhere.
 2. Right click the text box and add the title `#rstats` to the Alt-text.  Right click the text box → `Alt text...` → Title `#rstats`.
 

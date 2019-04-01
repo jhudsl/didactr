@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">didactr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
       </span>
     </div>
 
@@ -129,10 +129,13 @@
     </div>
 
     <pre class="usage"><span class='fu'>create_lesson</span>(<span class='no'>lesson_name</span>, <span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>md_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>slide_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>extract_code</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rmd</span> <span class='kw'>=</span> <span class='no'>extract_code</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+  <span class='kw'>md_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>slide_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>extract_code</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rmd</span> <span class='kw'>=</span> <span class='no'>extract_code</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>template_slide_id</span> <span class='kw'>=</span> <span class='st'>"143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE"</span>,
+  <span class='no'>...</span>)
 
-<span class='fu'>create_lessons_from_book</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>create_lessons_from_book</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,7 +166,8 @@ no link is provided.</p></td>
     </tr>
     <tr>
       <th>slide_id</th>
-      <td><p>ID to slide deck on Google Slides.</p></td>
+      <td><p>ID to slide deck on Google Slides.  Caution,
+this will publish the slide deck to the web.</p></td>
     </tr>
     <tr>
       <th>extract_code</th>
@@ -178,6 +182,11 @@ included</p></td>
     <tr>
       <th>open</th>
       <td><p>should the file be opened for editing?</p></td>
+    </tr>
+    <tr>
+      <th>template_slide_id</th>
+      <td><p>Slide ID for a template.  This template
+will be copied to your new slide deck.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -195,10 +204,14 @@ one for each lesson in the <code>Book.txt</code> file.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
 <span class='no'>course_name</span> <span class='kw'>=</span> <span class='st'>"test"</span>
-<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1b4ba05920/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1b4ba05920/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1b4ba05920/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1b4ba05920/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1b4ba05920/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1b4ba05920/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
+<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa6d79abee/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa6d79abee/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa6d79abee/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa6d79abee/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa6d79abee/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa6d79abee/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span>
+#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
+#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
 #&gt; </span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></div><div class='input'><span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 <span class='no'>out</span> <span class='kw'>=</span><span class='fu'>create_lesson</span>(<span class='kw'>lesson_name</span> <span class='kw'>=</span> <span class='st'>"how to Do Things"</span>,
-<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>)
+<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>,
+<span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>man_path</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things.md" "Book.txt"               "resources"             </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>scr_path</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things_script.md"</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>sc</span>$<span class='no'>book_txt</span>, <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things.md"</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>out</span>$<span class='no'>md_file</span>)</div><div class='output co'>#&gt;  [1] ""                                                                                                 
 #&gt;  [2] "# how to Do Things"                                                                               
 #&gt;  [3] ""                                                                                                 
@@ -260,11 +273,15 @@ one for each lesson in the <code>Book.txt</code> file.</p>
 <span class='co'># }</span><div class='input'>
 <span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
 <span class='no'>course_name</span> <span class='kw'>=</span> <span class='st'>"test"</span>
-<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1bc3b6aaa/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1bc3b6aaa/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1bc3b6aaa/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1bc3b6aaa/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1bc3b6aaa/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpiQojAC/filedc1bc3b6aaa/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
+<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa4f06ce68/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa4f06ce68/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa4f06ce68/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa4f06ce68/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa4f06ce68/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpck4a1B/filecaa4f06ce68/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span>
+#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
+#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
 #&gt; </span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></div><div class='input'><span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 <span class='no'>x</span> <span class='kw'>=</span>  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"Book.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"didactr"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.copy</a></span>(<span class='no'>x</span>, <span class='no'>sc</span>$<span class='no'>book_txt</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>
-<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>create_lessons_from_book</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>)
+<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>create_lessons_from_book</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>man_path</span>)</div><div class='output co'>#&gt;  [1] "00_types.md"         "01_reports.md"       "02_presentations.md"
 #&gt;  [4] "03_general.md"       "04_technical.md"     "05_blogpost.md"     
 #&gt;  [7] "06_meetings.md"      "07_one_on_one.md"    "08_notebook.md"     

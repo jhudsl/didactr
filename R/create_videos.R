@@ -25,6 +25,16 @@ create_videos <- function(
   verbose = TRUE,
   ...){
 
+  exec = try({
+    ari::ffmpeg_exec()
+  })
+  msg = "ffmpeg not detected, run didactr::install_ffmpeg()"
+  if (inherits(exec, "try-error")) {
+    stop(msg)
+  }
+  if (!file.exists(exec)) {
+    warning(msg)
+  }
   if (is.character(course_status)) {
     course_status = check_course(course_dir = course_status,
                                  require_authorization = FALSE)

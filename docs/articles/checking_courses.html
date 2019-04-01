@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">didactr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
       <h1>Checking Courses in didactr</h1>
                         <h4 class="author">John Muschelli, Shannon Ellis</h4>
             
-            <h4 class="date">2019-03-18</h4>
+            <h4 class="date">2019-04-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/muschellij2/didactr/blob/master/vignettes/checking_courses.Rmd"><code>vignettes/checking_courses.Rmd</code></a></small>
       <div class="hidden name"><code>checking_courses.Rmd</code></div>
@@ -106,7 +106,7 @@
 <a class="sourceLine" id="cb1-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/git2r/topics/clone">clone</a></span>(course_url, </a>
 <a class="sourceLine" id="cb1-10" title="10">      <span class="dt">local_path =</span> local_path, </a>
 <a class="sourceLine" id="cb1-11" title="11">      <span class="dt">credentials =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/git2r/topics/cred_token">cred_token</a></span>())</a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp9jAGLA/filedc685a6e35fe/cds_testclass'...</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpo9zwbn/filecf725f6ac82/cds_testclass'...</span></a>
 <a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; Receiving objects:   4% (1/25),    8 kb</span></a>
 <a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; Receiving objects:  12% (3/25),    8 kb</span></a>
 <a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; Receiving objects:  24% (6/25),    8 kb</span></a>
@@ -118,7 +118,7 @@
 <a class="sourceLine" id="cb1-21" title="21"><span class="co">#&gt; Receiving objects:  84% (21/25),    8 kb</span></a>
 <a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt; Receiving objects:  92% (23/25),    8 kb</span></a>
 <a class="sourceLine" id="cb1-23" title="23"><span class="co">#&gt; Receiving objects: 100% (25/25),    8 kb, done.</span></a>
-<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt; Local:    master /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass</span></a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt; Local:    master /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass</span></a>
 <a class="sourceLine" id="cb1-25" title="25"><span class="co">#&gt; Remote:   master @ origin (https://github.com/muschellij2/cds_testclass)</span></a>
 <a class="sourceLine" id="cb1-26" title="26"><span class="co">#&gt; Head:     [c78bc66] 2018-06-26: damned newlines</span></a>
 <a class="sourceLine" id="cb1-27" title="27">course_dir =<span class="st"> </span>local_path</a>
@@ -139,20 +139,20 @@
 <a class="sourceLine" id="cb1-42" title="42"><span class="co">## check course structure</span></a>
 <a class="sourceLine" id="cb1-43" title="43"><span class="co">## fill in missing directories</span></a>
 <a class="sourceLine" id="cb1-44" title="44">paths &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_structure.html">check_structure</a></span>(course_dir)</a>
-<a class="sourceLine" id="cb1-45" title="45"><span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass/manuscript/resources directory</span></a>
-<a class="sourceLine" id="cb1-46" title="46"><span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass/manuscript/resources/images directory</span></a>
-<a class="sourceLine" id="cb1-47" title="47"><span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass/manuscript/resources/videos directory</span></a>
-<a class="sourceLine" id="cb1-48" title="48"><span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass/metrics directory</span></a>
+<a class="sourceLine" id="cb1-45" title="45"><span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass/manuscript/resources directory</span></a>
+<a class="sourceLine" id="cb1-46" title="46"><span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass/manuscript/resources/images directory</span></a>
+<a class="sourceLine" id="cb1-47" title="47"><span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass/manuscript/resources/videos directory</span></a>
+<a class="sourceLine" id="cb1-48" title="48"><span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass/metrics directory</span></a>
 <a class="sourceLine" id="cb1-49" title="49"></a>
 <a class="sourceLine" id="cb1-50" title="50"><span class="co">## get current status of course</span></a>
 <a class="sourceLine" id="cb1-51" title="51">course_status &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_course.html">check_course</a></span>(course_dir)</a>
 <a class="sourceLine" id="cb1-52" title="52"><span class="co">#&gt; Auto-refreshing stale OAuth token.</span></a>
 <a class="sourceLine" id="cb1-53" title="53"><span class="co">#&gt; Auto-refreshing stale OAuth token.</span></a>
 <a class="sourceLine" id="cb1-54" title="54"><span class="co">#&gt; Youtube Link doesn't contain YOU for:</span></a>
-<a class="sourceLine" id="cb1-55" title="55"><span class="co">#&gt; /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass/manuscript/01_secondlecture.md</span></a>
+<a class="sourceLine" id="cb1-55" title="55"><span class="co">#&gt; /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass/manuscript/01_secondlecture.md</span></a>
 <a class="sourceLine" id="cb1-56" title="56"><span class="co">#&gt; [1] "NEED TO REPLACE"</span></a>
 <a class="sourceLine" id="cb1-57" title="57"><span class="co">#&gt; Warning in FUN(X[[i]], ...): Youtube Link doesn't contain YOU for:</span></a>
-<a class="sourceLine" id="cb1-58" title="58"><span class="co">#&gt; /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass/manuscript/01_secondlecture.md</span></a>
+<a class="sourceLine" id="cb1-58" title="58"><span class="co">#&gt; /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass/manuscript/01_secondlecture.md</span></a>
 <a class="sourceLine" id="cb1-59" title="59"><span class="co">#&gt; Images referenced in lesson do not exist in images directory: 00_first_lecture, 01_secondlecture</span></a>
 <a class="sourceLine" id="cb1-60" title="60"><span class="kw"><a href="https://www.rdocumentation.org/packages/git2r/topics/reexports">head</a></span>(course_status<span class="op">$</span>course_summary)</a>
 <a class="sourceLine" id="cb1-61" title="61"><span class="co">#&gt; # A tibble: 2 x 30</span></a>
@@ -175,36 +175,36 @@
 <a class="sourceLine" id="cb1-78" title="78">                               <span class="dt">extra.opts =</span> <span class="st">"-density 400 -quality 200"</span>,</a>
 <a class="sourceLine" id="cb1-79" title="79">                               <span class="dt">use_gs_ids =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb1-80" title="80"><span class="co">#&gt; Converting PDFs for: 00_first_lecture</span></a>
-<a class="sourceLine" id="cb1-81" title="81"><span class="co">#&gt; Downloading the PDF: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp9jAGLA/filedc6875278a10/filedc6876d95c86.pdf</span></a>
+<a class="sourceLine" id="cb1-81" title="81"><span class="co">#&gt; Downloading the PDF: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpo9zwbn/filecf74824dfc6/filecf76cdf652a.pdf</span></a>
 <a class="sourceLine" id="cb1-82" title="82"><span class="co">#&gt; File downloaded:</span></a>
 <a class="sourceLine" id="cb1-83" title="83"><span class="co">#&gt;   * 00_testclass_first_lecture</span></a>
 <a class="sourceLine" id="cb1-84" title="84"><span class="co">#&gt; Saved locally as:</span></a>
-<a class="sourceLine" id="cb1-85" title="85"><span class="co">#&gt;   * /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp9jAGLA/filedc6875278a10/filedc6876d95c86.pdf</span></a>
+<a class="sourceLine" id="cb1-85" title="85"><span class="co">#&gt;   * /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpo9zwbn/filecf74824dfc6/filecf76cdf652a.pdf</span></a>
 <a class="sourceLine" id="cb1-86" title="86"><span class="co">#&gt; Converting PDF to Images</span></a>
 <a class="sourceLine" id="cb1-87" title="87"><span class="co">#&gt; Stub for Conversion is:00_testclass_first_lecture-%0d</span></a>
 <a class="sourceLine" id="cb1-88" title="88"><span class="co">#&gt; Executing: </span></a>
 <a class="sourceLine" id="cb1-89" title="89"><span class="co">#&gt; convert -loop 0 -density 400 -quality 200 -delay 0</span></a>
-<a class="sourceLine" id="cb1-90" title="90"><span class="co">#&gt;     /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc6875278a10/filedc6876d95c86.pdf</span></a>
+<a class="sourceLine" id="cb1-90" title="90"><span class="co">#&gt;     /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf74824dfc6/filecf76cdf652a.pdf</span></a>
 <a class="sourceLine" id="cb1-91" title="91"><span class="co">#&gt;     '00_testclass_first_lecture-%0d.png'</span></a>
 <a class="sourceLine" id="cb1-92" title="92"><span class="co">#&gt; Output at: 00_testclass_first_lecture-%0d.png</span></a>
 <a class="sourceLine" id="cb1-93" title="93"><span class="co">#&gt; Converting PDFs for: 01_secondlecture</span></a>
-<a class="sourceLine" id="cb1-94" title="94"><span class="co">#&gt; Downloading the PDF: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp9jAGLA/filedc682d400e91/filedc68487c68cc.pdf</span></a>
+<a class="sourceLine" id="cb1-94" title="94"><span class="co">#&gt; Downloading the PDF: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpo9zwbn/filecf71205c8f9/filecf739cd5cad.pdf</span></a>
 <a class="sourceLine" id="cb1-95" title="95"><span class="co">#&gt; File downloaded:</span></a>
 <a class="sourceLine" id="cb1-96" title="96"><span class="co">#&gt;   * 01_testclass_secondlecture</span></a>
 <a class="sourceLine" id="cb1-97" title="97"><span class="co">#&gt; Saved locally as:</span></a>
-<a class="sourceLine" id="cb1-98" title="98"><span class="co">#&gt;   * /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp9jAGLA/filedc682d400e91/filedc68487c68cc.pdf</span></a>
+<a class="sourceLine" id="cb1-98" title="98"><span class="co">#&gt;   * /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpo9zwbn/filecf71205c8f9/filecf739cd5cad.pdf</span></a>
 <a class="sourceLine" id="cb1-99" title="99"><span class="co">#&gt; Converting PDF to Images</span></a>
 <a class="sourceLine" id="cb1-100" title="100"><span class="co">#&gt; Stub for Conversion is:01_testclass_secondlecture-%0d</span></a>
 <a class="sourceLine" id="cb1-101" title="101"><span class="co">#&gt; Executing: </span></a>
 <a class="sourceLine" id="cb1-102" title="102"><span class="co">#&gt; convert -loop 0 -density 400 -quality 200 -delay 0</span></a>
-<a class="sourceLine" id="cb1-103" title="103"><span class="co">#&gt;     /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc682d400e91/filedc68487c68cc.pdf</span></a>
+<a class="sourceLine" id="cb1-103" title="103"><span class="co">#&gt;     /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf71205c8f9/filecf739cd5cad.pdf</span></a>
 <a class="sourceLine" id="cb1-104" title="104"><span class="co">#&gt;     '01_testclass_secondlecture-%0d.png'</span></a>
 <a class="sourceLine" id="cb1-105" title="105"><span class="co">#&gt; Output at: 01_testclass_secondlecture-%0d.png</span></a>
 <a class="sourceLine" id="cb1-106" title="106"><span class="co">#&gt; Youtube Link doesn't contain YOU for:</span></a>
-<a class="sourceLine" id="cb1-107" title="107"><span class="co">#&gt; /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass/manuscript/01_secondlecture.md</span></a>
+<a class="sourceLine" id="cb1-107" title="107"><span class="co">#&gt; /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass/manuscript/01_secondlecture.md</span></a>
 <a class="sourceLine" id="cb1-108" title="108"><span class="co">#&gt; [1] "NEED TO REPLACE"</span></a>
 <a class="sourceLine" id="cb1-109" title="109"><span class="co">#&gt; Warning in FUN(X[[i]], ...): Youtube Link doesn't contain YOU for:</span></a>
-<a class="sourceLine" id="cb1-110" title="110"><span class="co">#&gt; /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp9jAGLA/filedc685a6e35fe/cds_testclass/manuscript/01_secondlecture.md</span></a>
+<a class="sourceLine" id="cb1-110" title="110"><span class="co">#&gt; /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpo9zwbn/filecf725f6ac82/cds_testclass/manuscript/01_secondlecture.md</span></a>
 <a class="sourceLine" id="cb1-111" title="111"><span class="co">#&gt; Images referenced in lesson do not exist in images directory: 00_first_lecture, 01_secondlecture</span></a>
 <a class="sourceLine" id="cb1-112" title="112"><span class="kw"><a href="https://www.rdocumentation.org/packages/git2r/topics/reexports">head</a></span>(course_status<span class="op">$</span>course_summary)</a>
 <a class="sourceLine" id="cb1-113" title="113"><span class="co">#&gt; # A tibble: 2 x 30</span></a>

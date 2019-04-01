@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert Google Slides and notes to video with ari — gs_ari • didactr</title>
+<title>Add Leanpub as Collaborator — add_leanpub_collaborator • didactr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Convert Google Slides and notes to video with ari — gs_ari" />
+<meta property="og:title" content="Add Leanpub as Collaborator — add_leanpub_collaborator" />
 
-<meta property="og:description" content="Convert Google Slides and notes to video with ari" />
+<meta property="og:description" content="Add Leanpub as Collaborator" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,46 +117,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert Google Slides and notes to video with ari</h1>
-    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/gs_ari.R'><code>R/gs_ari.R</code></a></small>
-    <div class="hidden name"><code>gs_ari.Rd</code></div>
+    <h1>Add Leanpub as Collaborator</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/add_leanpub_collaborator.R'><code>R/add_leanpub_collaborator.R</code></a></small>
+    <div class="hidden name"><code>add_leanpub_collaborator.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert Google Slides and notes to video with ari</p>
+    <p>Add Leanpub as Collaborator</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>gs_ari</span>(<span class='no'>id</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
-
-<span class='fu'>gs_ari_spin</span>(<span class='no'>id</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>add_leanpub_collaborator</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>auth_token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>id</th>
-      <td><p>Identifier of google slides presentation, passed to
-<code><a href='gs_convert.html'>gs_convert</a></code></p></td>
+      <th>course_dir</th>
+      <td><p>directory with course materials or a <code>course_check</code>
+object</p></td>
     </tr>
     <tr>
-      <th>output</th>
-      <td><p>Output MP4 filename, optional</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>Should diagnostics messages be printed</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed to <code>ari_spin</code></p></td>
+      <th>auth_token</th>
+      <td><p>Provide a personal access token (PAT) from
+<a href='https://github.com/settings/tokens'>https://github.com/settings/tokens</a>. If <code>NULL</code>, will use the logic
+described in <code><a href='https://www.rdocumentation.org/packages/gh/topics/gh_whoami'>gh::gh_whoami()</a></code> to look for a token stored in an environment
+variable. Use <code><a href='https://www.rdocumentation.org/packages/usethis/topics/browse_github_pat'>usethis::browse_github_pat()</a></code> to help set up your PAT.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of the images, script, and MP4 with the result.</p>
+    <p>Answer from the API as a <code>gh_response</code> object,
+which is also a <code>list.</code> Failed requests will generate an <code>R</code> error.</p>
     
 
   </div>
