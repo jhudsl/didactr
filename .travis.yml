@@ -27,9 +27,6 @@ before_install:
     no_open_mp ; 
   fi
 
-
-
-
 after_success:
 - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::codecov(type = "all")';
   fi
