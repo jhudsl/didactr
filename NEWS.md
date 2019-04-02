@@ -1,3 +1,7 @@
+
+# didactr 0.6.4
+* Changed behavior of detection so that only run if necessary to not incude additional charges.  
+
 # didactr 0.6.0
 
 * `make_lesson` now can create a slide deck with the pngs embedded. 

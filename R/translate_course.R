@@ -82,8 +82,12 @@ translate_course = function(
     }
     if (file.exists(file)) {
       Sys.sleep(sleep_time)
-      det = didactr::gl_detect_file(file)
-      if (detect & det$language != target) {
+      detection_true = TRUE
+      if (detect) {
+        det = didactr::gl_detect_file(file)
+        detection_true = det$language != target
+      }
+      if (detection_true) {
         x = translate_manuscript(
           file, target = target,
           verbose = verbose,
@@ -102,8 +106,12 @@ translate_course = function(
     }
     if (file.exists(file)) {
       Sys.sleep(sleep_time)
-      det = didactr::gl_detect_file(file)
-      if (detect & det$language != target) {
+      detection_true = TRUE
+      if (detect) {
+        det = didactr::gl_detect_file(file)
+        detection_true = det$language != target
+      }
+      if (detection_true) {
         x = translate_script(
           file, target = target,
           verbose = verbose,

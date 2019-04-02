@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">didactr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.4</span>
       </span>
     </div>
 
@@ -153,7 +153,8 @@
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>english</span>)
- <span class='no'>file</span> <span class='kw'>=</span> <span class='st'>"~/Dropbox/Projects/Coursera/dst/manuscript/08_DST_R_packages.md"</span>
+ <span class='no'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"08_DST_R_packages.md"</span>,
+ <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"didactr"</span>)
  <span class='co'># from https://stackoverflow.com/questions/37462126/regex-match-markdown-link</span>
  <span class='no'>md_regex</span> <span class='kw'>=</span> <span class='st'>"(?:__|[*#])|\\[(.*?)\\]\\(.*?\\)"</span>
  <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>strip_manuscript</span>(<span class='no'>file</span>)</div></pre>

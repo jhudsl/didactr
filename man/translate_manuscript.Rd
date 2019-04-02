@@ -20,7 +20,7 @@ translate_script(file, target = "es", chunk = TRUE,
 chunk_google_translate(file, chunk = TRUE, target = "es",
   fix_header = TRUE, ...)
 
-gl_detect_file(file)
+gl_detect_file(file, max_nchar = 2000)
 }
 \arguments{
 \item{file}{Manuscript markdown file}
@@ -36,6 +36,8 @@ such as `{ course-completeness: 100 }`.}
 
 \item{...}{additional arguments to pass to
 \code{\link{gl_translate}}}
+
+\item{max_nchar}{number of characters to use for detection.}
 }
 \value{
 A `data.frame` of the text and translated text

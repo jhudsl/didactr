@@ -271,14 +271,17 @@ chunk_google_translate = function(file, chunk = TRUE,
 
 #' @export
 #' @rdname translate_manuscript
-gl_detect_file = function(file) {
+#' @param max_nchar number of characters to use for detection.
+gl_detect_file = function(file, max_nchar = 2000) {
   txt = readLines(file, warn = FALSE)
   nc = nchar(txt)
   df = data.frame(text = txt,
                   nc = nc,
                   stringsAsFactors = FALSE)
   df = df %>%
-    mutate(item = floor(cumsum(nc) / 5000) + 1)
+    filter(text != "")
+  df = df %>%
+    mutate(item = floor(cumsum(nc) / max_nchar) + 1)
   # get the chunk to run
   ind =  df$item == 1 & df$text != ""
   run_txt = df$text[ ind ]
