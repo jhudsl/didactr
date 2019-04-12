@@ -71,6 +71,7 @@ start_course = function(course_name, root_path = ".",
     if (!file.exists(rproj_file)) {
       usethis::use_rstudio()
     }
+    res$rproj_file = rproj_file
   }
 
   if (open) {
