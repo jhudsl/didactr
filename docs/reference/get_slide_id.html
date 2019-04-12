@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check for expected file structure and create missing — make_course • didactr</title>
+<title>Get Slide ID from URL — get_slide_id • didactr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Check for expected file structure and create missing — make_course" />
+<meta property="og:title" content="Get Slide ID from URL — get_slide_id" />
 
-<meta property="og:description" content="Check for expected file structure and create missing" />
+<meta property="og:description" content="Get Slide ID from URL" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,83 +117,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check for expected file structure and create missing</h1>
-    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/make_course.R'><code>R/make_course.R</code></a></small>
-    <div class="hidden name"><code>check_structure.Rd</code></div>
+    <h1>Get Slide ID from URL</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/get_slide_id.R'><code>R/get_slide_id.R</code></a></small>
+    <div class="hidden name"><code>get_slide_id.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Check for expected file structure and create missing</p>
+    <p>Get Slide ID from URL</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>make_course</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>book_txt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>warn_book_exists</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>check_structure</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>book_txt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>warn_book_exists</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_slide_id</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>course_dir</th>
-      <td><p>directory with course materials</p></td>
-    </tr>
-    <tr>
-      <th>book_txt</th>
-      <td><p>A text file with names of markdown
-files and course names</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>print diagnostic messages</p></td>
-    </tr>
-    <tr>
-      <th>warn_book_exists</th>
-      <td><p>Should a warning be sent if <code>Book.txt</code>
-already exists.</p></td>
+      <th>x</th>
+      <td><p>URL of slide</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of the paths necessary for the course</p>
+    <p>A character vector</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>course_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files2'>dir.create</a></span>(<span class='no'>course_dir</span>)
-<span class='fu'>make_course</span>(<span class='no'>course_dir</span>)</div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/metrics directory</span></div><div class='output co'>#&gt; $course_dir
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89"
-#&gt; 
-#&gt; $scr_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/scripts"
-#&gt; 
-#&gt; $res_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/manuscript/resources"
-#&gt; 
-#&gt; $man_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/manuscript"
-#&gt; 
-#&gt; $img_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/manuscript/resources/images"
-#&gt; 
-#&gt; $vid_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/manuscript/resources/videos"
-#&gt; 
-#&gt; $met_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/metrics"
-#&gt; 
-#&gt; $book_txt
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpcsQFQm/file1573a230d4c89/manuscript/Book.txt"
-#&gt; 
-#&gt; $course_name
-#&gt; [1] "file1573a230d4c89"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "structure_check"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='st'>"https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"</span>
+<span class='fu'>get_slide_id</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
