@@ -21,7 +21,7 @@ install_ffmpeg = function(force = FALSE) {
   ffmpeg = ffmpeg[1]
 
   if (is.na(ffmpeg) || force) {
-    os = os_type()
+    os = sys_type()
     cmd = switch(
       os,
       macos = "brew",
