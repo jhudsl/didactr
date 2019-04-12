@@ -26,20 +26,46 @@ stopifnot(check_didactr_auth())
 library(didactr)
 ```
 
+# If you Don't have `didactr` installed
 
+If you do not have `didactr` installed, you can run the following command: 
+
+```{r, eval = FALSE}
+devtools::install_github("muschellij2/didactr")
+```
+
+## Video Generation 
+If you want to generate videos for your course, you need [FFmpeg](https://ffmpeg.org/).  You need to make sure you have [FFmpeg](https://ffmpeg.org/) version 3.2.4 or higher installed on your system.  If you would like to try to install `ffmpeg` automatically, please run:
+
+```{r, eval = TRUE}
+didactr::install_ffmpeg()
+```
+
+If a path comes up, you have `ffmpeg` installed!
 
 # Setting up a Temporary Course
 
-Here we will work in temporary directories in `R`.  In your cases, you'd want to change `root_path` to a folder on your computer where your class will live.  The class folder will be in `root_path/course_name`.  Here we will call our course name `test`.  For course names, these should not have any spaces; all slide decks will have `course_name` prepended on them.  The `create_course` function will create the course.  FYI - the `start_course` function is identical to `create_course`.
+Here we will work in temporary directories in `R`.  In your cases, you'd want to change `root_path` to a folder on your computer where your class will live.  The class folder will be in `root_path/course_name`.  
+
+```{r, echo = FALSE, eval = TRUE}
+root_path = tempfile()
+```
+
+```{r, echo = TRUE, eval = FALSE}
+root_path = "/the/path/to/your/course"
+```
+
+(In this example, we are setting it to a temporary directory so it deletes itself once we're done.)
+
+Here we will call our course name `test`.  For course names, these should not have any spaces; all slide decks will have `course_name` prepended on them.  The `create_course` function will create the course.  
 
 ```{r}
-root_path = tempfile()
 course_name = "test"
 sc = create_course(course_name, root_path)
 sc
 ```
 
-We see the paths that have been created for the project.
+We see the paths that have been created for the project.  FYI - the `start_course` function is identical to `create_course`.
 
 ## Leanpub courses
 
@@ -70,9 +96,32 @@ readLines(file.path(sc$course_dir, ".gitignore"))
 Now we will create a lesson in that course.  There are a few ways to do this.  If you have Markdown/`md` files already and have a `Book.txt`, which is required for Leanpub, then you want to look at the `create_lessons_from_book` function.  As we are starting from **scratch**, we will assume you have at most a Google Slides deck, but this is not required.
 
 
+
+## If you have a PowerPoint or PDF
+
+This workflow uses Google Slides to create your video and your document.  We **highly** recommend this process.  If you have a local presentation and you want to use that, go to https://drive.google.com.  Click the New button:
+
+```{r}
+knitr::include_graphics("google_figures/New.png")
+```
+
+After clicking that, select "File Upload":
+
+```{r}
+knitr::include_graphics("google_figures/Upload.png")
+```
+
+Then upload your deck.
+
 ## Starting with a Google Slide Deck
 
-If you start with a Google Slide deck, you need the Slide ID.  If you don't have a deck, you can simply run the `create_lesson` command and it will create a Google Slide deck copy from one we provide.  Here you must supply a `lesson_name`.  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` is the slide identifier for a Google Slide deck.  The ID can be found after `https://docs.google.com/presentation/d/` in the URL when you are editing the slides.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  The `md_file` argument allows you to override the standard naming convention we recommend, the `rmd` argument says whether you'd like to use an Rmarkdown vs. Markdown document and `open` determines if you'd like to edit the document and script after creating it.  **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
+If you start with a Google Slide deck, you need the Slide ID.  
+```{r}
+x = "https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"
+get_slide_id(x)
+```
+
+If you don't have a deck, you can simply run the `create_lesson` command and it will create a Google Slide deck copy from one we provide.  Here you must supply a `lesson_name`.  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` is the slide identifier for a Google Slide deck.  The ID can be found after `https://docs.google.com/presentation/d/` in the URL when you are editing the slides.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  The `md_file` argument allows you to override the standard naming convention we recommend, the `rmd` argument says whether you'd like to use an Rmarkdown vs. Markdown document and `open` determines if you'd like to edit the document and script after creating it.  **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
 
 ```{r}
 out = create_lesson(
