@@ -92,7 +92,7 @@ knitr::include_graphics("google_figures/Upload.png")
 Then upload your deck.
 
 ## Starting with a Google Slide Deck
-```{r}
+```{r, echo = FALSE}
 x = "https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"
 ```
 
@@ -106,13 +106,18 @@ slide_id
 # slide_id = "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8"
 ```
 
-If you don't have a deck, you can simply run the `create_lesson` command and it will create a Google Slide deck copy from one we provide.  If you do not have a slide deck, you can run:
+If you don't have start with a slide deck, you can simply run the `create_lesson` command and it will create a Google Slide deck copy from one we provide.  If you do not have a slide deck, you can run:
 
 ```{r}
 slide_id = NULL
 ```
 
-Here you must supply a `lesson_name`.  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` is the slide identifier for a Google Slide deck.  The ID can be found after `https://docs.google.com/presentation/d/` in the URL when you are editing the slides.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  The `md_file` argument allows you to override the standard naming convention we recommend, the `rmd` argument says whether you'd like to use an Rmarkdown vs. Markdown document and `open` determines if you'd like to edit the document and script after creating it.  **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
+Otherwise, you should run the command, where you removed the example URL and put in your own URL:
+
+```{r, eval = FALSE}
+slide_id = didactr::get_slide_id("URL FOR GOOGLE SLIDE DECK")
+```
+
 
 Before we actually make the lesson, please read this note on authorization.
 
@@ -120,7 +125,7 @@ Before we actually make the lesson, please read this note on authorization.
 
 You must authorize `didactr` to be able to read and copy on your Google Drive/Google Slides.  The `create_lesson` function will authorize using OAuth (Open Authorization) for this and other things. This will open a pop up on your internet browser asking you for permission.  If you choose to create videos with `didactr`, we have functions to upload them to YouTube, so the authorization also asks you for YouTube authorization.  We bundled all the authorizations into one in `didactr` so that you only have to authorize once.  If you do not want to authorize for YouTube, that is fine for now.
 
-Now, let's create our course.  For your lesson, change `How to Do Things` to something more appropriate and run:
+Now, let's create our lesson  For your lesson, change `How to Do Things` to something more appropriate and run:
 
 ```{r, echo = FALSE, eval = TRUE}
 out = didactr::create_lesson(
@@ -141,6 +146,10 @@ out = didactr::create_lesson(
   open = TRUE)
 out
 ```
+
+Here we break down the arguments we specified.  Whenever `create_lesson`, you must supply a `lesson_name` (in our case `"How to Do Things"`).  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` again is the slide identifier for a Google Slide deck.  The ID can be extracted from the URL manually or running `didactr::get_slide_id` on the URL.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  If `TRUE`, it copies a template; if `FALSE` it does not make a slide deck.   **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
+
+The `md_file` argument allows you to override the standard naming convention we recommend, the `rmd` argument says whether you'd like to use an Rmarkdown vs. Markdown document.  The argument `open` determines if you'd like to edit the document and script after creating it. 
 
 We see the output is the Markdown file, slide ID for the deck, and the output script file (to be spoken over the slides).  Here is the output of the MD file:
 

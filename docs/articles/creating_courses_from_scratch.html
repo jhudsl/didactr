@@ -107,45 +107,45 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">root_path =<span class="st"> "/the/path/to/your/course"</span></a></code></pre></div>
 <p>(In this example, we are setting it to a temporary directory so it deletes itself once we’re done.)</p>
 <p>Here we will call our course name <code>test</code>. For course names, these should not have any spaces; all slide decks will have the <code>course_name</code> prepended on them (for example <code>test_00_first_lecture</code>). The <code>create_course</code> function will create the course. Run the code below, changing <code>test</code> to the name of the course that you want. If do not want <code>R</code> to open up the <code>R</code> project (in the directory of the course), set <code>open = FALSE</code> in the code below:</p>
-<pre><code>#&gt; ✔ Setting active project to '/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test'
-#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/scripts directory
-#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript/resources directory
-#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript/resources/images directory
-#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript/resources/videos directory
-#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/metrics directory
+<pre><code>#&gt; ✔ Setting active project to '/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test'
+#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/scripts directory
+#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript/resources directory
+#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript/resources/images directory
+#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript/resources/videos directory
+#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/metrics directory
 #&gt; ✔ Writing 'test.Rproj'
 #&gt; ✔ Adding '.Rproj.user' to '.gitignore'
 #&gt; ✔ Adding 'manuscript/resources/videos' to '.gitignore'
 #&gt; ✔ Setting active project to '&lt;no active project&gt;'
 #&gt; $course_dir
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test"
 #&gt; 
 #&gt; $scr_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/scripts"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/scripts"
 #&gt; 
 #&gt; $res_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript/resources"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript/resources"
 #&gt; 
 #&gt; $man_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript"
 #&gt; 
 #&gt; $img_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript/resources/images"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript/resources/images"
 #&gt; 
 #&gt; $vid_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript/resources/videos"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript/resources/videos"
 #&gt; 
 #&gt; $met_path
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/metrics"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/metrics"
 #&gt; 
 #&gt; $book_txt
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript/Book.txt"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript/Book.txt"
 #&gt; 
 #&gt; $course_name
 #&gt; [1] "test"
 #&gt; 
 #&gt; $rproj_file
-#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpFwFALp/file15d8a56626ff9/test/test.Rproj"
+#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmppsdpLu/file15f536a0d8122/test/test.Rproj"
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "structure_check"</code></pre>
@@ -176,24 +176,24 @@
 <div id="starting-with-a-google-slide-deck" class="section level2">
 <h2 class="hasAnchor">
 <a href="#starting-with-a-google-slide-deck" class="anchor"></a>Starting with a Google Slide Deck</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">x =<span class="st"> "https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"</span></a></code></pre></div>
 <p>If you start with a Google Slide deck, you need the Slide ID. Please go to the slide deck on Google Slides, and then copy the URL from the browser address bar. For example, let’s say we copied <code>https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58</code> from our address bar. The ID is 1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8, and <code>didactr</code> provides the helper function <code>get_slide_id</code> that takes in this URL and provides the slide ID. You can either copy just the slide ID or run <code>get_slide_id</code> on your URL as the example below demonstrates.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">slide_id =<span class="st"> </span>didactr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/didactr/topics/get_slide_id">get_slide_id</a></span>(<span class="st">"https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"</span>)</a>
-<a class="sourceLine" id="cb7-2" title="2">slide_id</a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="co">#&gt; [1] "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8"</span></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co"># copy this to slide_id</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="co"># for example:</span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co"># slide_id = "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8"</span></a></code></pre></div>
-<p>If you don’t have a deck, you can simply run the <code>create_lesson</code> command and it will create a Google Slide deck copy from one we provide. If you do not have a slide deck, you can run:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">slide_id =<span class="st"> </span><span class="ot">NULL</span></a></code></pre></div>
-<p>Here you must supply a <code>lesson_name</code>. This can have spaces if you want and will be the title of the lesson. We will pass the course directory in here from our <code>sc</code> object, otherwise it assumes we are creating this in the current working directory. The <code>slide_id</code> is the slide identifier for a Google Slide deck. The ID can be found after <code>https://docs.google.com/presentation/d/</code> in the URL when you are editing the slides. If you do not specify a slide ID, the <code>make_slide_deck</code> argument determines if you would like to create a slide deck. The <code>md_file</code> argument allows you to override the standard naming convention we recommend, the <code>rmd</code> argument says whether you’d like to use an Rmarkdown vs. Markdown document and <code>open</code> determines if you’d like to edit the document and script after creating it. <strong>NB:</strong> if you’re creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">slide_id =<span class="st"> </span>didactr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/didactr/topics/get_slide_id">get_slide_id</a></span>(<span class="st">"https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2">slide_id</a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; [1] "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8"</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co"># copy this to slide_id</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co"># for example:</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co"># slide_id = "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8"</span></a></code></pre></div>
+<p>If you don’t have start with a slide deck, you can simply run the <code>create_lesson</code> command and it will create a Google Slide deck copy from one we provide. If you do not have a slide deck, you can run:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">slide_id =<span class="st"> </span><span class="ot">NULL</span></a></code></pre></div>
+<p>Otherwise, you should run the command, where you removed the example URL and put in your own URL:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">slide_id =<span class="st"> </span>didactr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/didactr/topics/get_slide_id">get_slide_id</a></span>(<span class="st">"URL FOR GOOGLE SLIDE DECK"</span>)</a></code></pre></div>
 <p>Before we actually make the lesson, please read this note on authorization.</p>
 </div>
 <div id="a-note-on-authorization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-note-on-authorization" class="anchor"></a>A note on authorization</h2>
 <p>You must authorize <code>didactr</code> to be able to read and copy on your Google Drive/Google Slides. The <code>create_lesson</code> function will authorize using OAuth (Open Authorization) for this and other things. This will open a pop up on your internet browser asking you for permission. If you choose to create videos with <code>didactr</code>, we have functions to upload them to YouTube, so the authorization also asks you for YouTube authorization. We bundled all the authorizations into one in <code>didactr</code> so that you only have to authorize once. If you do not want to authorize for YouTube, that is fine for now.</p>
-<p>Now, let’s create our course. For your lesson, change <code>How to Do Things</code> to something more appropriate and run:</p>
+<p>Now, let’s create our lesson For your lesson, change <code>How to Do Things</code> to something more appropriate and run:</p>
 <pre><code>#&gt; Auto-refreshing stale OAuth token.
 #&gt; Warning in didactr::create_lesson(lesson_name = "How to Do Things",
 #&gt; course_dir = sc$course_dir, : Slide deck with name test_00_how_to_do_things
@@ -201,16 +201,16 @@
 #&gt; # A tibble: 25 x 3
 #&gt;    name                  id                                  drive_resource
 #&gt;  * &lt;chr&gt;                 &lt;chr&gt;                               &lt;list&gt;        
-#&gt;  1 test_00_how_to_do_th… 1A1cIRXQsijKDHITlrpllHuCyM0D5K9g6K… &lt;list [34]&gt;   
-#&gt;  2 test_00_how_to_do_th… 1tJgcLAGp8Yoqi4K-hYULeQkWvZQ5K7jk5… &lt;list [34]&gt;   
-#&gt;  3 test_00_how_to_do_th… 1zhu7PB6WGpsMKRE1NVuxvKi4vYIJvxWDO… &lt;list [34]&gt;   
-#&gt;  4 test_00_how_to_do_th… 1310D-MV8uUZ-noeHMnOaG7nIszwKlRPP_… &lt;list [34]&gt;   
-#&gt;  5 test_00_how_to_do_th… 1D_NS5O9iY6DHOA7ob7BUmfzyBJuIbUVz7… &lt;list [34]&gt;   
-#&gt;  6 test_00_how_to_do_th… 1SA4nw3GxvrNo0CUYzv8zXFad0QXEsTjvz… &lt;list [34]&gt;   
-#&gt;  7 test_00_how_to_do_th… 1huYgqlRX1yX3Rc1q1YlVqHwcwjQmVDGU-… &lt;list [34]&gt;   
-#&gt;  8 test_00_how_to_do_th… 11xu5dpux8F3vbstFFFUSts5pHCuK_4RBO… &lt;list [34]&gt;   
-#&gt;  9 test_00_how_to_do_th… 1w49gcWRo5VbaSvtDvkylVT-IGey-nj3ca… &lt;list [34]&gt;   
-#&gt; 10 test_00_how_to_do_th… 1jIIhG2NXCCUgCUNkKuir0VXrqAdEzyEuH… &lt;list [34]&gt;   
+#&gt;  1 test_00_how_to_do_th… 1MUv4d_fqd9jL-N-I9Px5MsUBY_X0Lk0PS… &lt;list [34]&gt;   
+#&gt;  2 test_00_how_to_do_th… 1yWlZpB7MtO0wl_1_yNMCIHqyC-6VTQVv2… &lt;list [34]&gt;   
+#&gt;  3 test_00_how_to_do_th… 1L0VP4pBa0if5j0_AiRtlxbI4U-ifu6-10… &lt;list [34]&gt;   
+#&gt;  4 test_00_how_to_do_th… 1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmM… &lt;list [34]&gt;   
+#&gt;  5 test_00_how_to_do_th… 1A1cIRXQsijKDHITlrpllHuCyM0D5K9g6K… &lt;list [34]&gt;   
+#&gt;  6 test_00_how_to_do_th… 1tJgcLAGp8Yoqi4K-hYULeQkWvZQ5K7jk5… &lt;list [34]&gt;   
+#&gt;  7 test_00_how_to_do_th… 1zhu7PB6WGpsMKRE1NVuxvKi4vYIJvxWDO… &lt;list [34]&gt;   
+#&gt;  8 test_00_how_to_do_th… 1310D-MV8uUZ-noeHMnOaG7nIszwKlRPP_… &lt;list [34]&gt;   
+#&gt;  9 test_00_how_to_do_th… 1D_NS5O9iY6DHOA7ob7BUmfzyBJuIbUVz7… &lt;list [34]&gt;   
+#&gt; 10 test_00_how_to_do_th… 1SA4nw3GxvrNo0CUYzv8zXFad0QXEsTjvz… &lt;list [34]&gt;   
 #&gt; # … with 15 more rows
 #&gt; Copying over lecture
 #&gt; File copied:
@@ -219,19 +219,19 @@
 #&gt;   * role = reader
 #&gt;   * type = anyone
 #&gt; For files:
-#&gt;   * test_00_how_to_do_things: 1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU
+#&gt;   * test_00_how_to_do_things: 1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE
 #&gt; Auto-refreshing stale OAuth token.
 #&gt; $md_file
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/manuscript/00_how_to_do_things.md"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/manuscript/00_how_to_do_things.md"
 #&gt; 
 #&gt; $script_file
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test/scripts/00_how_to_do_things_script.md"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test/scripts/00_how_to_do_things_script.md"
 #&gt; 
 #&gt; $course_dir
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpFwFALp/file15d8a56626ff9/test"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmppsdpLu/file15f536a0d8122/test"
 #&gt; 
 #&gt; $slide_id
-#&gt; [1] "1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU"</code></pre>
+#&gt; [1] "1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE"</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">out =<span class="st"> </span>didactr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/didactr/topics/create_lesson">create_lesson</a></span>(</a>
 <a class="sourceLine" id="cb10-2" title="2">  <span class="dt">lesson_name =</span> <span class="st">"How to Do Things"</span>,</a>
 <a class="sourceLine" id="cb10-3" title="3">  <span class="dt">course_dir =</span> sc<span class="op">$</span>course_dir,</a>
@@ -239,24 +239,26 @@
 <a class="sourceLine" id="cb10-5" title="5">  <span class="dt">slide_id =</span> slide_id,</a>
 <a class="sourceLine" id="cb10-6" title="6">  <span class="dt">open =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb10-7" title="7">out</a></code></pre></div>
+<p>Here we break down the arguments we specified. Whenever <code>create_lesson</code>, you must supply a <code>lesson_name</code> (in our case <code>"How to Do Things"</code>). This can have spaces if you want and will be the title of the lesson. We will pass the course directory in here from our <code>sc</code> object, otherwise it assumes we are creating this in the current working directory. The <code>slide_id</code> again is the slide identifier for a Google Slide deck. The ID can be extracted from the URL manually or running <code><a href="../reference/get_slide_id.html">didactr::get_slide_id</a></code> on the URL. If you do not specify a slide ID, the <code>make_slide_deck</code> argument determines if you would like to create a slide deck. If <code>TRUE</code>, it copies a template; if <code>FALSE</code> it does not make a slide deck. <strong>NB:</strong> if you’re creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.</p>
+<p>The <code>md_file</code> argument allows you to override the standard naming convention we recommend, the <code>rmd</code> argument says whether you’d like to use an Rmarkdown vs. Markdown document. The argument <code>open</code> determines if you’d like to edit the document and script after creating it.</p>
 <p>We see the output is the Markdown file, slide ID for the deck, and the output script file (to be spoken over the slides). Here is the output of the MD file:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readLines">readLines</a></span>(out<span class="op">$</span>md_file)</a>
 <a class="sourceLine" id="cb11-2" title="2"><span class="co">#&gt;  [1] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt;  [2] "# How to Do Things"                                                                                                                                                          </span></a>
 <a class="sourceLine" id="cb11-4" title="4"><span class="co">#&gt;  [3] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-5" title="5"><span class="co">#&gt;  [4] "&lt;!-- Google Slide ID --&gt;"                                                                                                                                                    </span></a>
-<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt;  [5] "&lt;!-- 1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU --&gt;"                                                                                                                       </span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt;  [5] "&lt;!-- 1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE --&gt;"                                                                                                                       </span></a>
 <a class="sourceLine" id="cb11-7" title="7"><span class="co">#&gt;  [6] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-8" title="8"><span class="co">#&gt;  [7] "&lt;!-- Include a slide PNG with Page_ID from this Slide Deck: --&gt;"                                                                                                             </span></a>
-<a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt;  [8] "&lt;!-- ![](https://docs.google.com/presentation/d/1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU/export/png?id=1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU&amp;pageid=PAGE_ID) --&gt;" </span></a>
-<a class="sourceLine" id="cb11-10" title="10"><span class="co">#&gt;  [9] "&lt;!-- or use  `didactr::gs_slide_df(\"1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU\")$png_markdown` --&gt;"                                                                      </span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt;  [8] "&lt;!-- ![](https://docs.google.com/presentation/d/1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE/export/png?id=1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE&amp;pageid=PAGE_ID) --&gt;" </span></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="co">#&gt;  [9] "&lt;!-- or use  `didactr::gs_slide_df(\"1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE\")$png_markdown` --&gt;"                                                                      </span></a>
 <a class="sourceLine" id="cb11-11" title="11"><span class="co">#&gt; [10] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-12" title="12"><span class="co">#&gt; [11] "### Sections"                                                                                                                                                                </span></a>
 <a class="sourceLine" id="cb11-13" title="13"><span class="co">#&gt; [12] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-14" title="14"><span class="co">#&gt; [13] "&lt;!-- Notes from Slide p--&gt;"                                                                                                                                                  </span></a>
 <a class="sourceLine" id="cb11-15" title="15"><span class="co">#&gt; [14] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-16" title="16"><span class="co">#&gt; [15] "{format: png}"                                                                                                                                                               </span></a>
-<a class="sourceLine" id="cb11-17" title="17"><span class="co">#&gt; [16] "![](https://docs.google.com/presentation/d/1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU/export/png?id=1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU&amp;pageid=p)"                </span></a>
+<a class="sourceLine" id="cb11-17" title="17"><span class="co">#&gt; [16] "![](https://docs.google.com/presentation/d/1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE/export/png?id=1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE&amp;pageid=p)"                </span></a>
 <a class="sourceLine" id="cb11-18" title="18"><span class="co">#&gt; [17] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-19" title="19"><span class="co">#&gt; [18] "&lt;!-- Notes from Slide g2bfdb07292_0_151--&gt;"                                                                                                                                  </span></a>
 <a class="sourceLine" id="cb11-20" title="20"><span class="co">#&gt; [19] "Add images for course "                                                                                                                                                      </span></a>
@@ -264,7 +266,7 @@
 <a class="sourceLine" id="cb11-22" title="22"><span class="co">#&gt; [21] " Note: captions will show up in the picture of the course"                                                                                                                   </span></a>
 <a class="sourceLine" id="cb11-23" title="23"><span class="co">#&gt; [22] " Include date accessed along with your URL"                                                                                                                                  </span></a>
 <a class="sourceLine" id="cb11-24" title="24"><span class="co">#&gt; [23] "{format: png}"                                                                                                                                                               </span></a>
-<a class="sourceLine" id="cb11-25" title="25"><span class="co">#&gt; [24] "![](https://docs.google.com/presentation/d/1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU/export/png?id=1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU&amp;pageid=g2bfdb07292_0_151)"</span></a>
+<a class="sourceLine" id="cb11-25" title="25"><span class="co">#&gt; [24] "![](https://docs.google.com/presentation/d/1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE/export/png?id=1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE&amp;pageid=g2bfdb07292_0_151)"</span></a>
 <a class="sourceLine" id="cb11-26" title="26"><span class="co">#&gt; [25] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-27" title="27"><span class="co">#&gt; [26] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-28" title="28"><span class="co">#&gt; [27] "### Summary"                                                                                                                                                                 </span></a>
@@ -275,7 +277,7 @@
 <a class="sourceLine" id="cb11-33" title="33"><span class="co">#&gt; [32] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-34" title="34"><span class="co">#&gt; [33] "&lt;!-- ![How to Do Things](YouTube Link) --&gt;"                                                                                                                                  </span></a>
 <a class="sourceLine" id="cb11-35" title="35"><span class="co">#&gt; [34] ""                                                                                                                                                                            </span></a>
-<a class="sourceLine" id="cb11-36" title="36"><span class="co">#&gt; [35] "  - [Slides](https://docs.google.com/presentation/d/1AWkoiL4chLJbyKZOO47PbKl2u8y0q3BmMmuOcgtJahU/edit?usp=sharing)"                                                          </span></a>
+<a class="sourceLine" id="cb11-36" title="36"><span class="co">#&gt; [35] "  - [Slides](https://docs.google.com/presentation/d/1Qkz_jyshEvRoJCsNti_hKblZASb2dXZbGW212J3A5aE/edit?usp=sharing)"                                                          </span></a>
 <a class="sourceLine" id="cb11-37" title="37"><span class="co">#&gt; [36] ""                                                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-38" title="38"><span class="co">#&gt; [37] "{quiz, id: quiz\\_00\\_filename}"                                                                                                                                            </span></a>
 <a class="sourceLine" id="cb11-39" title="39"><span class="co">#&gt; [38] ""                                                                                                                                                                            </span></a>
@@ -360,7 +362,7 @@
 <a class="sourceLine" id="cb16-3" title="3"><span class="co">#&gt; # A tibble: 1 x 30</span></a>
 <a class="sourceLine" id="cb16-4" title="4"><span class="co">#&gt;   lesson md_file lesson_name id    gs_name course_info mod_time_gs        </span></a>
 <a class="sourceLine" id="cb16-5" title="5"><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             </span></a>
-<a class="sourceLine" id="cb16-6" title="6"><span class="co">#&gt; 1 00_ho… /priva… How To Do … 1AWk… test_0… test_00_ho… 2019-04-12 16:18:29</span></a>
+<a class="sourceLine" id="cb16-6" title="6"><span class="co">#&gt; 1 00_ho… /priva… How To Do … 1Qkz… test_0… test_00_ho… 2019-04-12 16:32:04</span></a>
 <a class="sourceLine" id="cb16-7" title="7"><span class="co">#&gt; # … with 23 more variables: n_slides &lt;int&gt;, img_dir &lt;chr&gt;,</span></a>
 <a class="sourceLine" id="cb16-8" title="8"><span class="co">#&gt; #   has_img_dir &lt;lgl&gt;, all_images_exist &lt;lgl&gt;, pdf &lt;lgl&gt;, pdf_pages &lt;lgl&gt;,</span></a>
 <a class="sourceLine" id="cb16-9" title="9"><span class="co">#&gt; #   n_pngs &lt;int&gt;, pdf_png_match &lt;lgl&gt;, mod_time_pngs &lt;dttm&gt;,</span></a>
