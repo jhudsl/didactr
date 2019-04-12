@@ -50,11 +50,6 @@ root_path = "/the/path/to/your/course"
 
 Here we will call our course name `test`.  For course names, these should not have any spaces; all slide decks will have the `course_name` prepended on them (for example `test_00_first_lecture`).  The `create_course` function will create the course.  Run the code below, changing `test` to the name of the course that you want.  If do not want `R` to open up the `R` project (in the directory of the course), set `open = FALSE` in the code below:
 
-```{r, echo = FALSE, eval = TRUE}
-course_name = "test"
-sc = didactr::create_course(course_name, root_path, open = FALSE)
-sc
-```
 
 ```{r, echo = TRUE, eval = FALSE}
 course_name = "test"
@@ -62,7 +57,19 @@ sc = didactr::create_course(course_name, root_path, open = TRUE)
 sc
 ```
 
-We see the paths that have been created for the project.  FYI - the `start_course` function is identical to `create_course`.  You may ask yourself "Why were all these folders created?"; we discuss below the folder structure necessary for Leanpub courses.  
+```{r, echo = FALSE, eval = TRUE}
+course_name = "test"
+sc = didactr::create_course(course_name, root_path, open = FALSE)
+sc
+```
+
+Make sure you run: 
+```{r}
+library(didactr)
+```
+in your new session.
+
+We see the paths that have been created for the project. You may ask yourself "Why were all these folders created?"; we discuss below the folder structure necessary for Leanpub courses.  
 
 **For the rest of the code below, you need to go to your course directory.  You can do this by opening (on your machine) your `course_name.Rproj` file in your course directory (in our example `test.Rproj`).**
 
@@ -127,6 +134,18 @@ You must authorize `didactr` to be able to read and copy on your Google Drive/Go
 
 Now, let's create our lesson  For your lesson, change `How to Do Things` to something more appropriate and run:
 
+```{r, echo = TRUE, eval = FALSE}
+sc = check_structure(course_dir = ".", create_directories = FALSE)
+stopifnot(dir.exists(sc$man_path))
+out = didactr::create_lesson(
+  lesson_name = "How to Do Things",
+  course_dir = sc$course_dir,
+  make_slide_deck = TRUE,
+  slide_id = slide_id,
+  open = TRUE)
+out
+```
+
 ```{r, echo = FALSE, eval = TRUE}
 out = didactr::create_lesson(
   lesson_name = "How to Do Things",
@@ -137,15 +156,7 @@ out = didactr::create_lesson(
 out
 ```
 
-```{r, echo = TRUE, eval = FALSE}
-out = didactr::create_lesson(
-  lesson_name = "How to Do Things",
-  course_dir = sc$course_dir,
-  make_slide_deck = TRUE,
-  slide_id = slide_id,
-  open = TRUE)
-out
-```
+If this errors, that is due to the fact that you are not in your course directory when running it.  You must either change the directory to the course directory (using `setwd`) or open your course folder and open the file that has the extension `.Rproj` to open a new `R` session with the right directory set and then run the above commands.
 
 Here we break down the arguments we specified.  Whenever `create_lesson`, you must supply a `lesson_name` (in our case `"How to Do Things"`).  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` again is the slide identifier for a Google Slide deck.  The ID can be extracted from the URL manually or running `didactr::get_slide_id` on the URL.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  If `TRUE`, it copies a template; if `FALSE` it does not make a slide deck.   **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
 

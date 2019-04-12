@@ -6,6 +6,8 @@
 #' @param verbose print diagnostic messages
 #' @param warn_book_exists Should a warning be sent if \code{Book.txt}
 #' already exists.
+#' @param create_directories if the directories do not exist,
+#' create them.
 #'
 #' @return A list of the paths necessary for the course
 #' @export
@@ -19,7 +21,8 @@ make_course = function(
   course_dir = ".",
   book_txt = NULL,
   verbose = TRUE,
-  warn_book_exists = TRUE) {
+  warn_book_exists = TRUE,
+  create_directories = TRUE) {
 
   course_dir = normalizePath(course_dir, mustWork = TRUE)
   met_path = file.path(course_dir, "metrics")
@@ -51,13 +54,17 @@ make_course = function(
 
 
 
-  dirs_created <- sapply(paths, check_structure)
+  if (create_directories) {
+    dirs_created <- sapply(paths, check_structure)
+  }
 
   out_book_txt = file.path(man_path, "Book.txt")
   if (!is.null(book_txt)) {
     if (file.exists(book_txt)) {
       if (!file.exists(out_book_txt)) {
-        file.copy(book_txt, out_book_txt)
+        if (file.exists(man_path)) {
+          file.copy(book_txt, out_book_txt)
+        }
       } else {
         if (warn_book_exists) {
           warning(paste0(out_book_txt, " already exists and ",
@@ -67,7 +74,9 @@ make_course = function(
     }
   }
   if (!file.exists(out_book_txt)) {
-    writeLines("", con = out_book_txt)
+    if (file.exists(man_path)) {
+      writeLines("", con = out_book_txt)
+    }
   }
   paths$book_txt = out_book_txt
   paths$course_name = basename(course_dir)

@@ -6,10 +6,10 @@
 \title{Check for expected file structure and create missing}
 \usage{
 make_course(course_dir = ".", book_txt = NULL, verbose = TRUE,
-  warn_book_exists = TRUE)
+  warn_book_exists = TRUE, create_directories = TRUE)
 
 check_structure(course_dir = ".", book_txt = NULL, verbose = TRUE,
-  warn_book_exists = TRUE)
+  warn_book_exists = TRUE, create_directories = TRUE)
 }
 \arguments{
 \item{course_dir}{directory with course materials}
@@ -21,6 +21,9 @@ files and course names}
 
 \item{warn_book_exists}{Should a warning be sent if \code{Book.txt}
 already exists.}
+
+\item{create_directories}{if the directories do not exist,
+create them.}
 }
 \value{
 A list of the paths necessary for the course
