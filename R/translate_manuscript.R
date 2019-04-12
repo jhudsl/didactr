@@ -273,6 +273,8 @@ chunk_google_translate = function(file, chunk = TRUE,
 #' @rdname translate_manuscript
 #' @param max_nchar number of characters to use for detection.
 gl_detect_file = function(file, max_nchar = 2000) {
+  text = NULL
+  rm(list = "text")
   txt = readLines(file, warn = FALSE)
   nc = nchar(txt)
   df = data.frame(text = txt,

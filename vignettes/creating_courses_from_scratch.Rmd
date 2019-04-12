@@ -22,9 +22,7 @@ if (file.exists(auth_file)) {
 stopifnot(check_didactr_auth())
 ```
 
-```{r setup}
-library(didactr)
-```
+
 
 # If you don't have `didactr` installed
 
@@ -34,9 +32,16 @@ If you do not have `didactr` installed, you can run the following command:
 devtools::install_github("muschellij2/didactr")
 ```
 
+
+
 # Setting up a Temporary Course
 
-Here we will work in temporary directories in `R`.  In your cases, you'd want to change `root_path` to a folder on your computer where your class will live.  The class folder will be in `root_path/course_name`.  Run the code below, changing `root_path` to a path on your computer where you want the course folder.
+Let's load in the `didactr` library:
+```{r load_lib}
+library(didactr)
+```
+
+In this tutorial we will work in temporary directories in `R`.  In your case, you want to change `root_path` to a folder on your computer where your class will live.  The class folder will be in `root_path/course_name`.  Run the code below, changing `root_path` to a path on your computer where you want the course folder.
 
 ```{r, echo = FALSE, eval = TRUE}
 root_path = tempfile()
@@ -87,13 +92,13 @@ If you've never created a Leanpub, the structure is that the top-level folder is
 This workflow uses Google Slides to create your video and your document.  We **highly** recommend this process.  If you have a local presentation and you want to use that, go to https://drive.google.com (by clicking on the link).  Once on Google Drive, click the New button:
 
 ```{r, echo = FALSE}
-knitr::include_graphics("google_figures/New.png")
+knitr::include_graphics("New.png")
 ```
 
 After clicking that, select "File Upload":
 
 ```{r, echo = FALSE}
-knitr::include_graphics("google_figures/Upload.png")
+knitr::include_graphics("Upload.png")
 ```
 
 Then upload your deck.
@@ -131,6 +136,8 @@ Before we actually make the lesson, please read this note on authorization.
 ## A note on authorization
 
 You must authorize `didactr` to be able to read and copy on your Google Drive/Google Slides.  The `create_lesson` function will authorize using OAuth (Open Authorization) for this and other things. This will open a pop up on your internet browser asking you for permission.  If you choose to create videos with `didactr`, we have functions to upload them to YouTube, so the authorization also asks you for YouTube authorization.  We bundled all the authorizations into one in `didactr` so that you only have to authorize once.  If you do not want to authorize for YouTube, that is fine for now.
+
+**NOTE**: this function will make your slide deck public.  This is so that Leanpub can download your slides into your manuscript. 
 
 Now, let's create our lesson  For your lesson, change `How to Do Things` to something more appropriate and run:
 
