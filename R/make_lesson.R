@@ -131,6 +131,7 @@ create_lesson = function(
     if (verbose) {
       message("Publishing Slide")
     }
+    check_didactr_auth(...)
     googledrive::drive_share(file = googledrive::as_id(slide_id),
                              verbose = verbose,
                              type = "anyone")

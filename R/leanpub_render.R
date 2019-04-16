@@ -36,6 +36,8 @@ leanpub_render = function(
     x[image_lines] = sub("edit#slide=id.", "export/png?id=", x[image_lines],
                          fixed = TRUE)
   }
+  xx = trimws(x)
+  x = x[ !(xx %in% c("{format: png}", "{format: gif}"))]
   writeLines(x, con = tfile)
   res = tempfile(fileext = ".html")
   result = rmarkdown::render(

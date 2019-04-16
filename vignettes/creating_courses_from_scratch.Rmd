@@ -139,6 +139,7 @@ You must authorize `didactr` to be able to read and copy on your Google Drive/Go
 
 **NOTE**: this function will make your slide deck public.  This is so that Leanpub can download your slides into your manuscript. 
 
+## Crating the Lesson 
 Now, let's create our lesson  For your lesson, change `How to Do Things` to something more appropriate and run:
 
 ```{r, echo = TRUE, eval = FALSE}

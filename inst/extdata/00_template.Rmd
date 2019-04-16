@@ -41,8 +41,8 @@ SLIDESHERE
 C) The answer to this one
 o) Not the answer
 
-C) 
-m)
+C) Another correct answer
+m) Different answer
 
 {/quiz}
 

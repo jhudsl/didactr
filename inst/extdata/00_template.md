@@ -36,8 +36,9 @@ SLIDESHERE
 
 <!-- end list -->
 
-3)  
+3) A bad an answer
 <!-- end list -->
 
-13) 
+13) Not an answer
+
 {/quiz}
