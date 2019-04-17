@@ -4,13 +4,17 @@
 \alias{gs_ari_upload}
 \title{Convert Google Slides to Video and Upload to Youtube}
 \usage{
-gs_ari_upload(id, ...,
+gs_ari_upload(id, voice = "Joanna", ...,
   ffmpeg_opts = "-vf \\"scale=trunc(iw/2)*2:trunc(ih/2)*2\\"",
   snippet = NULL, status = NULL, open_url = TRUE)
 }
 \arguments{
 \item{id}{Identifier of google slides presentation, passed to
 \code{\link{gs_convert}}}
+
+\item{voice}{The Amazon Polly voice you want to use. See
+\code{\link{aws.polly::list_voices}} for more
+information about what voices are available.}
 
 \item{...}{Arguments passed to \code{\link{gs_ari}}}
 

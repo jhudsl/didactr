@@ -98,10 +98,29 @@ create_lesson = function(
   book_txt = readLines(res$book_txt, warn = FALSE)
   book_txt = book_txt[ book_txt != ""]
 
+  ask_overwrite = function() {
+    choices = c("No", "Yes")
+    if (interactive()) {
+      res = utils::menu(
+        choices = choices,
+        title = "A file name looks similar, should we continue")
+    } else {
+      res = 2
+    }
+    return(res)
+  }
   if (is.null(md_file)) {
     file_name = tolower(lesson_name)
     file_name = gsub(" ", "_", file_name)
 
+    no_under_book = sub("^\\d{2}_", "", book_txt)
+    no_under_book = sub("[.]md$", "", no_under_book)
+    if (any(no_under_book %in% file_name)) {
+      res = ask_overwrite()
+      if (res != 2) {
+        return(NULL)
+      }
+    }
     # number it
     number = sprintf("%02.0f", length(book_txt))
 
@@ -114,6 +133,12 @@ create_lesson = function(
     stopifnot(grepl("md$", md_file))
     stub = sub(".md$", "", md_file)
     file_name = md_file
+    if (file.exists(md_file)) {
+      res = ask_overwrite()
+      if (res != 2) {
+        return(NULL)
+      }
+    }
   }
 
   template = gsub("00_filename", stub, template)

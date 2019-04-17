@@ -7,10 +7,10 @@
 \title{Starting a Course, Light wrapper for \code{\link{make_course}}}
 \usage{
 start_course(course_name, root_path = ".", book_txt = NULL,
-  verbose = TRUE, rstudio = TRUE, open = FALSE, ...)
+  verbose = TRUE, rstudio = TRUE, open = FALSE, git = FALSE, ...)
 
 create_course(course_name, root_path = ".", book_txt = NULL,
-  verbose = TRUE, rstudio = TRUE, open = FALSE, ...)
+  verbose = TRUE, rstudio = TRUE, open = FALSE, git = FALSE, ...)
 
 create_github_course(...)
 }
@@ -31,6 +31,9 @@ make the new package or project into an RStudio Project.}
 \item{open}{If \code{TRUE}, activates the new project:
 If RStudio desktop, the package is opened in a new session.
 Otherwise, the working directory and active project is changed.}
+
+\item{git}{If \code{TRUE}, calls \code{use_git()} to
+use Git inside the project.}
 
 \item{...}{additional argument to pass to \code{\link{create_lesson}}}
 }

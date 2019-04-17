@@ -5,9 +5,9 @@
 \alias{gs_ari_spin}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
-gs_ari(id, output = NULL, verbose = TRUE, ...)
+gs_ari(id, output = NULL, verbose = TRUE, voice = "Joanna", ...)
 
-gs_ari_spin(id, output = NULL, verbose = TRUE, ...)
+gs_ari_spin(id, output = NULL, verbose = TRUE, voice = "Joanna", ...)
 }
 \arguments{
 \item{id}{Identifier of google slides presentation, passed to
@@ -16,6 +16,10 @@ gs_ari_spin(id, output = NULL, verbose = TRUE, ...)
 \item{output}{Output MP4 filename, optional}
 
 \item{verbose}{Should diagnostics messages be printed}
+
+\item{voice}{The Amazon Polly voice you want to use. See
+\code{\link{aws.polly::list_voices}} for more
+information about what voices are available.}
 
 \item{...}{Arguments passed to \code{\link{ari_spin}}}
 }

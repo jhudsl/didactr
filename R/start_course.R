@@ -12,6 +12,8 @@
 #' Otherwise, the working directory and active project is changed.
 #' @param rstudio If \code{TRUE}, calls \code{use_rstudio()} to
 #' make the new package or project into an RStudio Project.
+#' @param git If \code{TRUE}, calls \code{use_git()} to
+#' use Git inside the project.
 #' @param ... additional argument to pass to \code{\link{create_lesson}}
 #'
 #' @importFrom usethis proj_set use_rstudio proj_activate create_project
@@ -36,6 +38,7 @@ start_course = function(course_name, root_path = ".",
                         verbose = TRUE,
                         rstudio = TRUE,
                         open = FALSE,
+                        git = FALSE,
                         ...){
   course_name = gsub(" ", "_", course_name)
 
@@ -79,6 +82,12 @@ start_course = function(course_name, root_path = ".",
       # Working directory/active project changed; so don't undo on exit
       on.exit()
     }
+  }
+  if (git) {
+    usethis::use_git()
+    msg = paste0("Run usethis::use_github() when your ",
+                 "project opens to use GitHub")
+    message(msg)
   }
   # make sure videos don't go up there.
   usethis::use_git_ignore("manuscript/resources/videos")

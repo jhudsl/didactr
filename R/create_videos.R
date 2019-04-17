@@ -16,7 +16,7 @@
 #' @export
 #'
 create_videos <- function(
-  course_status = NULL,
+  course_status = ".",
   voice = "Joanna",
   ffmpeg_opts = '-minrate 16M -vf "scale=1200:720"',
   divisible_height = FALSE,
