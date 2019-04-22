@@ -36,7 +36,8 @@ Imports:
     english,
     usethis (>= 1.4.0.9000),
     gh,
-    yaml
+    yaml,
+    aws.polly
 Suggests: 
     knitr,
     covr,

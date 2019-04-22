@@ -13,7 +13,7 @@ gs_ari_upload(id, voice = "Joanna", ...,
 \code{\link{gs_convert}}}
 
 \item{voice}{The Amazon Polly voice you want to use. See
-\code{\link{aws.polly::list_voices}} for more
+\code{\link[aws.polly]{list_voices}} for more
 information about what voices are available.}
 
 \item{...}{Arguments passed to \code{\link{gs_ari}}}

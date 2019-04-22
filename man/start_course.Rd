@@ -25,6 +25,8 @@ underscores}
 \item{book_txt}{A text file with names of markdown
 files and course names}
 
+\item{folder_id}{Google ID for a folder of presentations}
+
 \item{verbose}{print diagnostic messages}
 
 \item{rstudio}{If \code{TRUE}, calls \code{use_rstudio()} to

@@ -18,7 +18,7 @@ gs_ari_spin(id, output = NULL, verbose = TRUE, voice = "Joanna", ...)
 \item{verbose}{Should diagnostics messages be printed}
 
 \item{voice}{The Amazon Polly voice you want to use. See
-\code{\link{aws.polly::list_voices}} for more
+\code{\link[aws.polly]{list_voices}} for more
 information about what voices are available.}
 
 \item{...}{Arguments passed to \code{\link{ari_spin}}}

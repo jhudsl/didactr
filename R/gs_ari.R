@@ -6,7 +6,7 @@
 #' @param output Output MP4 filename, optional
 #' @param verbose Should diagnostics messages be printed
 #' @param voice 	The Amazon Polly voice you want to use. See
-#' \code{\link{aws.polly::list_voices}} for more
+#' \code{\link[aws.polly]{list_voices}} for more
 #' information about what voices are available.
 #' @param ... Arguments passed to \code{\link{ari_spin}}
 #'
@@ -58,7 +58,7 @@ gs_ari_spin = gs_ari
 #' @param open_url Should YouTube URL be opened?  Passed to
 #' \code{\link{upload_video}}
 #' @param voice 	The Amazon Polly voice you want to use. See
-#' \code{\link{aws.polly::list_voices}} for more
+#' \code{\link[aws.polly]{list_voices}} for more
 #' information about what voices are available.
 #'
 #' @return A list of results from \code{\link{gs_ari}} and

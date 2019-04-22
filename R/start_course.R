@@ -14,6 +14,7 @@
 #' make the new package or project into an RStudio Project.
 #' @param git If \code{TRUE}, calls \code{use_git()} to
 #' use Git inside the project.
+#' @param folder_id Google ID for a folder of presentations
 #' @param ... additional argument to pass to \code{\link{create_lesson}}
 #'
 #' @importFrom usethis proj_set use_rstudio proj_activate create_project
