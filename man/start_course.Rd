@@ -7,10 +7,12 @@
 \title{Starting a Course, Light wrapper for \code{\link{make_course}}}
 \usage{
 start_course(course_name, root_path = ".", book_txt = NULL,
-  verbose = TRUE, rstudio = TRUE, open = FALSE, git = FALSE, ...)
+  folder_id = NULL, verbose = TRUE, rstudio = TRUE, open = FALSE,
+  git = FALSE, ...)
 
 create_course(course_name, root_path = ".", book_txt = NULL,
-  verbose = TRUE, rstudio = TRUE, open = FALSE, git = FALSE, ...)
+  folder_id = NULL, verbose = TRUE, rstudio = TRUE, open = FALSE,
+  git = FALSE, ...)
 
 create_github_course(...)
 }

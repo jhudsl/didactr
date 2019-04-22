@@ -33,8 +33,10 @@
 #' md_files = list.files(sc$man_path, full.names = TRUE)
 #' md_files
 #' readLines(md_files[1])
-start_course = function(course_name, root_path = ".",
+start_course = function(course_name,
+                        root_path = ".",
                         book_txt = NULL,
+                        folder_id = NULL,
                         verbose = TRUE,
                         rstudio = TRUE,
                         open = FALSE,
@@ -53,11 +55,31 @@ start_course = function(course_name, root_path = ".",
 
   res = make_course(course_dir = course_dir, book_txt = book_txt,
                     verbose = verbose, warn_book_exists = FALSE)
+
+
+  if (!is.null(folder_id)) {
+    df = gs_folder_df(id = folder_id, slides_only = TRUE)
+    n = NROW(df)
+    results = vector(length = n, mode = "list")
+    for (i in seq(n)) {
+      idf = df[i, , drop = FALSE]
+      results[[i]] = create_lesson(
+        lesson_name = idf$name,
+        slide_id = idf$id,
+        course_dir = res$course_dir,
+        verbose = verbose,
+        make_slide_deck = TRUE,
+        ...
+      )
+    }
+  }
+
   book_txt = readLines(res$book_txt, warn = FALSE)
   book_txt = trimws(book_txt)
-  book_txt = book_txt[ book_txt != ""]
+  book_txt = book_txt[ book_txt != "" ]
 
   make_md_files = !all(file.exists(file.path(res$man_path, book_txt)))
+
 
   if (make_md_files) {
     if (length(book_txt) > 0) {
@@ -68,6 +90,7 @@ start_course = function(course_name, root_path = ".",
       res$lessons = lessons
     }
   }
+
 
   if (rstudio) {
     rproj_file = file.path(course_dir, paste0(course_name, ".Rproj"))
