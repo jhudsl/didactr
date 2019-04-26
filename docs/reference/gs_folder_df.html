@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Translate Swirl YAML to another language — translate_swirl • didactr</title>
+<title>Get Google Folder Contents IDs — gs_folder_df • didactr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Translate Swirl YAML to another language — translate_swirl" />
+<meta property="og:title" content="Get Google Folder Contents IDs — gs_folder_df" />
 
-<meta property="og:description" content="Translate Swirl YAML to another language" />
+<meta property="og:description" content="Get Google Folder Contents IDs" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,67 +117,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Translate Swirl YAML to another language</h1>
-    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/translate_swirl.R'><code>R/translate_swirl.R</code></a></small>
-    <div class="hidden name"><code>translate_swirl.Rd</code></div>
+    <h1>Get Google Folder Contents IDs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/gs_folder_df.R'><code>R/gs_folder_df.R</code></a></small>
+    <div class="hidden name"><code>gs_folder_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Translate Swirl YAML to another language</p>
+    <p>Get Google Folder Contents IDs</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>translate_swirl</span>(<span class='no'>file</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".yml"</span>),
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>, <span class='kw'>detect</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gs_folder_df</span>(<span class='no'>id</span>, <span class='kw'>slides_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>YAML file for Swirl lesson</p></td>
+      <th>id</th>
+      <td><p>Folder id passed to <code>drive_ls</code> after passing
+through <code>as_id</code></p></td>
     </tr>
     <tr>
-      <th>outfile</th>
-      <td><p>output YAML file for translated Swirl lesson</p></td>
-    </tr>
-    <tr>
-      <th>target</th>
-      <td><p>language to translate to, see <code>gl_translate</code></p></td>
-    </tr>
-    <tr>
-      <th>detect</th>
-      <td><p>Should <code><a href='translate_manuscript.html'>gl_detect_file</a></code> be run to
-check that the language is not currently the target?
-Must be google Language authorized using <code>gl_auth</code></p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>Print diagnostic messages</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional options to pass to <code>write_yaml</code></p></td>
+      <th>slides_only</th>
+      <td><p>Return only elements that are
+presentations</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A filename of the output file.  The attribute
- <code>target_language</code> is also given to the filename.</p>
+    <p>A <code>data.frame</code> of the identifiers and properties of the
+objects</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"- Class: meta"</span>,
-<span class='st'>"  Course: Test Class"</span>, <span class='st'>"  Lesson: Test lesson"</span>,
-<span class='st'>"  Author: Shannon Ellis"</span>, <span class='st'>""</span>, <span class='st'>"- Class: text"</span>,
-<span class='st'>"  Output: This is an example with code `df`."</span>)
-<span class='no'>tfile</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".yml"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/writeLines'>writeLines</a></span>(<span class='no'>x</span>, <span class='no'>tfile</span>)
-<span class='fu'>translate_swirl</span>(<span class='no'>tfile</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tfile</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>tfile</span>)
+<span class='no'>folder_id</span> <span class='kw'>=</span> <span class='st'>"1GCBE9EAgY3-i1bq9UYf5ec5s9X5TOwEK"</span>
+<span class='no'>df</span> <span class='kw'>=</span> <span class='fu'>gs_folder_df</span>(<span class='no'>id</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

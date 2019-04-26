@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">didactr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>gs_ari_upload</span>(<span class='no'>id</span>, <span class='no'>...</span>,
+    <pre class="usage"><span class='fu'>gs_ari_upload</span>(<span class='no'>id</span>, <span class='kw'>voice</span> <span class='kw'>=</span> <span class='st'>"Joanna"</span>, <span class='no'>...</span>,
   <span class='kw'>ffmpeg_opts</span> <span class='kw'>=</span> <span class='st'>"-vf \"scale=trunc(iw/2)*2:trunc(ih/2)*2\""</span>,
   <span class='kw'>snippet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>open_url</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -139,6 +139,12 @@
       <th>id</th>
       <td><p>Identifier of google slides presentation, passed to
 <code><a href='gs_convert.html'>gs_convert</a></code></p></td>
+    </tr>
+    <tr>
+      <th>voice</th>
+      <td><p>The Amazon Polly voice you want to use. See
+<code><a href='https://www.rdocumentation.org/packages/aws.polly/topics/list_voices'>list_voices</a></code> for more
+information about what voices are available.</p></td>
     </tr>
     <tr>
       <th>...</th>

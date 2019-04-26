@@ -64,7 +64,6 @@ sc = didactr::create_course(course_name, root_path, open = TRUE)
 ```{r, echo = FALSE, eval = TRUE}
 course_name = "test"
 sc = didactr::create_course(course_name, root_path, open = FALSE)
-sc
 ```
 
 Make sure you run: 
