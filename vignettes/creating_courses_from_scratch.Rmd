@@ -59,7 +59,6 @@ Here we will call our course name `test`.  For course names, these should not ha
 ```{r, echo = TRUE, eval = FALSE}
 course_name = "test"
 sc = didactr::create_course(course_name, root_path, open = TRUE)
-sc
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
@@ -77,15 +76,6 @@ in your new session.
 We see the paths that have been created for the project. You may ask yourself "Why were all these folders created?"; we discuss below the folder structure necessary for Leanpub courses.  
 
 **For the rest of the code below, you need to go to your course directory.  You can do this by opening (on your machine) your `course_name.Rproj` file in your course directory (in our example `test.Rproj`).**
-
-## Leanpub courses
-
-If you've never created a Leanpub, the structure is that the top-level folder is a course.  The course has the following components:
-
-1. A `manuscript` folder with a Markua/`md` file for each lesson.  [Markua](https://leanpub.com/markua/read) is a subset of Markdown, but has additional elements for quizzes and other teaching.
-2. A `Book.txt` in the `manuscript` folder. This `Book.txt` is a simple text file that determines the order of the lessons, with one line for each `.md` file. The suffix needs to be included and the file names need to match exactly.
-3. A `manuscript/resources` folder, which contains an `images` sub-folder with `png`/images for each lesson.  We will not use these in this workflow as all images are directly encoded from a Google Slide deck.
-
 
 ## If you have a PowerPoint or PDF
 
@@ -108,10 +98,17 @@ Then upload your deck.
 x = "https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"
 ```
 
-If you start with a Google Slide deck, you need the Slide ID.  Please go to the slide deck on Google Slides, and then copy the URL from the browser address bar.  For example, let's say we copied `https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58` from our address bar.  The ID is `r get_slide_id(x)`, and `didactr` provides the helper function `get_slide_id` that takes in this URL and provides the slide ID.  You can either copy just the slide ID or run `get_slide_id` on your URL as the example below demonstrates.
+If you start with a Google Slide deck, you need the Slide ID.  Please go to the slide deck on Google Slides, and then copy the URL from the browser address bar: 
+
+```{r, echo = FALSE}
+knitr::include_graphics("copy_url.png")
+```
+
+For example, let's say we copied `https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58` from our address bar.  The ID is `r get_slide_id(x)`, and `didactr` provides the helper function `get_slide_id` that takes in this URL and provides the slide ID.  You can either copy just the slide ID or run `get_slide_id` on your URL as the example below demonstrates.
 
 ```{r}
-slide_id = didactr::get_slide_id("https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58")
+my_slide_url = "https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"
+slide_id = didactr::get_slide_id(my_slide_url)
 slide_id
 # copy this to slide_id
 # for example:
@@ -129,18 +126,17 @@ Otherwise, you should run the command, where you removed the example URL and put
 ```{r, eval = FALSE}
 slide_id = didactr::get_slide_id("URL FOR GOOGLE SLIDE DECK")
 ```
-
-
 Before we actually make the lesson, please read this note on authorization.
 
-## A note on authorization
+## Creating the Lesson 
 
-You must authorize `didactr` to be able to read and copy on your Google Drive/Google Slides.  The `create_lesson` function will authorize using OAuth (Open Authorization) for this and other things. This will open a pop up on your internet browser asking you for permission.  If you choose to create videos with `didactr`, we have functions to upload them to YouTube, so the authorization also asks you for YouTube authorization.  We bundled all the authorizations into one in `didactr` so that you only have to authorize once.  If you do not want to authorize for YouTube, that is fine for now.
+The `create_lesson` function will pop up windows for you to the authorize `didactr` to work with your Google Drive/Google Slides.  
+
+Accept the permissions to use `didactr`. It will ask you once for Google, once for YouTube. 
 
 **NOTE**: this function will make your slide deck public.  This is so that Leanpub can download your slides into your manuscript. 
 
-## Crating the Lesson 
-Now, let's create our lesson  For your lesson, change `How to Do Things` to something more appropriate and run:
+Now, let's create our lesson.  For your lesson, change `How to Do Things` to something more appropriate and run:
 
 ```{r, echo = TRUE, eval = FALSE}
 sc = check_structure(course_dir = ".", create_directories = FALSE)
@@ -164,32 +160,11 @@ out = didactr::create_lesson(
 out
 ```
 
-If this errors, that is due to the fact that you are not in your course directory when running it.  You must either change the directory to the course directory (using `setwd`) or open your course folder and open the file that has the extension `.Rproj` to open a new `R` session with the right directory set and then run the above commands.
-
-Here we break down the arguments we specified.  Whenever `create_lesson`, you must supply a `lesson_name` (in our case `"How to Do Things"`).  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` again is the slide identifier for a Google Slide deck.  The ID can be extracted from the URL manually or running `didactr::get_slide_id` on the URL.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  If `TRUE`, it copies a template; if `FALSE` it does not make a slide deck.   **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
-
-The `md_file` argument allows you to override the standard naming convention we recommend, the `rmd` argument says whether you'd like to use an Rmarkdown vs. Markdown document.  The argument `open` determines if you'd like to edit the document and script after creating it. 
-
-We see the output is the Markdown file, slide ID for the deck, and the output script file (to be spoken over the slides).  Here is the output of the MD file:
-
-```{r}
-readLines(out$md_file)
-```
-
-Notably, we see that any area of "Notes" in the Google Slide deck is copied to the manuscript.  This is also done for the `script`:
-
-```{r}
-readLines(out$script_file)
-```
-
 ## Viewing the Lesson 
+Run `leanpub_render` to view the output of your lesson:
 
-If you are using an `Rmd` instead of an `md`, you need to `knit` the `Rmd` to create the `md` and make sure an `md` was the output.  Now that you have the `md` file, you can run `leanpub_render` to view the output of the `md` as it should be shown on Leanpub.
-
-```{r}
-if (interactive()) {
-  didactr::leanpub_render(out$md_file)
-}
+```{r, eval = FALSE}
+didactr::leanpub_render(out$md_file)
 ```
 
 If you are including `png` or other files with **links** and not included in the `manuscript/resources/images` folder in your course, then you must specify the format before the Markdown.  For example if you want to include a PNG from Google Slides, we can use the following lines:
@@ -277,6 +252,16 @@ readLines(file.path(sc$course_dir, ".gitignore"))
 
 Now we will create a lesson in that course.  There are a few ways to do this.  If you have Markdown/`md` files already and have a `Book.txt`, which is required for Leanpub, then you want to look at the `create_lessons_from_book` function.  As we are starting from **scratch**, we will assume you have at most a Google Slides deck, but this is not required.
 
+
+## Leanpub courses
+
+If you've never created a Leanpub, the structure is that the top-level folder is a course.  The course has the following components:
+
+1. A `manuscript` folder with a Markua/`md` file for each lesson.  [Markua](https://leanpub.com/markua/read) is a subset of Markdown, but has additional elements for quizzes and other teaching.
+2. A `Book.txt` in the `manuscript` folder. This `Book.txt` is a simple text file that determines the order of the lessons, with one line for each `.md` file. The suffix needs to be included and the file names need to match exactly.
+3. A `manuscript/resources` folder, which contains an `images` sub-folder with `png`/images for each lesson.  We will not use these in this workflow as all images are directly encoded from a Google Slide deck.
+
+
 ## Making Local Data
 
 If you want to take the Google Slides and download them into individual PNGs so you can view them, the `gs_convert` takes in an ID and then converts the images to PNGs.  This requires the `convert` function and ImageMagick being installed.  If you use the `gs_convert(..., use_gs_ids = TRUE)`, the files will be named using the Google Slide page ID, which can allow you to "link" the image to the ID, so you can use
@@ -287,3 +272,24 @@ If you want to take the Google Slides and download them into individual PNGs so 
 ```
 
 in your manuscript files, shere `SLIDE_ID` is the Google Slide deck ID and `PAGE_ID` is the page ID given by the filename of the png when `use_gs_ids = TRUE`.  
+
+
+## Troubleshooting
+
+If this errors, that is due to the fact that you are not in your course directory when running it.  You must either change the directory to the course directory (using `setwd`) or open your course folder and open the file that has the extension `.Rproj` to open a new `R` session with the right directory set and then run the above commands.
+
+Here we break down the arguments we specified.  Whenever `create_lesson`, you must supply a `lesson_name` (in our case `"How to Do Things"`).  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` again is the slide identifier for a Google Slide deck.  The ID can be extracted from the URL manually or running `didactr::get_slide_id` on the URL.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  If `TRUE`, it copies a template; if `FALSE` it does not make a slide deck.   **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
+
+The `md_file` argument allows you to override the standard naming convention we recommend, the `rmd` argument says whether you'd like to use an Rmarkdown vs. Markdown document.  The argument `open` determines if you'd like to edit the document and script after creating it. 
+
+We see the output is the Markdown file, slide ID for the deck, and the output script file (to be spoken over the slides).  Here is the output of the MD file:
+
+```{r}
+readLines(out$md_file)
+```
+
+Notably, we see that any area of "Notes" in the Google Slide deck is copied to the manuscript.  This is also done for the `script`:
+
+```{r}
+readLines(out$script_file)
+```
