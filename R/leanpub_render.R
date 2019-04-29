@@ -16,9 +16,10 @@ leanpub_render = function(
   output_options = list(self_contained = TRUE),
   ...) {
   if (rmarkdown::pandoc_version() <= package_version("1.20")) {
-    stop(paste0("You must have pandoc version >= 1.20.  If ",
-                "you have pandoc installed system-wide, please upgrade",
-                ". Otherwise, upgrade RStudio version."))
+    stop(paste0(
+      "You must have pandoc version >= 1.20.  If ",
+      "you have pandoc installed system-wide, please upgrade",
+      ". Otherwise, upgrade RStudio version."))
   }
   md_file = normalizePath(md_file, mustWork = TRUE)
   tfile = basename(tempfile(fileext = ".md"))
@@ -31,19 +32,6 @@ leanpub_render = function(
     file.remove(paste0(stub, ".html"))
     unlink(paste0(stub, "_files"), recursive = TRUE)
   })
-  x = readLines(tfile, warn = FALSE)
-  image_lines = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)")
-  if (length(image_lines) > 0) {
-    x[image_lines] = sub("\\(images", "(resources/images", x[image_lines])
-  }
-  image_lines = grep(x, pattern = "!\\[.*\\]\\((http*)\\)")
-  if (length(image_lines) > 0) {
-    x[image_lines] = sub("edit#slide=id.", "export/png?id=", x[image_lines],
-                         fixed = TRUE)
-  }
-  xx = trimws(x)
-  x = x[ !(xx %in% c("{format: png}", "{format: gif}"))]
-  writeLines(x, con = tfile)
   res = tempfile(fileext = ".html")
   result = rmarkdown::render(
     input = tfile,
@@ -59,4 +47,40 @@ leanpub_render = function(
   }
   # Sys.sleep(time = 2)
   return(res)
+}
+
+process_md_file = function(md_file) {
+  x = readLines(md_file, warn = FALSE)
+  image_lines = grep(x, pattern = "!\\[.*\\]\\((images.*)\\)")
+  if (length(image_lines) > 0) {
+    x[image_lines] = sub("\\(images", "(resources/images", x[image_lines])
+  }
+  image_lines = grep(x, pattern = "!\\[.*\\]\\((http*)\\)")
+  if (length(image_lines) > 0) {
+    x[image_lines] = sub("edit#slide=id.", "export/png?id=", x[image_lines],
+                         fixed = TRUE)
+  }
+  xx = trimws(x)
+  x = x[ !(xx %in% c("{format: png}", "{format: gif}"))]
+  writeLines(x, con = md_file)
+  md_file
+}
+
+#' @rdname leanpub_render
+#' @param self_contained Produce a standalone HTML file,
+#' passed to \code{\link{html_document}}
+#' @export
+leanpub_document = function(..., self_contained = TRUE) {
+  intermediates_generator <- function(input_file, encoding,
+                                      intermediates_dir) {
+    tfile = tempfile(tmpdir = intermediates_dir, fileext = ".md")
+    file.copy(input_file, tfile)
+    res = process_md_file(tfile)
+  }
+  fmt <- rmarkdown::html_document(
+    ...,
+    self_contained = self_contained,
+    intermediates_generator = intermediates_generator
+  )
+  fmt
 }

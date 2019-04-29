@@ -2,10 +2,13 @@
 % Please edit documentation in R/leanpub_render.R
 \name{leanpub_render}
 \alias{leanpub_render}
+\alias{leanpub_document}
 \title{Render Leanpub document}
 \usage{
 leanpub_render(md_file, output_options = list(self_contained = TRUE),
   ...)
+
+leanpub_document(..., self_contained = TRUE)
 }
 \arguments{
 \item{md_file}{Path to markdown file}
@@ -15,6 +18,9 @@ leanpub_render(md_file, output_options = list(self_contained = TRUE),
 \item{...}{additional arguments to send to \code{\link{render}}
 other than \code{input}, `output_dir`, and `output_format`,
 and `output_options`}
+
+\item{self_contained}{Produce a standalone HTML file,
+passed to \code{\link{html_document}}}
 }
 \value{
 HTML output filename
