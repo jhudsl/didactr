@@ -1,5 +1,5 @@
 Package: didactr
-Version: 0.6.6
+Version: 0.6.7
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 

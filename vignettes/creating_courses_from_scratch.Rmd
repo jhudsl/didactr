@@ -22,7 +22,7 @@ if (file.exists(auth_file)) {
 stopifnot(check_didactr_auth())
 ```
 
-
+You should have the most up to date RStudio downloaded and installed.
 
 # If you don't have `didactr` installed
 
@@ -292,3 +292,13 @@ Notably, we see that any area of "Notes" in the Google Slide deck is copied to t
 ```{r}
 readLines(out$script_file)
 ```
+
+### Pandoc
+
+If you have `pandoc` installed and want to make sure that things should render, run:
+
+```{r}
+rmarkdown:::pandoc_available("1.20")
+```
+
+and make sure this is `TRUE`.

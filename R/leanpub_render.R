@@ -8,13 +8,18 @@
 #'
 #' @return HTML output filename
 #' @export
-#' @importFrom rmarkdown render
+#' @importFrom rmarkdown render pandoc_version
 #' @importFrom rstudioapi viewer isAvailable
 #' @importFrom utils browseURL
 leanpub_render = function(
   md_file,
   output_options = list(self_contained = TRUE),
   ...) {
+  if (rmarkdown::pandoc_version() <= package_version("1.20")) {
+    stop(paste0("You must have pandoc version >= 1.20.  If ",
+                "you have pandoc installed system-wide, please upgrade",
+                ". Otherwise, upgrade RStudio version."))
+  }
   md_file = normalizePath(md_file, mustWork = TRUE)
   tfile = basename(tempfile(fileext = ".md"))
   run_dir = dirname(md_file)
