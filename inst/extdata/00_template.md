@@ -22,23 +22,15 @@ SLIDESHERE
 
   - [Slides](Link to Slides)
 
-{quiz, id: quiz\_00\_filename}
+{quiz, id: quiz_00_filename}
 
 ### Lesson Name quiz
 
 {choose-answers: 4} ?
 
-3)  The answer to this one
-
-<!-- end list -->
-
-15) Not the answer
-
-<!-- end list -->
-
-3) A bad an answer
-<!-- end list -->
-
-13) Not an answer
+C) The answer to this one
+o) Not the answer
+o) A bad answer
+o) Not an answer
 
 {/quiz}
