@@ -67,7 +67,8 @@ out = didactr::create_lesson(
 ```
 
 
-===========================================================
+
+# Full Documentation
 
 You should have the most up to date RStudio downloaded and installed.
 
