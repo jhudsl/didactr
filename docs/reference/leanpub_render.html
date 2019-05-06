@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">didactr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
       </span>
     </div>
 
@@ -129,7 +129,9 @@
     </div>
 
     <pre class="usage"><span class='fu'>leanpub_render</span>(<span class='no'>md_file</span>, <span class='kw'>output_options</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>self_contained</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='no'>...</span>)</pre>
+  <span class='no'>...</span>)
+
+<span class='fu'>leanpub_document</span>(<span class='no'>...</span>, <span class='kw'>self_contained</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,6 +149,11 @@
       <td><p>additional arguments to send to <code>render</code>
 other than <code>input</code>, `output_dir`, and `output_format`,
 and `output_options`</p></td>
+    </tr>
+    <tr>
+      <th>self_contained</th>
+      <td><p>Produce a standalone HTML file,
+passed to <code>html_document</code></p></td>
     </tr>
     </table>
     

@@ -101,13 +101,13 @@ create_lesson = function(
   ask_overwrite = function() {
     choices = c("No", "Yes")
     if (interactive()) {
-      res = utils::menu(
+      ask_res = utils::menu(
         choices = choices,
         title = "A file name looks similar, should we continue")
     } else {
-      res = 2
+      ask_res = 2
     }
-    return(res)
+    return(ask_res)
   }
   if (is.null(md_file)) {
     file_name = tolower(lesson_name)
@@ -116,8 +116,8 @@ create_lesson = function(
     no_under_book = sub("^\\d{2}_", "", book_txt)
     no_under_book = sub("[.]md$", "", no_under_book)
     if (any(no_under_book %in% file_name)) {
-      res = ask_overwrite()
-      if (res != 2) {
+      ask_res = ask_overwrite()
+      if (ask_res != 2) {
         return(NULL)
       }
     }
@@ -134,8 +134,8 @@ create_lesson = function(
     stub = sub(".md$", "", md_file)
     file_name = md_file
     if (file.exists(md_file)) {
-      res = ask_overwrite()
-      if (res != 2) {
+      ask_res = ask_overwrite()
+      if (ask_res != 2) {
         return(NULL)
       }
     }
@@ -151,6 +151,14 @@ create_lesson = function(
   }
   # if not missing slide id
   if (!is.null(slide_id)) {
+    if (
+      any(
+        grepl("^http", slide_id) |
+        grepl("google.com", slide_id)
+      )
+    ) {
+      slide_id = didactr::get_slide_id(slide_id)
+    }
     template = gsub("Link to Slides", slide_url(slide_id),
                     template, fixed = TRUE)
     if (verbose) {

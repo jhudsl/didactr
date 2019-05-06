@@ -22,6 +22,53 @@ if (file.exists(auth_file)) {
 stopifnot(check_didactr_auth())
 ```
 
+# Quick rundown
+
+## Creating a Course
+1. Open RStudio.
+2. Install `didactr`
+```{r, eval = FALSE}
+devtools::install_github("muschellij2/didactr")
+```
+3.  Load `didactr`.
+```{r, eval = FALSE}
+library(didactr)
+```
+4. Create a course.  Change `course_name` to your course name, and change `root_path` to where you want the course created on disk:
+```{r, eval = FALSE}
+didactr::create_course(
+  course_name = "My Course Name", 
+  root_path = "/path/to/course/on/disk", 
+  open = TRUE)
+```
+This should open up a new RStudio session.  Make sure you run: 
+```{r}
+library(didactr)
+```
+in your new session.
+
+## Creating a Lesson 
+
+5.  Go to your Google Slide deck and copy the URL from the slide deck
+
+```{r, echo = FALSE}
+knitr::include_graphics("copy_url.png")
+```
+
+6. Create a lesson.  For your lesson, change `How to Do Things` to something more appropriate and run in your new session, pasting in the slide URL:
+
+```{r, echo = TRUE, eval = FALSE}
+out = didactr::create_lesson(
+  lesson_name = "How to Do Things",
+  course_dir = ".",
+  slide_id = "URL FOR GOOGLE SLIDE DECK",
+  make_slide_deck = TRUE,
+  open = TRUE)
+```
+
+
+===========================================================
+
 You should have the most up to date RStudio downloaded and installed.
 
 # If you don't have `didactr` installed

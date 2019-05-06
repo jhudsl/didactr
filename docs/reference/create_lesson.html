@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">didactr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
       </span>
     </div>
 
@@ -204,7 +204,7 @@ one for each lesson in the <code>Book.txt</code> file.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
 <span class='no'>course_name</span> <span class='kw'>=</span> <span class='st'>"test"</span>
-<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb8399457e3/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb8399457e3/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb8399457e3/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb8399457e3/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb8399457e3/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb8399457e3/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span>
+<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file1202967df2fdc/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file1202967df2fdc/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file1202967df2fdc/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file1202967df2fdc/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file1202967df2fdc/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file1202967df2fdc/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span>
 #&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
 #&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
 #&gt; </span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></div><div class='input'><span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
@@ -236,26 +236,18 @@ one for each lesson in the <code>Book.txt</code> file.</p>
 #&gt; [22] ""                                                                                                 
 #&gt; [23] "  - [Slides](Link to Slides)"                                                                     
 #&gt; [24] ""                                                                                                 
-#&gt; [25] "{quiz, id: quiz\\_00\\_filename}"                                                                 
+#&gt; [25] "{quiz, id: quiz_00_how_to_do_things}"                                                             
 #&gt; [26] ""                                                                                                 
 #&gt; [27] "### how to Do Things quiz"                                                                        
 #&gt; [28] ""                                                                                                 
 #&gt; [29] "{choose-answers: 4} ?"                                                                            
 #&gt; [30] ""                                                                                                 
-#&gt; [31] "3)  The answer to this one"                                                                       
-#&gt; [32] ""                                                                                                 
-#&gt; [33] "&lt;!-- end list --&gt;"                                                                                
-#&gt; [34] ""                                                                                                 
-#&gt; [35] "15) Not the answer"                                                                               
-#&gt; [36] ""                                                                                                 
-#&gt; [37] "&lt;!-- end list --&gt;"                                                                                
-#&gt; [38] ""                                                                                                 
-#&gt; [39] "3) A bad an answer"                                                                               
-#&gt; [40] "&lt;!-- end list --&gt;"                                                                                
-#&gt; [41] ""                                                                                                 
-#&gt; [42] "13) Not an answer"                                                                                
-#&gt; [43] ""                                                                                                 
-#&gt; [44] "{/quiz}"                                                                                          </div><div class='input'><span class='no'>in_ci</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() {
+#&gt; [31] "C) The answer to this one"                                                                        
+#&gt; [32] "o) Not the answer"                                                                                
+#&gt; [33] "o) A bad answer"                                                                                  
+#&gt; [34] "o) Not an answer"                                                                                 
+#&gt; [35] ""                                                                                                 
+#&gt; [36] "{/quiz}"                                                                                          </div><div class='input'><span class='no'>in_ci</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() {
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nchar'>nzchar</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.getenv'>Sys.getenv</a></span>(<span class='st'>"CI"</span>))
 }</div></span><span class='co'># NOT RUN {</span>
 <span class='co'># requires authorization</span>
@@ -274,7 +266,7 @@ one for each lesson in the <code>Book.txt</code> file.</p>
 <span class='co'># }</span><div class='input'>
 <span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
 <span class='no'>course_name</span> <span class='kw'>=</span> <span class='st'>"test"</span>
-<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb83a16159d/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb83a16159d/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb83a16159d/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb83a16159d/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb83a16159d/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpvOGW0y/file11bb83a16159d/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span>
+<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file120296dbf49ca/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file120296dbf49ca/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file120296dbf49ca/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file120296dbf49ca/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file120296dbf49ca/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpHiuBgc/file120296dbf49ca/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span>
 #&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
 #&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
 #&gt; </span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></div><div class='input'><span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
@@ -323,26 +315,18 @@ one for each lesson in the <code>Book.txt</code> file.</p>
 #&gt; [22] ""                                                                                                 
 #&gt; [23] "  - [Slides](Link to Slides)"                                                                     
 #&gt; [24] ""                                                                                                 
-#&gt; [25] "{quiz, id: quiz\\_00\\_filename}"                                                                 
+#&gt; [25] "{quiz, id: quiz_02_presentations}"                                                                
 #&gt; [26] ""                                                                                                 
 #&gt; [27] "### Presentations quiz"                                                                           
 #&gt; [28] ""                                                                                                 
 #&gt; [29] "{choose-answers: 4} ?"                                                                            
 #&gt; [30] ""                                                                                                 
-#&gt; [31] "3)  The answer to this one"                                                                       
-#&gt; [32] ""                                                                                                 
-#&gt; [33] "&lt;!-- end list --&gt;"                                                                                
-#&gt; [34] ""                                                                                                 
-#&gt; [35] "15) Not the answer"                                                                               
-#&gt; [36] ""                                                                                                 
-#&gt; [37] "&lt;!-- end list --&gt;"                                                                                
-#&gt; [38] ""                                                                                                 
-#&gt; [39] "3) A bad an answer"                                                                               
-#&gt; [40] "&lt;!-- end list --&gt;"                                                                                
-#&gt; [41] ""                                                                                                 
-#&gt; [42] "13) Not an answer"                                                                                
-#&gt; [43] ""                                                                                                 
-#&gt; [44] "{/quiz}"                                                                                          </div></span></pre>
+#&gt; [31] "C) The answer to this one"                                                                        
+#&gt; [32] "o) Not the answer"                                                                                
+#&gt; [33] "o) A bad answer"                                                                                  
+#&gt; [34] "o) Not an answer"                                                                                 
+#&gt; [35] ""                                                                                                 
+#&gt; [36] "{/quiz}"                                                                                          </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
