@@ -33,16 +33,16 @@ flag_code_chunks = function(x) {
 
 flag_images = function(original_df) {
   original_df = original_df %>%
-    mutate(is_image = grepl("^!\\[.*\\]\\(", text),
+    mutate(is_image = grepl("^!\\s*\\[.*\\]\\s*\\(", text),
            image_link = ifelse(is_image,
-                               gsub("^!\\[.*\\]\\((.*)\\)", "\\1", text),
+                               gsub("^!\\s*\\[.*\\]\\s*\\((.*)\\)", "\\1", text),
                                ""),
     )
   if (any(original_df$is_image)) {
     # has to have start/stop
     original_df = original_df %>%
       mutate(text = ifelse(is_image,
-                           gsub("^!\\[(.*)\\]\\(.*\\)", "\\1", text),
+                           gsub("^!\\s*\\[(.*)\\]\\s*\\(.*\\)", "\\1", text),
                            text),
       )
   }
