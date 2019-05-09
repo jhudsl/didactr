@@ -2,9 +2,15 @@
 % Please edit documentation in R/translate_slides.R
 \name{translate_slide}
 \alias{translate_slide}
+\alias{copy_and_translate_slide}
 \title{Translate Google Slide Text to Another Language}
 \usage{
-translate_slide(id, target = "es", detect = TRUE, verbose = TRUE)
+translate_slide(id, target = "es", detect = TRUE, verbose = TRUE,
+  ...)
+
+copy_and_translate_slide(id, gs_name = NULL,
+  trash_same_gs_name = FALSE, target = "es", detect = TRUE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{id}{Google Slide ID, usually from \code{\link{drive_ls}}}
@@ -16,12 +22,25 @@ check that the language is not currently the target?
 Must be google Language authorized using \code{\link{gl_auth}}}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{...}{arguments passed to
+\code{\link{check_didactr_auth}}}
+
+\item{gs_name}{Name of new Google slide deck}
+
+\item{trash_same_gs_name}{Should other Google slide decks
+with the same name be trashed before copying?  If not,
+can fill up your drive.}
 }
 \value{
 A list of results from \code{\link{commit_to_slides}}
 }
 \description{
 Translate Google Slide Text to Another Language
+}
+\note{
+Copies are put in the \code{didactr_translations}
+folder in your Google Drive.
 }
 \examples{
 \dontrun{

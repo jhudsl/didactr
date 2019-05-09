@@ -23,6 +23,7 @@ leanpub_render = function(
       ". Otherwise, upgrade RStudio version."))
   }
   md_file = normalizePath(md_file, mustWork = TRUE)
+  # move back to html
   tfile = basename(tempfile(fileext = ".md"))
   run_dir = dirname(md_file)
   tfile = file.path(run_dir, tfile)

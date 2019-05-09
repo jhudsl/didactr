@@ -15,7 +15,7 @@ get_slide_id = function(x) {
   x = sub("/d/e", "/d", x) # if you publish by accident
   x = sub("^(d|e)/", "", x)
   x = strsplit(x, "/")[[1]]
-  x = x[ !grepl("^(edit|pub)", x)]
+  x = x[ !grepl("^(edit|pub|export|png)", x)]
   x = x[ nchar(x) > 5]
   x
 }

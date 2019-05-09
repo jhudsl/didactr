@@ -132,6 +132,7 @@ chunk_google_translate = function(file, chunk = TRUE,
 
   nc = nchar(txt)
   original_df = flag_code_chunks(txt)
+
   original_df$nc = nc
   # original_df = data.frame(text = txt,
   #                          nc = nc,
@@ -233,8 +234,16 @@ chunk_google_translate = function(file, chunk = TRUE,
     df$translatedText[ code_log_ind] = rep_txt
     df$text[ code_log_ind] = rep_txt
     df$original_text[ code_log_ind] = rep_txt
-
   }
+
+  if (any(original_df$is_image)) {
+    code_log_ind = original_df$is_image
+    # replace the code back
+    df$translatedText[ code_log_ind ] =
+      paste("![", trimws(df$translatedText[ code_log_ind ]),
+            "](", df$image_link[ code_log_ind ], ")")
+  }
+
   df = df %>%
     mutate(
       text = gsub(bad_string, "`", text),
@@ -445,7 +454,7 @@ fix_back_ticks = function(df, verbose = TRUE) {
       if (n > 1) {
         if (n == 2) {
           msg = paste0("Something went wrong with the ",
-                       "backticks (orig then trans):")
+                       "backticks (original then translated):")
           warning(msg)
           message(msg)
           message(orig)

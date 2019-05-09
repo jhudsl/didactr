@@ -34,13 +34,23 @@ translate_slide = function(
   id,
   target = "es",
   detect = TRUE,
-  verbose = TRUE) {
+  verbose = TRUE,
+  ...) {
 
+  check_didactr_auth(...)
+
+  if (!is_language_auth()) {
+    stop("Google Language is not Authorized, see gl_auth")
+  }
   text_content = NULL
   rm(list = "text_content")
 
   if (verbose) {
     message("Pulling slide from Google Slides")
+  }
+  if (is.character(id)) {
+    id = get_slide_id(id)
+    stopifnot(length(id) == 1)
   }
   if (googledrive::is_dribble(id)) {
     id = id$id
@@ -48,9 +58,6 @@ translate_slide = function(
   sp = rgoogleslides::get_slides_properties(id)
   pages = sp$slides$objectId
 
-  if (!is_language_auth()) {
-    stop("Google Language is not Authorized, see gl_auth")
-  }
   page_id = pages[2]
   n_pages = length(pages)
   if (verbose) {
@@ -91,7 +98,8 @@ translate_slide = function(
 
 
   # Actually translate
-  L = list(table_of_changes = tb_df)
+  L = list(id = id,
+           table_of_changes = tb_df)
   if (nrow(tb_df) > 0) {
     bad_string =  make_bad_string()
     for (i in 1:10) {
@@ -160,4 +168,69 @@ translate_slide = function(
     L$request_result = res
   }
   return(L)
+}
+
+#' @export
+#' @rdname translate_slide
+#' @param gs_name Name of new Google slide deck
+#' @param trash_same_gs_name Should other Google slide decks
+#' with the same name be trashed before copying?  If not,
+#' can fill up your drive.
+#' @param ... arguments passed to
+#' \code{\link{check_didactr_auth}}
+#' @note Copies are put in the \code{didactr_translations}
+#' folder in your Google Drive.
+copy_and_translate_slide = function(
+  id,
+  gs_name = NULL,
+  trash_same_gs_name = FALSE,
+  target = "es",
+  detect = TRUE,
+  verbose = TRUE,
+  ...) {
+  check_didactr_auth(...)
+  if (!is_language_auth()) {
+    stop("Google Language is not Authorized, see gl_auth")
+  }
+  if (is.character(id)) {
+    id = get_slide_id(id)
+    stopifnot(length(id) == 1)
+  }
+  if (googledrive::is_dribble(id)) {
+    id = id$id
+  }
+  info = drive_get(id = googledrive::as_id(id))
+  stopifnot(nrow(info) == 1)
+  if (is.null(gs_name)) {
+    gs_name = paste0(target, "_Translated_", info$name)
+  }
+  folder_name = "didactr_translations"
+  trans_fol = googledrive::drive_find(
+    pattern = folder_name,
+    type = "folder", n_max = 100,
+    verbose = verbose)
+  if (nrow(trans_fol) == 0) {
+    trans_fol = googledrive::drive_mkdir(
+      "didactr_translations",
+      verbose = verbose)
+  }
+
+  if (trash_same_gs_name) {
+    info = googledrive::drive_ls(
+      path = trans_fol,
+      gs_name,
+      type = "presentation"
+    )
+    googledrive::drive_trash(info, verbose = verbose)
+  }
+  xid = googledrive::drive_cp(
+    info, name = gs_name,
+    path = trans_fol)
+  Sys.sleep(3)
+  translated = translate_slide(xid,
+                               target = target,
+                               detect = detect,
+                               verbose = verbose,
+                               ...)
+  return(translated)
 }

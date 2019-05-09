@@ -6,7 +6,7 @@
 #' and the code removed
 #' @export
 flag_code_chunks = function(x) {
-  original_df = data_frame(text = x)
+  original_df = tibble(text = x)
   code = grep("^```", original_df$text)
   if (length(code) > 0) {
     # has to have start/stop
@@ -26,6 +26,25 @@ flag_code_chunks = function(x) {
   } else {
     original_df$is_code = FALSE
     original_df$original_text = original_df$text
+  }
+  original_df = flag_images(original_df)
+  return(original_df)
+}
+
+flag_images = function(original_df) {
+  original_df = original_df %>%
+    mutate(is_image = grepl("^!\\[.*\\]\\(", text),
+           image_link = ifelse(is_image,
+                               gsub("^!\\[.*\\]\\((.*)\\)", "\\1", text),
+                               ""),
+    )
+  if (any(original_df$is_image)) {
+    # has to have start/stop
+    original_df = original_df %>%
+      mutate(text = ifelse(is_image,
+                           gsub("^!\\[(.*)\\]\\(.*\\)", "\\1", text),
+                           text),
+      )
   }
   return(original_df)
 }

@@ -43,7 +43,7 @@ create_videos <- function(
   paths = course_status$paths
 
   if (!"has_vid_file" %in% colnames(df)) {
-    warning("Creating videos, but ")
+    warning("Creating videos, but no indicator of having video files")
   }
   ## create video: ari_spin()
   ## if no video link in df
@@ -64,13 +64,22 @@ create_videos <- function(
                full.names = TRUE,
                pattern = "[.]png")
              # do all have the dash, then digit png?
-             check = all(grepl(".*-\\d*[.]png", files))
+             check = all(grepl(".*-\\d*[.]png", files)) &
+               length(files) > 0
+             check = check & !is.na(idf$id)
              run_old_way = FALSE
              if (!check) {
                slide_df = gs_slide_df(idf$id)
                slide_df$png = file.path(
                  file.path(paths$img_path, idf$lesson),
                  paste0(slide_df$objectId, ".png"))
+               if (!all(file.exists(slide_df$png))) {
+                 gs_res = gs_convert(
+                   id = idf$id,
+                   PPTX = FALSE,
+                   use_gs_ids = TRUE)
+                 slide_df$png = gs_res$images
+               }
                if (!all(file.exists(slide_df$png))) {
                  run_old_way = TRUE
                } else {

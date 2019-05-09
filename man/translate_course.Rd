@@ -4,14 +4,18 @@
 \alias{translate_course}
 \title{Translate Course to Another Language}
 \usage{
-translate_course(course_dir, target = "es", detect = TRUE,
-  verbose = TRUE, use_book = TRUE, overwrite = FALSE,
-  sleep_time = 0, ...)
+translate_course(course_dir, target = "es", translate_slides = FALSE,
+  detect = TRUE, verbose = TRUE, use_book = TRUE,
+  overwrite = FALSE, sleep_time = 0, trash_same_gs_name = FALSE, ...)
 }
 \arguments{
 \item{course_dir}{directory with course materials}
 
 \item{target}{language to translate to, see \code{\link{gl_translate}}}
+
+\item{translate_slides}{Should slides be translated as well?
+If so, \code{\link{copy_and_translate_slide}} will be done
+with the Google slide ID and replaced throughout the manuscript.}
 
 \item{detect}{Should \code{\link{gl_detect_file}} be run to
 check that the language is not currently the target?
@@ -28,6 +32,12 @@ If not, they are put in a temporary directory and translated.}
 
 \item{sleep_time}{time in seconds to sleep before running
 next call}
+
+\item{trash_same_gs_name}{passed to
+\code{\link{copy_and_translate_slide}}
+Should other Google slide decks
+with the same name be trashed before copying?  If not,
+can fill up your drive.}
 
 \item{...}{additional arguments to pass to
 \code{\link{translate_manuscript}} and

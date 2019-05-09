@@ -91,23 +91,39 @@ gs_id_from_slide = function(file) {
     return(NA_character_)
   }
   x = readLines(file, warn = FALSE)
-  x = grep(x, pattern = "\\[(S|s)lides\\]", value = TRUE)
+  ind = grep(x, pattern = "\\[(S|s)lides\\]")
+  if (length(ind) > 0) {
+    x = x[ind]
+  } else {
+    x = x[grep(x, pattern = ".*presentation/d/")]
+
+  }
   if (!any(grepl("http", x))) {
     return(NA_character_)
   }
-  x = sub(".*\\((http.*)\\).*", "\\1", x)
-  x = unlist(sapply(x, function(r) parse_url(r)$path))
+  x = sub(".*\\(\\s*(http.*)\\s*\\).*", "\\1", x)
+  x = unlist(sapply(x, function(r) httr::parse_url(r)$path))
   x = sub("/edit$", "", x)
+  x = sub("/export/.*", "", x)
   x = basename(x)
-  x = unique(x)
-  if (length(x) > 1) {
-    warning(paste0("Multiple sheets identified! Taking first.",
+  x = na.omit(x)
+  x = x[ nchar(x) > 5 ]
+  ux = unique(x)
+  if (length(ux) > 1) {
+    warning(paste0("Multiple sheets identified! Taking most frequent.",
                    "  Please check ",
                    file))
-    x = x[1]
+    x = sort(table(x), decreasing = TRUE)
+    x = names(x)[1]
+    # x = x[1]
+  } else {
+    x = ux
   }
   if (length(x) == 0 || grepl("\\(\\)", x)) {
     return(NA_character_)
+  }
+  if (nchar(x) < 10) {
+    warning(paste0("ID extracted is ", x, ", seems short"))
   }
   return(x)
 }

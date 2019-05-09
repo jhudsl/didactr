@@ -16,6 +16,14 @@
 #' @param use_book Use \code{Book.txt} to keep only the
 #' manuscript files that were specified, passed to
 #' \code{\link{check_course}}
+#' @param translate_slides Should slides be translated as well?
+#' If so, \code{\link{copy_and_translate_slide}} will be done
+#' with the Google slide ID and replaced throughout the manuscript.
+#' @param trash_same_gs_name passed to
+#' \code{\link{copy_and_translate_slide}}
+#' Should other Google slide decks
+#' with the same name be trashed before copying?  If not,
+#' can fill up your drive.
 #'
 #' @return A result from \code{\link{check_course}}
 #' @export
@@ -36,11 +44,13 @@
 translate_course = function(
   course_dir,
   target = "es",
+  translate_slides = FALSE,
   detect = TRUE,
   verbose = TRUE,
   use_book = TRUE,
   overwrite = FALSE,
   sleep_time = 0,
+  trash_same_gs_name = FALSE,
   ...) {
 
   if (!is_language_auth()) {
@@ -99,6 +109,7 @@ translate_course = function(
     return(file)
   })
 
+
   file =  cdf$scr_file[1]
   results = sapply(cdf$scr_file, function(file) {
     if (verbose) {
@@ -118,6 +129,33 @@ translate_course = function(
           ...)
         out_txt = x$translatedText
         writeLines(out_txt, file)
+      }
+    }
+    return(file)
+  })
+
+
+  results = sapply(cdf$md_file, function(file) {
+    if (verbose) {
+      message(paste0("Slide deck for ", file))
+    }
+    if (file.exists(file)) {
+      Sys.sleep(sleep_time)
+      if (translate_slides) {
+        gs_id = gs_id_from_slide(file)
+        stopifnot(length(gs_id) == 1)
+        if (!is.na(gs_id)) {
+          gs_result = copy_and_translate_slide(
+            gs_id,
+            target = target,
+            detect = detect,
+            verbose = verbose,
+            trash_same_gs_name = trash_same_gs_name)
+          new_id = gs_result$id
+          out_txt = readLines(file)
+          out_txt = gsub(gs_id, new_id, out_txt)
+          writeLines(out_txt, file)
+        }
       }
     }
     return(file)
