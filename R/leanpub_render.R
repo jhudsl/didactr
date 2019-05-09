@@ -218,4 +218,3 @@ leanpub_remove_tests = function(md_file) {
   return(tfile)
 }
 
-

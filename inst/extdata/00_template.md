@@ -26,7 +26,9 @@ SLIDESHERE
 
 ### Lesson Name quiz
 
-{choose-answers: 4} ?
+{choose-answers: 4} 
+? What do you think?
+
 
 C) The answer to this one
 o) Not the answer
