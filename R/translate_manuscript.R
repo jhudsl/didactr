@@ -240,7 +240,7 @@ chunk_google_translate = function(file, chunk = TRUE,
     code_log_ind = original_df$is_image
     # replace the code back
     df$translatedText[ code_log_ind ] =
-      paste("![", trimws(df$translatedText[ code_log_ind ]),
+      paste0("![", trimws(df$translatedText[ code_log_ind ]),
             "](", df$image_link[ code_log_ind ], ")")
   }
 
