@@ -6,14 +6,16 @@
 \title{Render Leanpub document}
 \usage{
 leanpub_render(md_file, output_options = list(self_contained = TRUE),
-  ...)
+  remove_tests = TRUE, ...)
 
-leanpub_document(..., self_contained = TRUE)
+leanpub_document(..., remove_tests = TRUE, self_contained = TRUE)
 }
 \arguments{
 \item{md_file}{Path to markdown file}
 
 \item{output_options}{arguments to send to \code{\link{render}}}
+
+\item{remove_tests}{Should the quizzes and exercises be removed}
 
 \item{...}{additional arguments to send to \code{\link{render}}
 other than \code{input}, `output_dir`, and `output_format`,
