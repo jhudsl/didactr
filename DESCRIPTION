@@ -22,7 +22,6 @@ Imports:
     httr,
     jsonlite,
     lubridate,
-    pdftools,
     rstudioapi,
     stringr,
     tidyr,
@@ -40,6 +39,7 @@ Imports:
 Suggests: 
     knitr,
     covr,
+    pdftools,
     animation,
     testthat,
     tuneR,

@@ -4,10 +4,15 @@
 #'
 #' @return number of pages in pdf
 #' @export
-#' @importFrom pdftools pdf_info
 #'
 n_pdf_pages = function(file) {
   if (length(file) == 0 | is.na(file)) {
+    return(NA)
+  }
+  if (!requireNamespace("pdftools", quietly = TRUE)) {
+    message(
+      paste0("Package \"pdftools\" needed for n_pdf_pages to work. ",
+             "Please install it."))
     return(NA)
   }
   pdftools::pdf_info(file)$pages
