@@ -14,7 +14,8 @@ mooc_app = function() {
 #' @param use_oob use a local webserver for the OAuth dance
 #' @param token_file If the \code{token} has been saved, use this file
 #' to load the credentials.
-#' @param language Should the language API be authorized (experimental)
+#' @param language Should the language API be authorized
+#' using your token (experimental, and most likely doesn't work)
 #' @param token you can pass the token directly instead of the file
 #' if you want
 #'

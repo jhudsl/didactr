@@ -23,7 +23,8 @@ to load the credentials.}
 \item{cache}{A logical value or a string. \code{TRUE} means to cache
 using the default cache file \code{.httr-oauth}}
 
-\item{language}{Should the language API be authorized (experimental)}
+\item{language}{Should the language API be authorized
+using your token (experimental, and most likely doesn't work)}
 
 \item{use_oob}{use a local webserver for the OAuth dance}
 
