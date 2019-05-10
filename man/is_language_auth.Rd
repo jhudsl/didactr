@@ -2,9 +2,12 @@
 % Please edit documentation in R/is_language_auth.R
 \name{is_language_auth}
 \alias{is_language_auth}
+\alias{didactr_gl_auth}
 \title{Is Google Language API Authorized}
 \usage{
 is_language_auth()
+
+didactr_gl_auth()
 }
 \value{
 A logical

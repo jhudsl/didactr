@@ -228,7 +228,7 @@ In `didactr`, we not only create a Leanpub course, which has text and quizzes, w
 
 ## Video Generation 
 
-If you want to generate videos for your course, you need [FFmpeg](https://ffmpeg.org/).  You need to make sure you have [FFmpeg](https://ffmpeg.org/) version 3.2.4 or higher installed on your system.  If you would like to try to install `ffmpeg` automatically, please try:
+If you want to generate videos for a lesson, you need [FFmpeg](https://ffmpeg.org/).  You need to make sure you have [FFmpeg](https://ffmpeg.org/) version 3.2.4 or higher installed on your system.  If you would like to try to install `ffmpeg` automatically, please try:
 
 ```{r, eval = TRUE}
 didactr::install_ffmpeg()
@@ -239,6 +239,15 @@ If a path comes up, you have `ffmpeg` installed!  If not you can go to https://f
 * OSX: using [Brew](https://brew.sh/) `brew install ffmpeg`.  See the Brew page for `brew` installation.
 * Linux variants: `sudo apt-get install -y ffmpeg`
 * Windows: using [Chocolatey](https://chocolatey.org/): `choco install ffmpeg`
+
+### Creating a video from a Google Slides Deck
+
+If you have a Google Slides presentation with the text to be spoken over the slides in the speaker notes section of the presentation, you can run:
+
+```{r, eval = FALSE}
+res = gs_ari(id = "URL FOR GOOGLE SLIDE DECK")
+```
+
 
 If you choose to create videos with `didactr` we have additional things we need over and above what Leanpub need:
 

@@ -11,7 +11,10 @@
 #' be overridden in \code{\link{pdf_to_images}}
 #' @param use_gs_ids use Google slide identifiers for the naming
 #' @param ... Additional options to send to \code{\link{pdf_to_images}}
-#'
+#' if \code{use_gs_pngs = FALSE}
+#' @param use_gs_pngs Use the PNGs that Google will export with
+#' their slide deck.  If \code{FALSE}, must have
+#' \code{animation} package installed.
 #' @return A list of the images and the notes for each script
 #' @export
 #'
@@ -21,15 +24,23 @@
 #' PPTX = FALSE
 #' auto_stub = TRUE
 #' res = gs_convert(id, use_gs_ids = TRUE, PPTX = FALSE)
+#' res = gs_convert(id, use_gs_pngs = TRUE, PPTX = FALSE)
+#' res = gs_convert(id, use_gs_pngs = TRUE, use_gs_ids = TRUE,
+#' PPTX = FALSE)
 #' }
-gs_convert = function(id, verbose = TRUE,
-                      PPTX = TRUE,
-                      auto_stub = TRUE,
-                      use_gs_ids = FALSE,
-                      ...) {
+gs_convert = function(
+  id, verbose = TRUE,
+  PPTX = TRUE,
+  auto_stub = TRUE,
+  use_gs_ids = FALSE,
+  use_gs_pngs = TRUE,
+  ...) {
 
   check_didactr_auth()
-  id = as_id(id)
+  if (is.character(id)) {
+    id = get_slide_id(id)
+  }
+  id = googledrive::as_id(id)
   tdir = tempfile()
   dir.create(tdir)
   pdf_file = tempfile(fileext = ".pdf", tmpdir = tdir)
@@ -45,6 +56,10 @@ gs_convert = function(id, verbose = TRUE,
     lesson_name = paste0(lesson_name, "-%0d")
     args$stub = lesson_name
   }
+
+  ###############################
+  # Getting PDF
+  ###############################
   if (verbose) {
     message(paste0("Downloading the PDF: ", pdf_file))
   }
@@ -52,6 +67,7 @@ gs_convert = function(id, verbose = TRUE,
     id,
     path = pdf_file,
     type = "pdf")
+
 
 
   if (PPTX) {
@@ -67,18 +83,29 @@ gs_convert = function(id, verbose = TRUE,
     }
     script = pptx_notes(pptx_file)
   } else {
+    slide_df = gs_slide_df(id)
+    script = notes_from_slide_output(slide_df)
     pptx_file = NULL
-    script = NULL
   }
-  args$pdf_file = pdf_file
-  if (verbose) {
-    message("Converting PDF to Images")
-  }
-  if (verbose) {
-    message(paste0("Stub for Conversion is:", args$stub))
-  }
-  pngs = do.call(pdf_to_images, args)
+
+  ##################################
+  # Get the PNGs
+  ##################################
   slide_df = NULL
+  if (use_gs_pngs) {
+    slide_df = gs_slide_df(id)
+    pngs = download_png_urls(slide_df$png_url)
+  } else {
+    args$pdf_file = pdf_file
+    if (verbose) {
+      message("Converting PDF to Images")
+    }
+    if (verbose) {
+      message(paste0("Stub for Conversion is:", args$stub))
+    }
+    pngs = do.call(pdf_to_images, args)
+  }
+
   if (use_gs_ids) {
     slide_df = rename_pngs_to_gs_ids(id = id, pngs = pngs)
     same_length = attributes(slide_df)$same_length
@@ -89,8 +116,8 @@ gs_convert = function(id, verbose = TRUE,
       pngs = slide_df$png
     }
   }
-  L = list(images = pngs,
-           pdf_file = pdf_file)
+  L = list(images = pngs)
+  L$pdf_file = pdf_file
   L$slide_df = slide_df
   L$script = script
   L$pptx_file = pptx_file

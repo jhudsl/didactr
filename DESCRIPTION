@@ -1,5 +1,5 @@
 Package: didactr
-Version: 0.6.9
+Version: 0.6.10
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 
@@ -15,7 +15,6 @@ Authors@R: c(person(given = "John",family = "Muschelli",
 License: GPL-3
 Imports:
     xml2,
-    animation,
     googledrive,
     dplyr,
     httpuv,
@@ -41,13 +40,14 @@ Imports:
 Suggests: 
     knitr,
     covr,
+    animation,
     testthat,
     tuneR,
     git2r,
     aws.signature
 Encoding: UTF-8
 LazyData: true
-Remotes: muschellij2/ari, soodoku/tuber, hairizuanbinnoorazman/rgoogleslides, r-lib/usethis
+Remotes: muschellij2/ari, soodoku/tuber
 ByteCompile: true
 Type: Package
 VignetteBuilder: knitr

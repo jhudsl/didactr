@@ -85,6 +85,7 @@ check_didactr_auth = function(...) {
 #' @rdname didactr_auth
 #' @export
 didactr_token = function(...) {
+  suppressMessages(didactr_gl_auth())
   token = getOption("google_token")
   if (is.Token(token)) {
     appname = token$app$appname

@@ -21,7 +21,8 @@ gs_ari = function(
   res = gs_convert(
     id,
     verbose = verbose,
-    PPTX = TRUE,
+    use_gs_pngs = TRUE,
+    PPTX = FALSE,
     use_gs_ids = FALSE)
   images = res$images
   script = res$script

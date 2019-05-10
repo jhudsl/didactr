@@ -15,14 +15,14 @@ pdf_to_images(pdf_file, out_dir = NULL,
 will be used.  If files of the same name are in the `out_dir`, these
 will be overwritten}
 
-\item{extra.opts}{Extra options passed to \code{\link{im.convert}}}
+\item{extra.opts}{Extra options passed to \code{animation::im.convert}}
 
 \item{stub}{prefix of the output files, can include C-style printing of
 digits and such}
 
 \item{output_type}{Type of output, such as `png` or `jpg`}
 
-\item{convert}{converter passed to \code{\link{im.convert}}}
+\item{convert}{converter passed to \code{animation::im.convert}}
 }
 \value{
 A character vector of filenames

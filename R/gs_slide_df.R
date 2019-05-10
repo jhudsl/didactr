@@ -35,6 +35,7 @@ gs_slide_df = function(id, extract_code = TRUE) {
     id = id$id[1]
   }
   id = as.character(id)
+  id = didactr::get_slide_id(id)
   # if (TRUE){
   res = rgoogleslides::get_slides_properties(id = id)
   # } else {

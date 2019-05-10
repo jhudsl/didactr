@@ -5,7 +5,7 @@
 \title{Convert Google Slides to PNGs and a script}
 \usage{
 gs_convert(id, verbose = TRUE, PPTX = TRUE, auto_stub = TRUE,
-  use_gs_ids = FALSE, ...)
+  use_gs_ids = FALSE, use_gs_pngs = TRUE, ...)
 }
 \arguments{
 \item{id}{File id passed to \code{\link{drive_download}} after passing
@@ -23,7 +23,12 @@ be overridden in \code{\link{pdf_to_images}}}
 
 \item{use_gs_ids}{use Google slide identifiers for the naming}
 
-\item{...}{Additional options to send to \code{\link{pdf_to_images}}}
+\item{use_gs_pngs}{Use the PNGs that Google will export with
+their slide deck.  If \code{FALSE}, must have
+\code{animation} package installed.}
+
+\item{...}{Additional options to send to \code{\link{pdf_to_images}}
+if \code{use_gs_pngs = FALSE}}
 }
 \value{
 A list of the images and the notes for each script
@@ -37,5 +42,8 @@ id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
 PPTX = FALSE
 auto_stub = TRUE
 res = gs_convert(id, use_gs_ids = TRUE, PPTX = FALSE)
+res = gs_convert(id, use_gs_pngs = TRUE, PPTX = FALSE)
+res = gs_convert(id, use_gs_pngs = TRUE, use_gs_ids = TRUE,
+PPTX = FALSE)
 }
 }

@@ -19,3 +19,11 @@ get_slide_id = function(x) {
   x = x[ nchar(x) > 5]
   x
 }
+
+#' @export
+#' @rdname get_slide_id
+make_slide_url = function(x) {
+  x = get_slide_id(x)
+  x = paste0("https://docs.google.com/presentation/d/",x)
+  x
+}

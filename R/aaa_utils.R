@@ -106,7 +106,7 @@ gs_id_from_slide = function(file) {
   x = sub("/edit$", "", x)
   x = sub("/export/.*", "", x)
   x = basename(x)
-  x = na.omit(x)
+  x = stats::na.omit(x)
   x = x[ nchar(x) > 5 ]
   ux = unique(x)
   if (length(ux) > 1) {
@@ -252,4 +252,21 @@ sys_type <- function() {
   } else {
     stop("Unknown OS")
   }
+}
+
+
+png_url = function(id, page_id) {
+  paste0(
+    "https://docs.google.com/presentation/d/",
+    id, "/export/png?id=", id,
+    "&pageid=", page_id)
+}
+
+download_png_urls = function(urls) {
+  res = vapply(urls, function(url) {
+    tfile = tempfile(fileext = ".png")
+    httr::GET(url, httr::write_disk(tfile))
+    tfile
+  }, FUN.VALUE = character(1))
+  return(res)
 }

@@ -32,6 +32,8 @@ flag_code_chunks = function(x) {
 }
 
 flag_images = function(original_df) {
+  text = is_image = NULL
+  rm(list = c("text", "is_image"))
   original_df = original_df %>%
     mutate(is_image = grepl("^!\\s*\\[.*\\]\\s*\\(", text),
            image_link = ifelse(is_image,

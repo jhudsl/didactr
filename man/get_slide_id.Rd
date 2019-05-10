@@ -2,9 +2,12 @@
 % Please edit documentation in R/get_slide_id.R
 \name{get_slide_id}
 \alias{get_slide_id}
+\alias{make_slide_url}
 \title{Get Slide ID from URL}
 \usage{
 get_slide_id(x)
+
+make_slide_url(x)
 }
 \arguments{
 \item{x}{URL of slide}
