@@ -3,11 +3,14 @@
 \name{gs_ari}
 \alias{gs_ari}
 \alias{gs_ari_spin}
+\alias{gs_tts}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
 gs_ari(id, output = NULL, verbose = TRUE, voice = "Joanna", ...)
 
 gs_ari_spin(id, output = NULL, verbose = TRUE, voice = "Joanna", ...)
+
+gs_tts(id, verbose = TRUE, voice = "Joanna", ...)
 }
 \arguments{
 \item{id}{Identifier of google slides presentation, passed to
@@ -28,4 +31,8 @@ A list of the images, script, and MP4 with the result.
 }
 \description{
 Convert Google Slides and notes to video with ari
+}
+\note{
+The \code{...} argument in \code{gs_tts} corresponds to
+arguments passed to \code{\link[text2speech]{tts}}.
 }

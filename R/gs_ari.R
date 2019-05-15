@@ -48,6 +48,32 @@ gs_ari = function(
 gs_ari_spin = gs_ari
 
 
+#' @export
+#' @rdname gs_ari
+#' @note The \code{...} argument in \code{gs_tts} corresponds to
+#' arguments passed to \code{\link[text2speech]{tts}}.
+gs_tts = function(
+  id,
+  verbose = TRUE,
+  voice = "Joanna", ...) {
+
+  res = gs_convert(
+    id,
+    verbose = verbose,
+    use_gs_pngs = TRUE,
+    PPTX = FALSE,
+    use_gs_ids = FALSE)
+  # images = res$images
+  paragraphs = res$script
+
+  wav <- text2speech::tts(
+      text = paragraphs,
+      voice = voice,
+      ...)
+  return(wav)
+}
+
+
 #' Convert Google Slides to Video and Upload to Youtube
 #'
 #' @param id Identifier of google slides presentation, passed to
@@ -90,3 +116,5 @@ gs_ari_upload = function(
   res$video = vid
   return(res)
 }
+
+
