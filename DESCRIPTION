@@ -27,6 +27,7 @@ Imports:
     tidyr,
     utils,
     ari (>= 0.2.2.1),
+    text2speech,
     rmarkdown,
     rgoogleslides (>= 0.3.1),
     googleLanguageR,
@@ -47,7 +48,7 @@ Suggests:
     aws.signature
 Encoding: UTF-8
 LazyData: true
-Remotes: muschellij2/ari, soodoku/tuber
+Remotes: muschellij2/ari, soodoku/tuber, muschellij2/text2speech
 ByteCompile: true
 Type: Package
 VignetteBuilder: knitr

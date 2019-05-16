@@ -67,10 +67,17 @@ gs_tts = function(
   paragraphs = res$script
 
   wav <- text2speech::tts(
-      text = paragraphs,
-      voice = voice,
-      ...)
-  return(wav)
+    text = paragraphs,
+    voice = voice,
+    ...)
+  tts_version = utils::packageVersion("text2speech")
+  check_version = tts_version < package_version("0.2.4")
+  if (check_version) {
+    warning(paste0("text2speech version < 0.2.4 has a bug in ",
+                   " ordering of wav output"))
+  }
+  res$wav = wav
+  return(res)
 }
 
 
