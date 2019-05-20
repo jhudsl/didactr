@@ -6,9 +6,11 @@
 \alias{gs_tts}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
-gs_ari(id, output = NULL, verbose = TRUE, voice = "Joanna", ...)
+gs_ari(id, output = NULL, script = NULL, verbose = TRUE,
+  voice = "Joanna", ...)
 
-gs_ari_spin(id, output = NULL, verbose = TRUE, voice = "Joanna", ...)
+gs_ari_spin(id, output = NULL, script = NULL, verbose = TRUE,
+  voice = "Joanna", ...)
 
 gs_tts(id, verbose = TRUE, voice = "Joanna", ...)
 }
@@ -17,6 +19,10 @@ gs_tts(id, verbose = TRUE, voice = "Joanna", ...)
 \code{\link{gs_convert}}}
 
 \item{output}{Output MP4 filename, optional}
+
+\item{script}{A vector strings that will be spoken over slides,
+or a filename of the text.  Empty string are removed, please use
+\code{;} if no words to be spoken.}
 
 \item{verbose}{Should diagnostics messages be printed}
 

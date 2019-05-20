@@ -3,6 +3,9 @@
 #'
 #' @param id Identifier of google slides presentation, passed to
 #' \code{\link{gs_convert}}
+#' @param script A vector strings that will be spoken over slides,
+#' or a filename of the text.  Empty string are removed, please use
+#' \code{;} if no words to be spoken.
 #' @param output Output MP4 filename, optional
 #' @param verbose Should diagnostics messages be printed
 #' @param voice 	The Amazon Polly voice you want to use. See
@@ -14,7 +17,9 @@
 #' @export
 #' @importFrom ari ari_spin
 gs_ari = function(
-  id, output = NULL,
+  id,
+  output = NULL,
+  script = NULL,
   verbose = TRUE,
   voice = "Joanna", ...) {
 
@@ -25,7 +30,14 @@ gs_ari = function(
     PPTX = FALSE,
     use_gs_ids = FALSE)
   images = res$images
-  script = res$script
+  if (is.null(script)) {
+    script = res$script
+  } else {
+    if (length(script) == 1 & is.character(script)) {
+      script = readLines(script, warn = FALSE)
+      script = script[ !script %in% c("", " ")]
+    }
+  }
 
   if (is.null(output)) {
     output = tempfile(fileext = ".mp4")
