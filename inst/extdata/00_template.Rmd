@@ -1,5 +1,7 @@
 ---
-output: didactr::leanpub_document
+output: 
+  didactr::leanpub_document: default
+  github_document: default
 ---
 
 ```{r setup, include=FALSE}

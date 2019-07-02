@@ -1,11 +1,12 @@
 mooc_app = function() {
   httr::oauth_app(
     appname = "mooc-generator",
-    key = "299711289983-km4ktlcq0mc81e5trravudt8sqcqfl3k.apps.googleusercontent.com",
-    secret = "gfA5FKtuKbYP4eOFDrIFD0yt",
+    key = "1083647771778-kg3v64gmmc727gdgrrq9dprjsaffeln2.apps.googleusercontent.com",
+    secret = "i6qZqu8iGVpER08p0W2DQ2m4",
     redirect_uri = "http://localhost:1410/"
   )
 }
+
 
 #' Authorize Application for didactr
 #'
