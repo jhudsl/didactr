@@ -22,6 +22,7 @@ leanpub_render = function(
       "you have pandoc installed system-wide, please upgrade",
       ". Otherwise, upgrade RStudio version."))
   }
+  # need to do something if you put in an Rmd
   md_file = normalizePath(md_file, mustWork = TRUE)
   # move back to html
   tfile = basename(tempfile(fileext = ".md"))
