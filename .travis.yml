@@ -1,5 +1,4 @@
 language: R
-sudo: true
 cache: packages
 env:
   global: 
