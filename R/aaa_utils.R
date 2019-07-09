@@ -196,8 +196,8 @@ png_pattern = function() {
 }
 
 yt_pattern = function() {
-  paste0(
-         "^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)")
+  paste0("^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)|",
+         "^!\\[.+\\]\\(https\\:\\/\\/youtu.+\\)")
 }
 
 is.Token = function(token) {
