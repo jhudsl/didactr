@@ -253,7 +253,7 @@ check_course = function(
   youtube_link_in_md = function(fname, check_youtube_links = TRUE) {
     x = readLines(fname, warn = FALSE)
     # will find better singular regex for this eventually...
-    line <- grep(pattern = png_pattern(),
+    line <- grep(pattern = yt_pattern(),
                  x, perl = TRUE) #
     if (length0(line)) {
       return(NA)
@@ -341,7 +341,7 @@ check_course = function(
     function(fname) {
       x = readLines(fname, warn = FALSE)
       line <-
-        grep(pattern = png_pattern(), x, perl = TRUE)
+        grep(pattern = yt_pattern(), x, perl = TRUE)
       line <-
         line[grep("gif", x[line], invert = TRUE)]
       ## get youtube ID

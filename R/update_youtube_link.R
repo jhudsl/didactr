@@ -60,7 +60,7 @@ update_youtube_link <- function(course_status = NULL,
       message(paste0("Updating youtube link in manuscript file: ", fname))
       txt  <- readLines(fname)
       # identify which link to edit for the video
-      line <- grep(pattern = png_pattern(), txt, perl = TRUE)
+      line <- grep(pattern = yt_pattern(), txt, perl = TRUE)
 
       # replace empty () or (http://etc) with new link
       txt[line] <- gsub("\\(.+\\)|\\(\\)",
@@ -80,7 +80,7 @@ update_youtube_link <- function(course_status = NULL,
     check_urls = mapply(function(fname, new_url) {
       txt  <- readLines(fname)
       # identify which link to edit for the video
-      line <- grep(pattern = png_pattern(), txt, perl = TRUE)
+      line <- grep(pattern = yt_pattern(), txt, perl = TRUE)
       urls <- gsub(".*]\\((.*)\\)","\\1", txt[line])
       urls = unique(urls)
       all(urls %in% new_url)

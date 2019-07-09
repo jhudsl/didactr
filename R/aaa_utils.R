@@ -195,6 +195,10 @@ png_pattern = function() {
          "^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)")
 }
 
+yt_pattern = function() {
+  paste0(
+         "^!\\[.+\\]\\(https\\:\\/\\/www\\.youtu.+\\)")
+}
 
 is.Token = function(token) {
   inherits(token, "Token")
