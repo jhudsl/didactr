@@ -25,6 +25,7 @@ artifacts:
 environment:
   global:
     WARNINGS_ARE_ERRORS: 1.0
+    R_REMOTES_STANDALONE: true    
     USE_RTOOLS: yes
     R_CHECK_INSTALL_ARGS: --install-args=--build --no-multiarch
 deploy:
