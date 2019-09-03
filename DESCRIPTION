@@ -1,5 +1,5 @@
 Package: didactr
-Version: 0.6.13
+Version: 0.7.0
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 
@@ -36,7 +36,8 @@ Imports:
     usethis (>= 1.4.0.9000),
     gh,
     yaml,
-    aws.polly
+    aws.polly,
+    methods
 Suggests: 
     knitr,
     covr,

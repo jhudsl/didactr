@@ -1,12 +1,24 @@
 #' Is Google Language API Authorized
 #'
 #' @return A logical
+#' @importFrom utils packageVersion
 #' @export
 #'
 #' @examples
 #' is_language_auth()
 is_language_auth = function() {
-  inherits(googleAuthR::Authentication$public_fields$token, "Token")
+  if (utils::packageVersion("googleAuthR") >= package_version("1.0.0")) {
+    # googleAuthR:::.auth$auth_active
+    object = get(".auth", envir = asNamespace("googleAuthR"))
+    object = object$cred
+    # inherits(googleAuthR:::.auth$cred, "Token")
+  } else {
+    object = get("Authentication", envir = asNamespace("googleAuthR"))
+    object = object$public_fields$token
+    # inherits(googleAuthR::Authentication$public_fields$token, "Token")
+  }
+  inherits(object, "Token")
+
 }
 
 

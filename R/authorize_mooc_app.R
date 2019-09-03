@@ -26,6 +26,7 @@ mooc_app = function() {
 #' @importFrom httr oauth_endpoints oauth2.0_token
 #' @importFrom googledrive drive_auth
 #' @importFrom rgoogleslides authorize
+#' @importFrom methods formalArgs
 #' @examples \dontrun{
 #' didactr_auth()
 #' }
@@ -65,7 +66,11 @@ didactr_auth = function(
   if (!file.exists(token_file)) {
     saveRDS(token, token_file)
   }
-  googledrive::drive_auth(oauth_token = token_file)
+  if ("oauth_token" %in% methods::formalArgs(googledrive::drive_auth)) {
+    googledrive::drive_auth(oauth_token = token_file)
+  } else {
+    googledrive::drive_auth(token = token)
+  }
   rgoogleslides::authorize(token = token)
   if (language) {
     options(googleAuthR.client_id =  mooc_app()$key,
@@ -100,7 +105,11 @@ didactr_token = function(...) {
       token_file = tempfile(fileext = ".rds")
     }
     saveRDS(token, token_file)
-    googledrive::drive_auth(oauth_token = token_file)
+    if ("oauth_token" %in% formalArgs(googledrive::drive_auth)) {
+      googledrive::drive_auth(oauth_token = token_file)
+    } else {
+      googledrive::drive_auth(token = token)
+    }
     rgoogleslides::authorize(token = token)
     if (!is.null(args$language)) {
       if (args$language) {

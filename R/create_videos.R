@@ -115,6 +115,12 @@ create_videos <- function(
                file.path(paths$scr_path, paste0(x, '_script.md')),
                warn = FALSE)
              para = para[ !para %in% c("", " ")]
+             # allows us to use ; for no words
+             semi_colon = trimws(para) == ";"
+             if (any(semi_colon)) {
+               # need space bc ari_spin removes ""
+               para[semi_colon] = " "
+             }
 
              if (length(para) == length(files)) {
                message(paste0("generating video for: ", x))
