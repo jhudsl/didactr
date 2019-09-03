@@ -67,10 +67,13 @@ didactr_auth = function(
     saveRDS(token, token_file)
   }
   if ("oauth_token" %in% methods::formalArgs(googledrive::drive_auth)) {
-    googledrive::drive_auth(oauth_token = token_file)
+    drive_args = list(oauth_token = token_file)
+    # googledrive::drive_auth(oauth_token = token_file)
   } else {
-    googledrive::drive_auth(token = token)
+    drive_args = list(token = token)
+    # googledrive::drive_auth(token = token)
   }
+  do.call(googledrive::drive_auth, args = drive_args)
   rgoogleslides::authorize(token = token)
   if (language) {
     options(googleAuthR.client_id =  mooc_app()$key,
