@@ -69,7 +69,7 @@ id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
 slides = gs_get_slides(id)
 tfile = tempfile(fileext = ".txt")
 writeLines(slides$content, con = tfile)
-ss = strsplit(slides$content, split = "\\n")[[1]]
+ss = strsplit(slides$content, split = "\n")[[1]]
 ind = grep("uthinkk", ss)
 ss[(ind -30):(ind + 5)]
 

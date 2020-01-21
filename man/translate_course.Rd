@@ -4,9 +4,18 @@
 \alias{translate_course}
 \title{Translate Course to Another Language}
 \usage{
-translate_course(course_dir, target = "es", translate_slides = FALSE,
-  detect = TRUE, verbose = TRUE, use_book = TRUE,
-  overwrite = FALSE, sleep_time = 0, trash_same_gs_name = FALSE, ...)
+translate_course(
+  course_dir,
+  target = "es",
+  translate_slides = FALSE,
+  detect = TRUE,
+  verbose = TRUE,
+  use_book = TRUE,
+  overwrite = FALSE,
+  sleep_time = 0,
+  trash_same_gs_name = FALSE,
+  ...
+)
 }
 \arguments{
 \item{course_dir}{directory with course materials}

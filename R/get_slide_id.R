@@ -27,3 +27,19 @@ make_slide_url = function(x) {
   x = paste0("https://docs.google.com/presentation/d/",x)
   x
 }
+
+#' @rdname get_slide_id
+#' @export
+#' @examples
+#' x = "https://drive.google.com/drive/folders/1pXBQQdd1peI56GtQT-jEZ59xSmhqQlFC?usp=sharing"
+#' get_folder_id(x)
+#' x = "1pXBQQdd1peI56GtQT-jEZ59xSmhqQlFC"
+#' get_folder_id(x)
+get_folder_id = function(x) {
+  res = httr::parse_url(x)
+  x = res$path
+  x = sub(".*folders/", "", x)
+  x = sub("[?].*", "", x)
+  x = x[ nchar(x) > 5]
+  x
+}

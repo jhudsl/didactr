@@ -7,8 +7,13 @@
 \alias{is_didactr_authorized}
 \title{Authorize Application for didactr}
 \usage{
-didactr_auth(token_file = NULL, cache = FALSE, language = FALSE,
-  use_oob = FALSE, token = NULL)
+didactr_auth(
+  token_file = NULL,
+  cache = FALSE,
+  language = FALSE,
+  use_oob = FALSE,
+  token = NULL
+)
 
 check_didactr_auth(...)
 

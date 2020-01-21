@@ -5,14 +5,26 @@
 \alias{create_lessons_from_book}
 \title{Create a Lesson}
 \usage{
-create_lesson(lesson_name, course_dir = ".", verbose = TRUE,
-  md_file = NULL, make_slide_deck = TRUE, slide_id = NULL,
-  extract_code = FALSE, rmd = extract_code, open = FALSE,
+create_lesson(
+  lesson_name,
+  course_dir = ".",
+  verbose = TRUE,
+  md_file = NULL,
+  make_slide_deck = TRUE,
+  slide_id = NULL,
+  extract_code = FALSE,
+  rmd = extract_code,
+  open = FALSE,
   template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
-  ...)
+  ...
+)
 
-create_lessons_from_book(course_dir = ".", verbose = TRUE,
-  make_slide_deck = FALSE, ...)
+create_lessons_from_book(
+  course_dir = ".",
+  verbose = TRUE,
+  make_slide_deck = FALSE,
+  ...
+)
 }
 \arguments{
 \item{lesson_name}{Name of the Lesson to create.  This should be

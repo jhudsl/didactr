@@ -4,8 +4,13 @@
 \alias{vids_to_youtube}
 \title{Upload videos to YouTube}
 \usage{
-vids_to_youtube(course_status, course_title = NULL, json = NULL,
-  verbose = TRUE, ...)
+vids_to_youtube(
+  course_status,
+  course_title = NULL,
+  json = NULL,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{course_status}{object output from \code{\link{check_course}}}

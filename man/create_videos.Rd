@@ -4,10 +4,16 @@
 \alias{create_videos}
 \title{Create video from script and PNGs}
 \usage{
-create_videos(course_status = ".", voice = "Joanna",
+create_videos(
+  course_status = ".",
+  voice = "Joanna",
   ffmpeg_opts = "-minrate 16M -vf \\"scale=1200:720\\"",
-  divisible_height = FALSE, video_bitrate = "16M",
-  audio_codec = NULL, verbose = TRUE, ...)
+  divisible_height = FALSE,
+  video_bitrate = "16M",
+  audio_codec = NULL,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{course_status}{output from \code{\link{check_course}}}

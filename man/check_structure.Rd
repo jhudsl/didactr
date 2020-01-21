@@ -5,11 +5,21 @@
 \alias{check_structure}
 \title{Check for expected file structure and create missing}
 \usage{
-make_course(course_dir = ".", book_txt = NULL, verbose = TRUE,
-  warn_book_exists = TRUE, create_directories = TRUE)
+make_course(
+  course_dir = ".",
+  book_txt = NULL,
+  verbose = TRUE,
+  warn_book_exists = TRUE,
+  create_directories = TRUE
+)
 
-check_structure(course_dir = ".", book_txt = NULL, verbose = TRUE,
-  warn_book_exists = TRUE, create_directories = TRUE)
+check_structure(
+  course_dir = ".",
+  book_txt = NULL,
+  verbose = TRUE,
+  warn_book_exists = TRUE,
+  create_directories = TRUE
+)
 }
 \arguments{
 \item{course_dir}{directory with course materials}

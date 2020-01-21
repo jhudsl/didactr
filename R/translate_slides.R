@@ -18,7 +18,7 @@
 #' library(googledrive)
 #' check_didactr_auth()
 #' # id = "147UQaZBB5RoTpzsNiqkqEr4N8fcHBMB6eNr_5IdksRk"
-#' info = drive_find("datatables", n_max = 25, type = "presentation")
+#' info = drive_find("datatables", n_max = 2000, type = "presentation")
 #' info = info[grepl("^06" ,info$name), ]
 #' if (nrow(info) > 0) {
 #' info = info[1,]
@@ -83,7 +83,11 @@ translate_slide = function(
     pp = rgoogleslides::get_slide_page_properties(
       id,
       page_object_id = page_id)
-    tb_df = pp$get_text_boxes()
+    texts = pp$get_text_boxes()
+    if (nrow(texts) == 0) {
+      texts
+    }
+    tb_df = rbind(pp$get_text_boxes(), pp$get_notes())
     tb_df = tb_df %>%
       dplyr::filter(text_content != "") %>%
       dplyr::mutate(text_content = sub("\n$", "", text_content))
@@ -180,6 +184,13 @@ translate_slide = function(
 #' \code{\link{check_didactr_auth}}
 #' @note Copies are put in the \code{didactr_translations}
 #' folder in your Google Drive.
+#' @examples
+#' \dontrun{
+#' check_didactr_auth()
+#' id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
+#' res = copy_and_translate_slide(id)
+#' googledrive::drive_trash(res$id)
+#' }
 copy_and_translate_slide = function(
   id,
   gs_name = NULL,
@@ -199,6 +210,7 @@ copy_and_translate_slide = function(
   if (googledrive::is_dribble(id)) {
     id = id$id
   }
+  original_id = id
   info = drive_get(id = googledrive::as_id(id))
   stopifnot(nrow(info) == 1)
   if (is.null(gs_name)) {
@@ -232,5 +244,6 @@ copy_and_translate_slide = function(
                                detect = detect,
                                verbose = verbose,
                                ...)
+  translated$original_id = original_id
   return(translated)
 }

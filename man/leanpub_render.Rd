@@ -5,8 +5,12 @@
 \alias{leanpub_document}
 \title{Render Leanpub document}
 \usage{
-leanpub_render(md_file, output_options = list(self_contained = TRUE),
-  remove_tests = TRUE, ...)
+leanpub_render(
+  md_file,
+  output_options = list(self_contained = TRUE),
+  remove_tests = TRUE,
+  ...
+)
 
 leanpub_document(..., remove_tests = TRUE, self_contained = TRUE)
 }

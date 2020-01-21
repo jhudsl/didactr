@@ -5,12 +5,17 @@
 \alias{copy_and_translate_slide}
 \title{Translate Google Slide Text to Another Language}
 \usage{
-translate_slide(id, target = "es", detect = TRUE, verbose = TRUE,
-  ...)
+translate_slide(id, target = "es", detect = TRUE, verbose = TRUE, ...)
 
-copy_and_translate_slide(id, gs_name = NULL,
-  trash_same_gs_name = FALSE, target = "es", detect = TRUE,
-  verbose = TRUE, ...)
+copy_and_translate_slide(
+  id,
+  gs_name = NULL,
+  trash_same_gs_name = FALSE,
+  target = "es",
+  detect = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{id}{Google Slide ID, usually from \code{\link{drive_ls}}}
@@ -47,7 +52,7 @@ folder in your Google Drive.
 library(googledrive)
 check_didactr_auth()
 # id = "147UQaZBB5RoTpzsNiqkqEr4N8fcHBMB6eNr_5IdksRk"
-info = drive_find("datatables", n_max = 25, type = "presentation")
+info = drive_find("datatables", n_max = 2000, type = "presentation")
 info = info[grepl("^06" ,info$name), ]
 if (nrow(info) > 0) {
 info = info[1,]
@@ -58,5 +63,11 @@ translated = translate_slide(id, target = "es")
 drive_trash(id)
 }
 
+}
+\dontrun{
+check_didactr_auth()
+id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
+res = copy_and_translate_slide(id)
+googledrive::drive_trash(res$id)
 }
 }

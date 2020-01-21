@@ -4,8 +4,14 @@
 \alias{translate_swirl}
 \title{Translate Swirl YAML to another language}
 \usage{
-translate_swirl(file, outfile = tempfile(fileext = ".yml"),
-  target = "es", detect = TRUE, verbose = TRUE, ...)
+translate_swirl(
+  file,
+  outfile = tempfile(fileext = ".yml"),
+  target = "es",
+  detect = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{file}{YAML file for Swirl lesson}

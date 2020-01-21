@@ -4,8 +4,15 @@
 \alias{gs_convert}
 \title{Convert Google Slides to PNGs and a script}
 \usage{
-gs_convert(id, verbose = TRUE, PPTX = TRUE, auto_stub = TRUE,
-  use_gs_ids = FALSE, use_gs_pngs = TRUE, ...)
+gs_convert(
+  id,
+  verbose = TRUE,
+  PPTX = TRUE,
+  auto_stub = TRUE,
+  use_gs_ids = FALSE,
+  use_gs_pngs = TRUE,
+  ...
+)
 }
 \arguments{
 \item{id}{File id passed to \code{\link{drive_download}} after passing

@@ -4,9 +4,15 @@
 \alias{gs_ari_upload}
 \title{Convert Google Slides to Video and Upload to Youtube}
 \usage{
-gs_ari_upload(id, voice = "Joanna", ...,
+gs_ari_upload(
+  id,
+  voice = "Joanna",
+  ...,
   ffmpeg_opts = "-vf \\"scale=trunc(iw/2)*2:trunc(ih/2)*2\\"",
-  snippet = NULL, status = NULL, open_url = TRUE)
+  snippet = NULL,
+  status = NULL,
+  open_url = TRUE
+)
 }
 \arguments{
 \item{id}{Identifier of google slides presentation, passed to

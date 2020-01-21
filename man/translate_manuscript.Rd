@@ -11,14 +11,31 @@
 \usage{
 check_manuscript_backticks(file)
 
-translate_manuscript(file, target = "es", chunk = TRUE,
-  fix_header = TRUE, verbose = TRUE, ...)
+translate_manuscript(
+  file,
+  target = "es",
+  chunk = TRUE,
+  fix_header = TRUE,
+  verbose = TRUE,
+  ...
+)
 
-translate_script(file, target = "es", chunk = TRUE,
-  fix_header = FALSE, verbose = TRUE, ...)
+translate_script(
+  file,
+  target = "es",
+  chunk = TRUE,
+  fix_header = FALSE,
+  verbose = TRUE,
+  ...
+)
 
-chunk_google_translate(file, chunk = TRUE, target = "es",
-  fix_header = TRUE, ...)
+chunk_google_translate(
+  file,
+  chunk = TRUE,
+  target = "es",
+  fix_header = TRUE,
+  ...
+)
 
 gl_detect_file(file, max_nchar = 2000)
 }

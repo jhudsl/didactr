@@ -4,9 +4,15 @@
 \alias{check_course}
 \title{Check Leanpub Course}
 \usage{
-check_course(course_dir = ".", save_metrics = TRUE,
-  timezone = "America/New_York", require_authorization = TRUE,
-  use_book = FALSE, check_youtube_links = TRUE, ...)
+check_course(
+  course_dir = ".",
+  save_metrics = TRUE,
+  timezone = "America/New_York",
+  require_authorization = TRUE,
+  use_book = FALSE,
+  check_youtube_links = TRUE,
+  ...
+)
 }
 \arguments{
 \item{course_dir}{directory with course materials}

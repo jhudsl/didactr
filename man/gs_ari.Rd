@@ -6,11 +6,16 @@
 \alias{gs_tts}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
-gs_ari(id, output = NULL, script = NULL, verbose = TRUE,
-  voice = "Joanna", ...)
+gs_ari(id, output = NULL, script = NULL, verbose = TRUE, voice = "Joanna", ...)
 
-gs_ari_spin(id, output = NULL, script = NULL, verbose = TRUE,
-  voice = "Joanna", ...)
+gs_ari_spin(
+  id,
+  output = NULL,
+  script = NULL,
+  verbose = TRUE,
+  voice = "Joanna",
+  ...
+)
 
 gs_tts(id, verbose = TRUE, voice = "Joanna", ...)
 }
