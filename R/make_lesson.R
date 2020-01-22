@@ -21,6 +21,8 @@
 #' will be copied to your new slide deck.
 #' @param publish should the slide be published so slides can be
 #' included in the markdown?
+#' @param add_number Add a prefix to the file name, such as
+#' `00_` for the first file
 #' @param ... arguments passed to \code{\link{check_didactr_auth}}
 #'
 #' @return A list of the created markdown manuscript file and script files.
@@ -88,6 +90,7 @@ create_lesson = function(
   open = FALSE,
   template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
   publish = TRUE,
+  add_number = TRUE,
   ...) {
 
   ext = ifelse(rmd, ".Rmd", ".md")
@@ -124,11 +127,15 @@ create_lesson = function(
         return(NULL)
       }
     }
-    # number it
-    number = sprintf("%02.0f", length(book_txt))
+    if (add_number) {
+      # number it
+      number = sprintf("%02.0f", length(book_txt))
 
-    # add in quiz name and such
-    stub = paste0(number, "_", file_name)
+      # add in quiz name and such
+      stub = paste0(number, "_", file_name)
+    } else {
+      stub = file_name
+    }
 
     file_name = paste0(stub, ext)
   } else {
@@ -216,9 +223,9 @@ create_lesson = function(
         template = gsub("Link to Slides", slide_url(slide_id),
                         template, fixed = TRUE)
         if (publish) {
-        googledrive::drive_share(file = googledrive::as_id(slide_id),
-                                 verbose = verbose,
-                                 type = "anyone")
+          googledrive::drive_share(file = googledrive::as_id(slide_id),
+                                   verbose = verbose,
+                                   type = "anyone")
         }
       } else {
         slide_id = NULL

@@ -17,6 +17,7 @@ create_lesson(
   open = FALSE,
   template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
   publish = TRUE,
+  add_number = TRUE,
   ...
 )
 
@@ -58,6 +59,9 @@ will be copied to your new slide deck.}
 
 \item{publish}{should the slide be published so slides can be
 included in the markdown?}
+
+\item{add_number}{Add a prefix to the file name, such as
+`00_` for the first file}
 
 \item{...}{arguments passed to \code{\link{check_didactr_auth}}}
 }
