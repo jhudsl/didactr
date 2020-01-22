@@ -50,7 +50,11 @@ Suggests:
     aws.signature
 Encoding: UTF-8
 LazyData: true
-Remotes: muschellij2/ari, soodoku/tuber, muschellij2/text2speech
+Remotes: 
+    muschellij2/ari, 
+    soodoku/tuber, 
+    muschellij2/text2speech,
+    hairizuanbinnoorazman/rgoogleslides
 ByteCompile: true
 Type: Package
 VignetteBuilder: knitr
