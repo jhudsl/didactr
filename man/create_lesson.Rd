@@ -16,6 +16,7 @@ create_lesson(
   rmd = extract_code,
   open = FALSE,
   template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
+  publish = TRUE,
   ...
 )
 
@@ -54,6 +55,9 @@ included}
 
 \item{template_slide_id}{Slide ID for a template.  This template
 will be copied to your new slide deck.}
+
+\item{publish}{should the slide be published so slides can be
+included in the markdown?}
 
 \item{...}{arguments passed to \code{\link{check_didactr_auth}}}
 }

@@ -12,7 +12,7 @@
 #'  file = system.file("extdata", "08_DST_R_packages.md",
 #'  package = "didactr")
 #'  # from https://stackoverflow.com/questions/37462126/regex-match-markdown-link
-#'  md_regex = "(?:__|[*#])|\\[(.*?)\\]\\(.*?\\)"
+#'  # md_regex = "(?:__|[*#])|\\[(.*?)\\]\\(.*?\\)"
 #'  res = strip_manuscript(file)
 strip_manuscript = function(file) {
   header = is_code = item_number = item_list = NULL

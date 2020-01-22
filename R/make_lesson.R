@@ -19,6 +19,8 @@
 #' included
 #' @param template_slide_id Slide ID for a template.  This template
 #' will be copied to your new slide deck.
+#' @param publish should the slide be published so slides can be
+#' included in the markdown?
 #' @param ... arguments passed to \code{\link{check_didactr_auth}}
 #'
 #' @return A list of the created markdown manuscript file and script files.
@@ -85,6 +87,7 @@ create_lesson = function(
   rmd = extract_code,
   open = FALSE,
   template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
+  publish = TRUE,
   ...) {
 
   ext = ifelse(rmd, ".Rmd", ".md")
@@ -165,9 +168,11 @@ create_lesson = function(
       message("Publishing Slide")
     }
     check_didactr_auth(...)
-    googledrive::drive_share(file = googledrive::as_id(slide_id),
-                             verbose = verbose,
-                             type = "anyone")
+    if (publish) {
+      googledrive::drive_share(file = googledrive::as_id(slide_id),
+                               verbose = verbose,
+                               type = "anyone")
+    }
   } else {
     if (make_slide_deck) {
       # authorize
@@ -210,9 +215,11 @@ create_lesson = function(
       if (!is.na(slide_id)) {
         template = gsub("Link to Slides", slide_url(slide_id),
                         template, fixed = TRUE)
+        if (publish) {
         googledrive::drive_share(file = googledrive::as_id(slide_id),
                                  verbose = verbose,
                                  type = "anyone")
+        }
       } else {
         slide_id = NULL
       }

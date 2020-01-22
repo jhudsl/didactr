@@ -41,5 +41,6 @@ get_folder_id = function(x) {
   x = sub(".*folders/", "", x)
   x = sub("[?].*", "", x)
   x = x[ nchar(x) > 5]
+  x = trimws(x)
   x
 }

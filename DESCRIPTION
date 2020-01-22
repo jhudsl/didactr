@@ -12,6 +12,7 @@ Authors@R: c(person(given = "John",family = "Muschelli",
   email = "shannon0ellis@gmail.com",
   role = c("aut"))
   )
+Depends: R (>= 3.5.0)
 License: GPL-3
 Imports:
     xml2,

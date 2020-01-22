@@ -23,6 +23,6 @@ Get Google Folder Contents IDs
 \examples{
 \dontrun{
 folder_id = "1GCBE9EAgY3-i1bq9UYf5ec5s9X5TOwEK"
-df = gs_folder_df(id)
+df = gs_folder_df(folder_id)
 }
 }

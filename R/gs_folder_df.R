@@ -12,17 +12,25 @@
 #' @export
 #' @examples \dontrun{
 #' folder_id = "1GCBE9EAgY3-i1bq9UYf5ec5s9X5TOwEK"
-#' df = gs_folder_df(id)
+#' df = gs_folder_df(folder_id)
 #' }
 gs_folder_df = function(id, slides_only = FALSE) {
-  mime_type = NULL
-  rm(list = "mime_type")
+  name = mime_type = NULL
+  rm(list = c("mime_type", "name"))
   check_didactr_auth()
   if (inherits(id, "data.frame")) {
     id = id$id[1]
   }
   id = as.character(id)
-  res = googledrive::drive_ls(path = as_id(id))
+  id = get_folder_id(id)
+  res = googledrive::drive_ls(path = as_id(id), recursive = TRUE)
+  shared_res = googledrive::drive_ls(
+    path = as_id(id),
+    recursive = TRUE,
+    q = "sharedWithMe")
+  res = dplyr::bind_rows(res, shared_res)
+  res = res %>%
+    arrange(name)
   if (nrow(res) == 0) {
     warning("No folder was found!")
     return(NULL)
