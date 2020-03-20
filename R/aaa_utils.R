@@ -269,7 +269,16 @@ png_url = function(id, page_id) {
 download_png_urls = function(urls) {
   res = vapply(urls, function(url) {
     tfile = tempfile(fileext = ".png")
-    httr::GET(url, httr::write_disk(tfile))
+    out = httr::GET(url, httr::write_disk(tfile),
+                    httr::content_type(".png"))
+    httr::stop_for_status(out)
+    ctype = out$headers$`content-type`
+    ctype = strsplit(ctype, " ")[[1]]
+    ctype = sub(";$", "", ctype)
+    if (any(ctype == "text/html") &&
+        !any(grepl("png", ctype))) {
+      stop("Output is not a PNG!")
+    }
     tfile
   }, FUN.VALUE = character(1))
   return(res)

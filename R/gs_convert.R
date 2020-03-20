@@ -94,8 +94,17 @@ gs_convert = function(
   slide_df = NULL
   if (use_gs_pngs) {
     slide_df = gs_slide_df(id)
-    pngs = download_png_urls(slide_df$png_url)
-  } else {
+    download_png_result = try({
+      pngs = download_png_urls(slide_df$png_url)
+    }, silent = TRUE)
+    error_png_result = inherits(download_png_result, "try-error")
+    if (error_png_result) {
+      warning(paste0("PNGs from Google could not be used, ",
+                     "link sharing is likely not on.  Using conversion of ",
+                     "PDF.  To suppress, set use_gs_pngs = FALSE"))
+    }
+  }
+  if (!use_gs_pngs | error_png_result) {
     args$pdf_file = pdf_file
     if (verbose) {
       message("Converting PDF to Images")

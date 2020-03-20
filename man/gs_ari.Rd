@@ -6,7 +6,15 @@
 \alias{gs_tts}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
-gs_ari(id, output = NULL, script = NULL, verbose = TRUE, voice = "Joanna", ...)
+gs_ari(
+  id,
+  output = NULL,
+  script = NULL,
+  verbose = TRUE,
+  voice = "Joanna",
+  use_gs_pngs = TRUE,
+  ...
+)
 
 gs_ari_spin(
   id,
@@ -14,10 +22,11 @@ gs_ari_spin(
   script = NULL,
   verbose = TRUE,
   voice = "Joanna",
+  use_gs_pngs = TRUE,
   ...
 )
 
-gs_tts(id, verbose = TRUE, voice = "Joanna", ...)
+gs_tts(id, verbose = TRUE, voice = "Joanna", use_gs_pngs = TRUE, ...)
 }
 \arguments{
 \item{id}{Identifier of google slides presentation, passed to
@@ -35,6 +44,10 @@ or a filename of the text.  Empty string are removed, please use
 \code{\link[aws.polly]{list_voices}} for more
 information about what voices are available.}
 
+\item{use_gs_pngs}{Use the PNGs that Google will export with
+their slide deck.  If \code{FALSE}, must have
+\code{animation} package installed.}
+
 \item{...}{Arguments passed to \code{\link{ari_spin}}}
 }
 \value{
@@ -46,4 +59,12 @@ Convert Google Slides and notes to video with ari
 \note{
 The \code{...} argument in \code{gs_tts} corresponds to
 arguments passed to \code{\link[text2speech]{tts}}.
+}
+\examples{
+\dontrun{
+id = paste0("https://docs.google.com/presentation/d/",
+"1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8",
+"/edit#slide=id.g154aa4fae2_0_58")
+res = gs_ari(id)
+}
 }

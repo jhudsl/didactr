@@ -11,22 +11,34 @@
 #' @param voice 	The Amazon Polly voice you want to use. See
 #' \code{\link[aws.polly]{list_voices}} for more
 #' information about what voices are available.
+#' @param use_gs_pngs Use the PNGs that Google will export with
+#' their slide deck.  If \code{FALSE}, must have
+#' \code{animation} package installed.
 #' @param ... Arguments passed to \code{\link{ari_spin}}
 #'
 #' @return A list of the images, script, and MP4 with the result.
 #' @export
 #' @importFrom ari ari_spin
+#' @examples
+#' \dontrun{
+#' id = paste0("https://docs.google.com/presentation/d/",
+#' "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8",
+#' "/edit#slide=id.g154aa4fae2_0_58")
+#' res = gs_ari(id)
+#' }
 gs_ari = function(
   id,
   output = NULL,
   script = NULL,
   verbose = TRUE,
-  voice = "Joanna", ...) {
+  voice = "Joanna",
+  use_gs_pngs = TRUE,
+  ...) {
 
   res = gs_convert(
     id,
     verbose = verbose,
-    use_gs_pngs = TRUE,
+    use_gs_pngs = use_gs_pngs,
     PPTX = FALSE,
     use_gs_ids = FALSE)
   images = res$images
@@ -67,12 +79,14 @@ gs_ari_spin = gs_ari
 gs_tts = function(
   id,
   verbose = TRUE,
-  voice = "Joanna", ...) {
+  voice = "Joanna",
+  use_gs_pngs = TRUE,
+  ...) {
 
   res = gs_convert(
     id,
     verbose = verbose,
-    use_gs_pngs = TRUE,
+    use_gs_pngs = use_gs_pngs,
     PPTX = FALSE,
     use_gs_ids = FALSE)
   # images = res$images
