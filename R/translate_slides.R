@@ -233,7 +233,9 @@ copy_and_translate_slide = function(
       gs_name,
       type = "presentation"
     )
-    googledrive::drive_trash(info, verbose = verbose)
+    if (nrow(info) > 0) {
+      googledrive::drive_trash(info, verbose = verbose)
+    }
   }
   xid = googledrive::drive_cp(
     info, name = gs_name,

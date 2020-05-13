@@ -60,4 +60,4 @@ Type: Package
 VignetteBuilder: knitr
 URL: https://github.com/muschellij2/didactr
 BugReports: https://github.com/muschellij2/didactr/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
