@@ -228,13 +228,13 @@ copy_and_translate_slide = function(
   }
 
   if (trash_same_gs_name) {
-    info = googledrive::drive_ls(
+    trash_info = googledrive::drive_ls(
       path = trans_fol,
       gs_name,
       type = "presentation"
     )
     if (nrow(info) > 0) {
-      googledrive::drive_trash(info, verbose = verbose)
+      googledrive::drive_trash(trash_info, verbose = verbose)
     }
   }
   xid = googledrive::drive_cp(
