@@ -95,6 +95,9 @@ translate_slide = function(
   }
   tb_df = dplyr::bind_rows(tb_data, .id = "page_id")
 
+  tb_df = tb_df[ !is.na(tb_df$text_content), ]
+  tb_df = tb_df[ !tb_df$text_content %in% c(""), ]
+
   make_bad_string = function() {
     x = round(runif(1, min = 1e5, max = 1000000))
     x = paste0(x, ";")
@@ -106,7 +109,7 @@ translate_slide = function(
            table_of_changes = tb_df)
   if (nrow(tb_df) > 0) {
     bad_string =  make_bad_string()
-    for (i in 1:10) {
+    for (i in 1:20) {
       # just make another
       if (any(grepl(bad_string, tb_df$text_content))) {
         bad_string =  make_bad_string()
@@ -114,6 +117,8 @@ translate_slide = function(
     }
     stopifnot(!any(grepl(bad_string, tb_df$text_content)))
     tb_df$text_content = gsub("\n", bad_string,
+                              tb_df$text_content)
+    tb_df$text_content = gsub("\v", bad_string,
                               tb_df$text_content)
 
     tb = tb_df$text_content
