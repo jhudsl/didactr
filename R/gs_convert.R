@@ -54,7 +54,7 @@ gs_convert = function(
         "is TRUE, not using your stub"))
     }
     lesson_name = googledrive::drive_get(id = as_id(id))$name
-    lesson_name = paste0(lesson_name, "-%0d")
+    lesson_name = paste0(lesson_name, "-%05d")
     args$stub = lesson_name
   }
 
