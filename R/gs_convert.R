@@ -92,6 +92,7 @@ gs_convert = function(
   # Get the PNGs
   ##################################
   slide_df = NULL
+  error_png_result = FALSE
   if (use_gs_pngs) {
     slide_df = gs_slide_df(id)
     download_png_result = try({
