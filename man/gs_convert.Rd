@@ -49,6 +49,7 @@ id = "1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"
 PPTX = FALSE
 auto_stub = TRUE
 res = gs_convert(id, use_gs_ids = TRUE, PPTX = FALSE)
+res = gs_convert(id, use_gs_pngs = FALSE)
 res = gs_convert(id, use_gs_pngs = TRUE, PPTX = FALSE)
 res = gs_convert(id, use_gs_pngs = TRUE, use_gs_ids = TRUE,
 PPTX = FALSE)
