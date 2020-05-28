@@ -1,3 +1,7 @@
+# didactr 0.7.3
+
+* Major bug fixes in `gs_convert`.
+
 
 # didactr 0.6.4
 

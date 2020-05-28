@@ -58,27 +58,61 @@ gs_convert = function(
     args$stub = lesson_name
   }
 
+  download_wrapper = function(id, path, type, get_result) {
+    ttype = toupper(type)
+    dl = try({
+      drive_download(
+        id,
+        path = path,
+        type = type)
+    }, silent = TRUE)
+    if (inherits(dl, "try-error")) {
+      message("File was too large for drive_download, using export link")
+      if (nrow(get_result) < 1) {
+        stop(paste0(ttype, " could not be downloaded"))
+      }
+      if (nrow(get_result) > 1) {
+        warning("Multiple files detected - picking the first")
+      }
+      url = get_result$drive_resource[[1]]$exportLinks
+      mime_ext = googledrive::drive_mime_type(type)
+      url = url[[mime_ext]]
+      if (!is.null(url)) {
+        out = httr::GET(
+          url,
+          httr::write_disk(path, overwrite = TRUE),
+          if (verbose) httr::progress())
+        if (httr::status_code(out) >= 400) {
+          stop(paste0(ttype, " could not be downloaded"))
+        }
+      } else {
+        stop(paste0(ttype, " could not be downloaded"))
+      }
+    }
+    return(dl)
+  }
+
+  get_result = googledrive::drive_get(id = id)
+
   ###############################
   # Getting PDF
   ###############################
   if (verbose) {
     message(paste0("Downloading the PDF: ", pdf_file))
   }
-  dl = drive_download(
-    id,
-    path = pdf_file,
-    type = "pdf")
-
-
+  dl = download_wrapper(
+    id = id,
+    path = pdf_file, type = "pdf",
+    get_result = get_result)
 
   if (PPTX) {
     pptx_file = tempfile(fileext = ".pptx", tmpdir = tdir)
-    if (verbose) {
-      message(paste0("Downloading the PPTX: ", pptx_file))
-    }
-    pptx_dl = googledrive::drive_download(id,
-                                          path = pptx_file,
-                                          type = "pptx")
+
+    pptx_dl = download_wrapper(
+      id = id,
+      path = pptx_file, type = "pptx",
+      get_result = get_result)
+
     if (verbose) {
       message("Getting Notes from PPTX")
     }
