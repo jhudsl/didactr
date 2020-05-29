@@ -100,7 +100,7 @@ translate_slide = function(
 
   make_bad_string = function() {
     x = round(runif(1, min = 1e5, max = 1000000))
-    x = paste0(x, ";")
+    x = paste0(" ", x, "; ")
   }
 
 
@@ -154,6 +154,17 @@ translate_slide = function(
       bad_string, "\n", tb_df$text_content)
     tb = gsub(bad_string, "\n", tb)
 
+    # sometimes spaces at end are removed
+    df$translatedText = gsub(
+      trimws(bad_string), "\n",
+      df$translatedText)
+    df$text = gsub(
+      trimws(bad_string), "\n",
+      df$text)
+    tb_df$text_content = gsub(
+      trimws(bad_string), "\n", tb_df$text_content)
+    tb = gsub(bad_string, "\n", tb)
+
     tb_new = df$translatedText
     stopifnot(length(tb) == length(tb_new))
     stopifnot(!any(grepl(bad_string, tb_new)))
@@ -162,11 +173,11 @@ translate_slide = function(
     tb_df$text_replacement = tb_new
     for (itb in seq_along(tb)) {
       # delete text
-      request = add_delete_text_request(
+      request = rgoogleslides::add_delete_text_request(
         google_slides_request = request,
         object_id = tb_df$object_id[itb])
       # add text
-      request = add_insert_text_request(
+      request = rgoogleslides::add_insert_text_request(
         google_slides_request = request,
         object_id = tb_df$object_id[itb],
         text = tb_df$text_replacement[itb]
