@@ -1,3 +1,20 @@
+pptx_reorder_xml = function(files) {
+  if (length(files) == 0) {
+    return(files)
+  }
+  nums = basename(files)
+  # nums = gsub(pattern = paste0(pattern, "(\\d*)[.]xml"),
+  #             replacement = "\\1", nums)
+  nums = sub("[[:alpha:]]*(\\d.*)[.].*", "\\1", nums)
+  nums = as.numeric(nums)
+  if (any(is.na(nums))) {
+    warning(paste0("Trying to parse set of files (example: ", files[1],
+                   ") from PPTX, failed"))
+    return(files)
+  }
+  files = files[order(nums)]
+}
+
 #' Get Notes from a PowerPoint (usually from Google Slides)
 #'
 #' @param file Character. Path for `PPTX` file
@@ -17,13 +34,9 @@ pptx_notes = function(file) {
   notes = list.files(path = note_dir, pattern = "[.]xml$",
                      full.names = TRUE)
   if (length(notes) > 0) {
+    notes = pptx_reorder_xml(notes)
     res = sapply(notes, xml_notes)
-    bn = basename(notes)
-    id = sub("[[:alpha:]]*(\\d.*)[.].*", "\\1", bn)
-    ord = order(as.numeric(id))
-    res = res[ord]
-    bn = bn[ord]
-    names(res) = bn
+    names(res) = basename(notes)
     return(res)
   } else {
     return(NULL)
