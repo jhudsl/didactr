@@ -196,6 +196,7 @@ translate_slide = function(
 #' @param trash_same_gs_name Should other Google slide decks
 #' with the same name be trashed before copying?  If not,
 #' can fill up your drive.
+#' @param share should the link sharing be turned on?
 #' @param ... arguments passed to
 #' \code{\link{check_didactr_auth}}
 #' @note Copies are put in the \code{didactr_translations}
@@ -211,6 +212,7 @@ copy_and_translate_slide = function(
   id,
   gs_name = NULL,
   trash_same_gs_name = FALSE,
+  share = FALSE,
   target = "es",
   detect = TRUE,
   verbose = TRUE,
@@ -256,6 +258,16 @@ copy_and_translate_slide = function(
   xid = googledrive::drive_cp(
     info, name = gs_name,
     path = trans_fol)
+  iid = xid
+  if (share) {
+    if (googledrive::is_dribble(iid)) {
+      iid = iid$id
+    }
+    googledrive::drive_share(
+      file = googledrive::as_id(iid),
+      verbose = verbose,
+      type = "anyone")
+  }
   Sys.sleep(3)
   translated = translate_slide(xid,
                                target = target,

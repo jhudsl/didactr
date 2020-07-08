@@ -11,6 +11,7 @@ copy_and_translate_slide(
   id,
   gs_name = NULL,
   trash_same_gs_name = FALSE,
+  share = FALSE,
   target = "es",
   detect = TRUE,
   verbose = TRUE,
@@ -36,6 +37,8 @@ Must be google Language authorized using \code{\link{gl_auth}}}
 \item{trash_same_gs_name}{Should other Google slide decks
 with the same name be trashed before copying?  If not,
 can fill up your drive.}
+
+\item{share}{should the link sharing be turned on?}
 }
 \value{
 A list of results from \code{\link{commit_to_slides}}

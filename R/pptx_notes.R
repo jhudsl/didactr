@@ -42,3 +42,8 @@ pptx_notes = function(file) {
     return(NULL)
   }
 }
+
+
+# #' @rdname reexports
+# #' @export
+# ariExtra::pptx_notes
