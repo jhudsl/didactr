@@ -46,5 +46,4 @@ deploy:
   file: didactr*.t*gz
   on:
     tags: true
-    repo: muschellij2/didactr
 
