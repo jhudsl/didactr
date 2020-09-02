@@ -35,8 +35,7 @@
 #' \dontrun{
 #' course_dir = "~/Dropbox/Projects/CDS/cds_dataanalysis"
 #'
-#' library(googledrive)
-#' check_didactr_auth()
+#' didactr::check_didactr_auth()
 #'
 #' res = translate_course(course_dir)
 #'
