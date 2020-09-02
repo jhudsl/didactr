@@ -18,15 +18,15 @@ translate_swirl(
 
 \item{outfile}{output YAML file for translated Swirl lesson}
 
-\item{target}{language to translate to, see \code{\link{gl_translate}}}
+\item{target}{language to translate to, see \code{gl_translate}}
 
 \item{detect}{Should \code{\link{gl_detect_file}} be run to
 check that the language is not currently the target?
-Must be google Language authorized using \code{\link{gl_auth}}}
+Must be google Language authorized using \code{gl_auth}}
 
 \item{verbose}{Print diagnostic messages}
 
-\item{...}{additional options to pass to \code{\link{write_yaml}}}
+\item{...}{additional options to pass to \code{yaml::write_yaml}}
 }
 \value{
 A filename of the output file.  The attribute

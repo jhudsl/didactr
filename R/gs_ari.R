@@ -1,16 +1,17 @@
 
 #' Convert Google Slides and notes to video with ari
 #'
-#' @param id Identifier of google slides presentation, passed to
+#' @param id Identifier of Google slides presentation, passed to
 #' \code{\link{gs_convert}}
 #' @param script A vector strings that will be spoken over slides,
 #' or a filename of the text.  Empty string are removed, please use
 #' \code{;} if no words to be spoken.
 #' @param output Output MP4 filename, optional
 #' @param verbose Should diagnostics messages be printed
-#' @param voice 	The Amazon Polly voice you want to use. See
-#' \code{\link[aws.polly]{list_voices}} for more
-#' information about what voices are available.
+#' @param voice The voice you want to use. See
+#' \code{\link{tts_voices}} for more
+#' information about what voices are available.  Uses default
+#' voice is given by \code{\link{ari_spin}}.
 #' @param use_gs_pngs Use the PNGs that Google will export with
 #' their slide deck.  If \code{FALSE}, must have
 #' \code{animation} package installed.
@@ -107,9 +108,9 @@ gs_tts = function(
 }
 
 
-#' Convert Google Slides to Video and Upload to Youtube
+#' Convert Google Slides to Video and Upload to YouTube
 #'
-#' @param id Identifier of google slides presentation, passed to
+#' @param id Identifier of Google slides presentation, passed to
 #' \code{\link{gs_convert}}
 #' @param ... Arguments passed to \code{\link{gs_ari}}
 #' @param ffmpeg_opts options passed to \code{\link{ari_spin}}
@@ -117,9 +118,10 @@ gs_tts = function(
 #' @param snippet snippet list passed to \code{\link{upload_video}}
 #' @param open_url Should YouTube URL be opened?  Passed to
 #' \code{\link{upload_video}}
-#' @param voice 	The Amazon Polly voice you want to use. See
-#' \code{\link[aws.polly]{list_voices}} for more
+#' @param voice The Amazon Polly voice you want to use. See
+#' \code{\link{tts_voices}} for more
 #' information about what voices are available.
+#' Uses default voice is given by \code{\link{ari_spin}}.
 #'
 #' @return A list of results from \code{\link{gs_ari}} and
 #' \code{\link{upload_video}}

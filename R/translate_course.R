@@ -3,8 +3,8 @@
 #' @param course_dir directory with course materials
 #' @param detect Should \code{\link{gl_detect_file}} be run to
 #' check that the language is not currently the target?
-#' Must be google Language authorized using \code{\link{gl_auth}}
-#' @param target language to translate to, see \code{\link{gl_translate}}
+#' Must be google Language authorized using \code{gl_auth}
+#' @param target language to translate to, see \code{gl_translate}
 #' @param verbose Print diagnostic messages
 #' @param overwrite Should files be overwritten?
 #' If not, they are put in a temporary directory and translated.

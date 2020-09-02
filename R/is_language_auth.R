@@ -7,6 +7,9 @@
 #' @examples
 #' is_language_auth()
 is_language_auth = function() {
+  if (!requireNamespace("googleAuthR", quietly = FALSE)) {
+    stop("googleAuthR required for is_language_auth")
+  }
   if (utils::packageVersion("googleAuthR") >= package_version("1.0.0")) {
     # googleAuthR:::.auth$auth_active
     object = get(".auth", envir = asNamespace("googleAuthR"))

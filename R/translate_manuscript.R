@@ -5,11 +5,10 @@
 #' @param verbose Print diagnostic messages
 #' @param fix_header should the header information be fixed,
 #' such as `{ course-completeness: 100 }`.
-#' @param target target language, see \code{\link{gl_translate}}
+#' @param target target language, see \code{gl_translate}
 #' @param ... additional arguments to pass to
 #'  \code{\link{gl_translate}}
 #' @importFrom dplyr mutate select
-#' @importFrom googleLanguageR gl_translate
 #' @importFrom stats runif
 #'
 #' @return A `data.frame` of the text and translated text
@@ -107,6 +106,10 @@ chunk_google_translate = function(file, chunk = TRUE,
                                   target = "es",
                                   fix_header = TRUE,
                                   ...) {
+
+  if (!requireNamespace("googleLanguageR", quietly = TRUE)) {
+    stop("googleLanguageR package required to run translation")
+  }
   txt = readLines(file, warn = FALSE)
 
   if (fix_header) {
@@ -284,6 +287,9 @@ chunk_google_translate = function(file, chunk = TRUE,
 gl_detect_file = function(file, max_nchar = 2000) {
   text = NULL
   rm(list = "text")
+  if (!requireNamespace("googleLanguageR", quietly = TRUE)) {
+    stop("googleLanguageR package required to run gl_detect_file")
+  }
   txt = readLines(file, warn = FALSE)
   nc = nchar(txt)
   df = data.frame(text = txt,

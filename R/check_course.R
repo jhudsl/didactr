@@ -18,7 +18,6 @@
 #' @export
 #' @importFrom googledrive drive_get
 #' @importFrom lubridate ymd_hms with_tz
-#' @importFrom stringr str_sub
 #' @importFrom httr parse_url
 #' @importFrom tidyr separate
 #' @import dplyr
@@ -43,6 +42,9 @@ check_course = function(
   check_youtube_links = TRUE,
   ...) {
 
+  if (!requireNamespace("stringr", quietly = TRUE)) {
+    stop("stringr required for check_course")
+  }
   lesson_name = gs_name = drive_resource = NULL
   rm(list = c("lesson_name", "gs_name", "drive_resource"))
 

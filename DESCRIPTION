@@ -1,5 +1,5 @@
 Package: didactr
-Version: 0.7.3
+Version: 0.8.0
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 
@@ -15,7 +15,6 @@ Authors@R: c(person(given = "John",family = "Muschelli",
 Depends: R (>= 3.5.0)
 License: GPL-3
 Imports:
-    xml2,
     googledrive,
     dplyr,
     httpuv,
@@ -23,30 +22,30 @@ Imports:
     httr,
     jsonlite,
     lubridate,
-    rstudioapi,
-    stringr,
     tidyr,
     utils,
     ari (>= 0.2.2.1),
     text2speech,
     rmarkdown,
     rgoogleslides (>= 0.3.1.9000),
-    googleLanguageR,
     googleAuthR,
-    english,
     usethis (>= 1.4.0.9000),
-    gh,
-    yaml,
-    aws.polly,
     methods
 Suggests: 
+    xml2,
+    english,
     knitr,
     covr,
+    gh,
     pdftools,
     animation,
     testthat,
+    stringr,
     tuneR,
+    rstudioapi,
     git2r,
+    yaml,
+    googleLanguageR,
     aws.signature
 Encoding: UTF-8
 LazyData: true
@@ -59,5 +58,4 @@ Type: Package
 VignetteBuilder: knitr
 URL: https://github.com/muschellij2/didactr
 BugReports: https://github.com/muschellij2/didactr/issues
-RoxygenNote: 7.1.0
-
+RoxygenNote: 7.1.1

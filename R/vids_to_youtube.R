@@ -9,7 +9,6 @@
 #' @return A list from \code{\link{check_course}} with another field of
 #' \code{youtube_uploads}.
 #' @export
-#' @importFrom stringr str_to_title str_replace str_replace_all
 #' @importFrom dplyr data_frame
 vids_to_youtube <- function(
   course_status,
@@ -17,6 +16,7 @@ vids_to_youtube <- function(
   json = NULL,
   verbose = TRUE,
   ...) {
+
   authorized = check_didactr_auth(...)
 
   time_published = mod_time_vid = lesson_name = NULL

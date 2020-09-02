@@ -17,6 +17,9 @@
 add_leanpub_collaborator = function(
   course_dir = ".",
   auth_token = NULL) {
+  if (!requireNamespace("gh", quietly = TRUE)) {
+    stop("gh package required for add_leanpub_collaborator")
+  }
   if (inherits(course_dir, "course_check")) {
     course_dir = course_dir$course_dir
   }

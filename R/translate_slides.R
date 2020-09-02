@@ -3,8 +3,8 @@
 #' @param id Google Slide ID, usually from \code{\link{drive_ls}}
 #' @param detect Should \code{\link{gl_detect_file}} be run to
 #' check that the language is not currently the target?
-#' Must be google Language authorized using \code{\link{gl_auth}}
-#' @param target language to translate to, see \code{\link{gl_translate}}
+#' Must be google Language authorized using \code{gl_auth}
+#' @param target language to translate to, see \code{gl_translate}
 #' @param verbose Print diagnostic messages
 #'
 #' @return A list of results from \code{\link{commit_to_slides}}
@@ -36,12 +36,13 @@ translate_slide = function(
   detect = TRUE,
   verbose = TRUE,
   ...) {
-
-  check_didactr_auth(...)
-
+  if (!requireNamespace("googleLanguageR", quietly = TRUE)) {
+    stop("googleLanguageR package required to run translation")
+  }
   if (!is_language_auth()) {
     stop("Google Language is not Authorized, see gl_auth")
   }
+  check_didactr_auth(...)
   text_content = NULL
   rm(list = "text_content")
 
@@ -217,10 +218,13 @@ copy_and_translate_slide = function(
   detect = TRUE,
   verbose = TRUE,
   ...) {
-  check_didactr_auth(...)
+  if (!requireNamespace("googleLanguageR", quietly = TRUE)) {
+    stop("googleLanguageR package required to run translation")
+  }
   if (!is_language_auth()) {
     stop("Google Language is not Authorized, see gl_auth")
   }
+  check_didactr_auth(...)
   if (is.character(id)) {
     id = get_slide_id(id)
     stopifnot(length(id) == 1)

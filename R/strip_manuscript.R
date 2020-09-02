@@ -5,16 +5,21 @@
 #' @return A \code{data.frame} with text and edits
 #' @export
 #'
-#' @importFrom english as.english
 #' @examples
 #' library(dplyr)
+#' if (requireNamespace("english", quietly = TRUE)) {
 #'  library(english)
 #'  file = system.file("extdata", "08_DST_R_packages.md",
 #'  package = "didactr")
 #'  # from https://stackoverflow.com/questions/37462126/regex-match-markdown-link
 #'  # md_regex = "(?:__|[*#])|\\[(.*?)\\]\\(.*?\\)"
 #'  res = strip_manuscript(file)
+#'  res
+#' }
 strip_manuscript = function(file) {
+  if (!requireNamespace("english", quietly = TRUE)) {
+    stop("english package required for strip_manuscript")
+  }
   header = is_code = item_number = item_list = NULL
   text = image = bold_header = NULL
   rm(list = c("is_code", "item_list", "item_number",

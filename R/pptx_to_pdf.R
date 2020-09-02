@@ -2,6 +2,7 @@
 #'
 #' @param path Path of PPTX file name
 #' @param verbose print diagnostic messages
+#' @param name name of PPTX, if different than base name of path.
 #'
 #' @return A Google Slide ID or a path to a PDF file
 #' @export

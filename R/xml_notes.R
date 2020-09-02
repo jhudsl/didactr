@@ -5,11 +5,13 @@
 #' @return A character vector
 #' @export
 #'
-#' @importFrom xml2 read_xml xml_text xml_find_all
 #' @importFrom dplyr %>%
 xml_notes = function(file) {
-  xdoc = read_xml(file)
-  txt = xdoc %>% xml_find_all("//a:t") %>% xml_text()
+  if (!requireNamespace("stringr", quietly = TRUE)) {
+    stop("xml2 package required to use xml_notes")
+  }
+  xdoc = xml2::read_xml(file)
+  txt = xdoc %>% xml2::xml_find_all("//a:t") %>% xml2::xml_text()
   txt = paste(txt, collapse = " ")
 }
 

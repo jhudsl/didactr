@@ -218,6 +218,9 @@ na_true = function(test) {
 add_gh_collaborator = function(owner, repo,
                                collaborator = "leanpub",
                                auth_token) {
+  if (!requireNamespace("gh", quietly = TRUE)) {
+    stop("gh package required for add_gh_collaborator")
+  }
   lapply(collaborator, function(collab) {
     gh::gh(paste0(
       "PUT /repos/", owner, "/",

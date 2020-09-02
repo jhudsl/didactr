@@ -17,10 +17,13 @@ Strip Markdown from Manuscript
 }
 \examples{
 library(dplyr)
+if (requireNamespace("english", quietly = TRUE)) {
  library(english)
  file = system.file("extdata", "08_DST_R_packages.md",
  package = "didactr")
  # from https://stackoverflow.com/questions/37462126/regex-match-markdown-link
  # md_regex = "(?:__|[*#])|\\[(.*?)\\]\\(.*?\\)"
  res = strip_manuscript(file)
+ res
+}
 }

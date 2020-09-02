@@ -2,7 +2,7 @@
 % Please edit documentation in R/gs_ari.R
 \name{gs_ari_upload}
 \alias{gs_ari_upload}
-\title{Convert Google Slides to Video and Upload to Youtube}
+\title{Convert Google Slides to Video and Upload to YouTube}
 \usage{
 gs_ari_upload(
   id,
@@ -15,12 +15,13 @@ gs_ari_upload(
 )
 }
 \arguments{
-\item{id}{Identifier of google slides presentation, passed to
+\item{id}{Identifier of Google slides presentation, passed to
 \code{\link{gs_convert}}}
 
 \item{voice}{The Amazon Polly voice you want to use. See
-\code{\link[aws.polly]{list_voices}} for more
-information about what voices are available.}
+\code{\link{tts_voices}} for more
+information about what voices are available.
+Uses default voice is given by \code{\link{ari_spin}}.}
 
 \item{...}{Arguments passed to \code{\link{gs_ari}}}
 
@@ -38,5 +39,5 @@ A list of results from \code{\link{gs_ari}} and
 \code{\link{upload_video}}
 }
 \description{
-Convert Google Slides to Video and Upload to Youtube
+Convert Google Slides to Video and Upload to YouTube
 }

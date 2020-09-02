@@ -42,7 +42,7 @@ gl_detect_file(file, max_nchar = 2000)
 \arguments{
 \item{file}{Manuscript markdown file}
 
-\item{target}{target language, see \code{\link{gl_translate}}}
+\item{target}{target language, see \code{gl_translate}}
 
 \item{chunk}{Should the calls to Google Translate be chunked?}
 

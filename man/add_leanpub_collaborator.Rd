@@ -13,7 +13,7 @@ object}
 \item{auth_token}{Provide a personal access token (PAT) from
 \url{https://github.com/settings/tokens}. If \code{NULL}, will use the logic
 described in \code{\link[gh:gh_whoami]{gh::gh_whoami()}} to look for a token stored in an environment
-variable. Use \code{\link[usethis:browse_github_pat]{usethis::browse_github_pat()}} to help set up your PAT.}
+variable. Use \code{\link[usethis:usethis-defunct]{usethis::browse_github_pat()}} to help set up your PAT.}
 }
 \value{
 Answer from the API as a \code{gh_response} object,

@@ -12,6 +12,8 @@ pptx_to_pdf(path, name = NULL, trash = TRUE, verbose = TRUE)
 \arguments{
 \item{path}{Path of PPTX file name}
 
+\item{name}{name of PPTX, if different than base name of path.}
+
 \item{verbose}{print diagnostic messages}
 
 \item{trash}{should the Google Slide be trashed after downloading

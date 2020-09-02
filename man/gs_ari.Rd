@@ -29,7 +29,7 @@ gs_ari_spin(
 gs_tts(id, verbose = TRUE, voice = "Joanna", use_gs_pngs = TRUE, ...)
 }
 \arguments{
-\item{id}{Identifier of google slides presentation, passed to
+\item{id}{Identifier of Google slides presentation, passed to
 \code{\link{gs_convert}}}
 
 \item{output}{Output MP4 filename, optional}
@@ -40,9 +40,10 @@ or a filename of the text.  Empty string are removed, please use
 
 \item{verbose}{Should diagnostics messages be printed}
 
-\item{voice}{The Amazon Polly voice you want to use. See
-\code{\link[aws.polly]{list_voices}} for more
-information about what voices are available.}
+\item{voice}{The voice you want to use. See
+\code{\link{tts_voices}} for more
+information about what voices are available.  Uses default
+voice is given by \code{\link{ari_spin}}.}
 
 \item{use_gs_pngs}{Use the PNGs that Google will export with
 their slide deck.  If \code{FALSE}, must have

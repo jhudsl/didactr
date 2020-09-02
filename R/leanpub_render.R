@@ -9,7 +9,6 @@
 #' @return HTML output filename
 #' @export
 #' @importFrom rmarkdown render pandoc_version
-#' @importFrom rstudioapi viewer isAvailable
 #' @importFrom utils browseURL
 leanpub_render = function(
   md_file,
@@ -48,10 +47,12 @@ leanpub_render = function(
     output_options = output_options,
     ...)
   file.copy(result, res)
-  if (rstudioapi::isAvailable()) {
+  if (
+    requireNamespace("rstudioapi", quietly = TRUE) &&
+      rstudioapi::isAvailable()) {
     rstudioapi::viewer(res)
   } else {
-    browseURL(res)
+    utils::browseURL(res)
   }
   # Sys.sleep(time = 2)
   return(res)
