@@ -350,7 +350,7 @@ check_course = function(
       ## this will break if youtube ever decides
       ## to change the length of their IDs
       x = ifelse(!is.na(df$yt_md_link[df$md_file == fname]),
-                 str_sub(x[line], -12, -2), NA)
+                 stringr::str_sub(x[line], -12, -2), NA)
     })
   course_status = df
   if (save_metrics) {

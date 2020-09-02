@@ -42,7 +42,7 @@ gl_detect_file(file, max_nchar = 2000)
 \arguments{
 \item{file}{Manuscript markdown file}
 
-\item{target}{target language, see \code{gl_translate}}
+\item{target}{target language, see \code{googleLanguageR::gl_translate}}
 
 \item{chunk}{Should the calls to Google Translate be chunked?}
 
@@ -52,7 +52,7 @@ such as `{ course-completeness: 100 }`.}
 \item{verbose}{Print diagnostic messages}
 
 \item{...}{additional arguments to pass to
-\code{\link{gl_translate}}}
+\code{googleLanguageR::gl_translate}}
 
 \item{max_nchar}{number of characters to use for detection.}
 }

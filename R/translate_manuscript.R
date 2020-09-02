@@ -5,9 +5,9 @@
 #' @param verbose Print diagnostic messages
 #' @param fix_header should the header information be fixed,
 #' such as `{ course-completeness: 100 }`.
-#' @param target target language, see \code{gl_translate}
+#' @param target target language, see \code{googleLanguageR::gl_translate}
 #' @param ... additional arguments to pass to
-#'  \code{\link{gl_translate}}
+#'  \code{googleLanguageR::gl_translate}
 #' @importFrom dplyr mutate select
 #' @importFrom stats runif
 #'
