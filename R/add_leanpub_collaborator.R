@@ -5,9 +5,8 @@
 #' object
 #' @param auth_token Provide a personal access token (PAT) from
 #'   <https://github.com/settings/tokens>. If `NULL`, will use the logic
-#'   described in [gh::gh_whoami()] to look for a token stored in an environment
+#'   described in \code{gh::gh_whoami()} to look for a token stored in an environment
 #'   variable. Use [usethis::browse_github_pat()] to help set up your PAT.
-#' @importFrom gh gh
 #'
 #' @return Answer from the API as a `gh_response` object,
 #' which is also a `list.` Failed requests will generate an `R` error.
