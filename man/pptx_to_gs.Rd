@@ -28,5 +28,7 @@ Convert PPTX to Google Slides (and then PDF)
 \examples{
 path = system.file(
 "extdata", "example.pptx", package = "didactr")
+if (is_didactr_authorized()) {
 pdf = pptx_to_pdf(path)
+}
 }

@@ -9,7 +9,9 @@
 #' @examples
 #' path = system.file(
 #' "extdata", "example.pptx", package = "didactr")
+#' if (is_didactr_authorized()) {
 #' pdf = pptx_to_pdf(path)
+#' }
 pptx_to_gs = function(
   path,
   name = NULL,
