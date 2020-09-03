@@ -100,9 +100,15 @@ create_lesson = function(
   template = gsub("%20", " ", template)
   template = gsub("Lesson Name", lesson_name, template, fixed = TRUE)
 
-  res = make_course(course_dir = course_dir, verbose = verbose)
-  book_txt = readLines(res$book_txt, warn = FALSE)
+  course = make_course(course_dir = course_dir, verbose = verbose)
+  book_txt = readLines(course$book_txt, warn = FALSE)
   book_txt = book_txt[ book_txt != ""]
+
+  if (!is.null(slide_id)) {
+    if (publish | make_slide_deck) {
+      check_didactr_auth(...)
+    }
+  }
 
   ask_overwrite = function() {
     choices = c("No", "Yes")
@@ -153,116 +159,29 @@ create_lesson = function(
 
   template = gsub("00_filename", stub, template)
 
-
-  slide_url = function(slide_id) {
-    paste0("https://docs.google.com/presentation/d/",
-           slide_id,
-           "/edit?usp=sharing")
-  }
   # if not missing slide id
-  if (!is.null(slide_id)) {
-    if (
-      any(
-        grepl("^http", slide_id) |
-        grepl("google.com", slide_id)
-      )
-    ) {
-      slide_id = didactr::get_slide_id(slide_id)
-    }
-    template = gsub("Link to Slides", slide_url(slide_id),
-                    template, fixed = TRUE)
-    if (verbose) {
-      message("Publishing Slide")
-    }
-    check_didactr_auth(...)
-    if (publish) {
-      googledrive::drive_share(file = googledrive::as_id(slide_id),
-                               verbose = verbose,
-                               type = "anyone")
-    }
-  } else {
-    if (make_slide_deck) {
-      # authorize
-      check_didactr_auth(...)
 
-      # make the name
-      # naming convention changed to course_NUMBER_lesson
-      gs_name = paste0(res$course_name, "_",
-                       stub)
-      # see if it exists
-      id_exists = googledrive::drive_find(
-        pattern = gs_name, type = "presentation",
-        n_max = 25)
-      if (nrow(id_exists) > 0) {
-        warning(paste0("Slide deck with name ", gs_name, " already exists"))
-        print(id_exists)
-      }
-      if (is.null(slide_id)) {
-        slide_id = NA
-      }
-      # if so, make it the slide_id variable
-      # slide_id = id_exists$id[1]
-
-      # if not, it will be set to NA
-      if (is.na(slide_id)) {
-
-        # this is a public slide deck I believe
-        # need to try with other OAuth account
-        get_req = googledrive::drive_get(id = template_slide_id)
-        if (verbose) {
-          message("Copying over lecture")
-        }
-        slide_id = googledrive::drive_cp(get_req,
-                                         path = gs_name,
-                                         verbose = verbose)
-        slide_id = slide_id$id
-      }
-      # if we have a slide id (either copied or already exists)
-      # paste it in
-      if (!is.na(slide_id)) {
-        template = gsub("Link to Slides", slide_url(slide_id),
-                        template, fixed = TRUE)
-        if (publish) {
-          googledrive::drive_share(file = googledrive::as_id(slide_id),
-                                   verbose = verbose,
-                                   type = "anyone")
-        }
-      } else {
-        slide_id = NULL
-      }
-
-    }
-  }
   script = ""
   # add in the PNG links
-  if (!is.null(slide_id)) {
-    slide_df = gs_slide_df(slide_id)
-    notes = notes_from_slide_output(slide_df)
-    markdown_pngs = slide_df$png_markdown
-    code = slide_df$code
-    code[ is.na(code) ] = ""
-    # add the notes to the
-    script = notes
-    script[ script %in% ""] = ";"
-    script = gsub("\n", " ", script)
-    notes = paste0("<!-- Notes from Slide ", slide_df$objectId, "-->\n",
-                   notes, "\n")
-    if (extract_code) {
-      notes = paste0(notes, code, "\n")
-    }
-    # markdown_pngs = c(t(cbind(notes, markdown_pngs)))
-    markdown_pngs = paste0(notes, markdown_pngs)
-    ind = grep("SLIDESHERE", template, fixed = TRUE)
-    stopifnot(length(ind) == 1)
-    template = c(template[1:(ind - 1)],
-                 markdown_pngs,
-                 template[(ind + 1):length(template)])
-    template = gsub("SLIDEID", slide_id, template)
-  }
-
+  L = create_slide_deck(
+    slide_id = slide_id,
+    template = template,
+    publish = publish,
+    make_slide_deck = make_slide_deck,
+    course = course,
+    stub = stub,
+    template_slide_id = template_slide_id,
+    verbose = verbose)
+  template = L$template
+  slide_id = L$slide_id
+  rm(L)
+  template = extract_notes(
+    slide_id = slide_id,
+    template = template,
+    extract_code = extract_code)
 
   md_file_name = sub("[.]Rmd", ".md", file_name)
-  file_name = file.path(res$man_path, file_name)
+  file_name = file.path(course$man_path, file_name)
   if (file.exists(file_name)) {
     warning("File exists, will not overwrite!")
   } else {
@@ -270,7 +189,7 @@ create_lesson = function(
   }
 
   script_name = paste0(stub, "_script.md")
-  script_name = file.path(res$scr_path, script_name)
+  script_name = file.path(course$scr_path, script_name)
   if (file.exists(script_name)) {
     warning("Script file exists, will not overwrite!")
   } else {
@@ -280,7 +199,7 @@ create_lesson = function(
   check = grepl(stub, book_txt)
   if (length(book_txt) == 0 || !any(check)) {
     book_txt = c(book_txt, md_file_name)
-    writeLines(book_txt, res$book_txt)
+    writeLines(book_txt, course$book_txt)
   }
 
   if (open) {
@@ -305,8 +224,8 @@ create_lessons_from_book = function(
   md_file = txt = lesson_name = have_name = NULL
   rm(list = c("md_file", "txt", "lesson_name", "have_name"))
 
-  res = make_course(course_dir = course_dir, verbose = verbose)
-  book_txt = readLines(res$book_txt, warn = FALSE)
+  course = make_course(course_dir = course_dir, verbose = verbose)
+  book_txt = readLines(course$book_txt, warn = FALSE)
   book_txt = trimws(book_txt)
   book_txt = book_txt[ book_txt != ""]
 
@@ -339,7 +258,7 @@ create_lessons_from_book = function(
   results = mapply(function(lesson_name, md_file) {
     create_lesson(
       lesson_name = lesson_name,
-      course_dir = res$course_dir,
+      course_dir = course$course_dir,
       verbose = verbose,
       md_file = md_file,
       make_slide_deck = make_slide_deck,
@@ -347,4 +266,126 @@ create_lessons_from_book = function(
   }, df$lesson_name, df$md_file, SIMPLIFY = FALSE)
 
   return(results)
+}
+
+
+extract_notes = function(slide_id, template, extract_code) {
+  if (!is.null(slide_id)) {
+    slide_df = gs_slide_df(slide_id)
+    notes = notes_from_slide_output(slide_df)
+    markdown_pngs = slide_df$png_markdown
+    code = slide_df$code
+    code[ is.na(code) ] = ""
+    # add the notes to the
+    script = notes
+    script[ script %in% ""] = ";"
+    script = gsub("\n", " ", script)
+    notes = paste0("<!-- Notes from Slide ", slide_df$objectId, "-->\n",
+                   notes, "\n")
+    if (extract_code) {
+      notes = paste0(notes, code, "\n")
+    }
+    # markdown_pngs = c(t(cbind(notes, markdown_pngs)))
+    markdown_pngs = paste0(notes, markdown_pngs)
+    ind = grep("SLIDESHERE", template, fixed = TRUE)
+    stopifnot(length(ind) == 1)
+    template = c(template[1:(ind - 1)],
+                 markdown_pngs,
+                 template[(ind + 1):length(template)])
+    template = gsub("SLIDEID", slide_id, template)
+  }
+  template
+}
+
+
+create_slide_deck = function(
+  slide_id,
+  template,
+  publish,
+  make_slide_deck,
+  course,
+  stub,
+  template_slide_id,
+  verbose) {
+
+  slide_url = function(slide_id) {
+    paste0("https://docs.google.com/presentation/d/",
+           slide_id,
+           "/edit?usp=sharing")
+  }
+
+  if (!is.null(slide_id)) {
+    if (
+      any(
+        grepl("^http", slide_id) |
+        grepl("google.com", slide_id)
+      )
+    ) {
+      slide_id = didactr::get_slide_id(slide_id)
+    }
+    template = gsub("Link to Slides", slide_url(slide_id),
+                    template, fixed = TRUE)
+    if (verbose) {
+      message("Publishing Slide")
+    }
+    if (publish) {
+      googledrive::drive_share(
+        file = googledrive::as_id(slide_id),
+        verbose = verbose,
+        type = "anyone")
+    }
+  } else {
+    if (make_slide_deck) {
+      # make the name
+      # naming convention changed to course_NUMBER_lesson
+      gs_name = paste0(course$course_name, "_",
+                       stub)
+      # see if it exists
+      id_exists = googledrive::drive_find(
+        pattern = gs_name,
+        type = "presentation",
+        n_max = 25)
+      if (nrow(id_exists) > 0) {
+        warning(paste0("Slide deck with name ", gs_name, " already exists"))
+        print(id_exists)
+      }
+      if (is.null(slide_id)) {
+        slide_id = NA
+      }
+      # if so, make it the slide_id variable
+      # slide_id = id_exists$id[1]
+
+      # if not, it will be set to NA
+      if (is.na(slide_id)) {
+
+        # this is a public slide deck I believe
+        # need to try with other OAuth account
+        get_req = googledrive::drive_get(id = template_slide_id)
+        if (verbose) {
+          message("Copying over lecture")
+        }
+        slide_id = googledrive::drive_cp(get_req,
+                                         path = gs_name,
+                                         verbose = verbose)
+        slide_id = slide_id$id
+      }
+      # if we have a slide id (either copied or already exists)
+      # paste it in
+      if (!is.na(slide_id)) {
+        template = gsub("Link to Slides", slide_url(slide_id),
+                        template, fixed = TRUE)
+        if (publish) {
+          googledrive::drive_share(
+            file = googledrive::as_id(slide_id),
+            verbose = verbose,
+            type = "anyone")
+        }
+      } else {
+        slide_id = NULL
+      }
+
+    }
+  }
+  list(template = template,
+       slide_id = slide_id)
 }

@@ -5,6 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Creating Courses from Scratch}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\usepackage[UTF-8]{inputenc}
 ---
 
 ```{r, include = FALSE}
