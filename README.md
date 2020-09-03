@@ -2,7 +2,7 @@
 <!-- badges: start -->
 
 [![Travis build
-status](https://travis-ci.com/muschellij2/didactr.svg?branch=master)](https://travis-ci.com/muschellij2/didactr)
+status](https://travis-ci.com/jhudsl/didactr.svg?branch=master)](https://travis-ci.com/jhudsl/didactr)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/didactr?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/didactr)
 [![Coverage
