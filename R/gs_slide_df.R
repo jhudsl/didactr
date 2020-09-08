@@ -1,10 +1,14 @@
 #' Get Google Slide Elements IDs
 #'
-#' @param id Slide id passed to \code{\link{get_slides_properties}} after passing
+#' @param id Slide id passed to \code{\link{get_slides_properties}}
+#' after passing
 #' through \code{\link{as_id}}
 #' @param extract_code If you have text with \code{#rstats} in the
 #' slide or \code{#rstats} in the Alt-text title, code will be
 #' included
+#' @param use_google_drive Use Google Drive to host the PNGs, calling
+#' \code{\link{gs_to_drive_pngs}}
+#' @param ... additional arguments to pass to \code{\link{gs_to_drive_pngs}}
 #'
 #' @return A \code{data.frame} of the identifiers and properties of the
 #' slides
@@ -29,7 +33,9 @@
 #' })
 #' notes
 #' }
-gs_slide_df = function(id, extract_code = TRUE) {
+gs_slide_df = function(id, extract_code = TRUE,
+                       use_google_drive = FALSE,
+                       ...) {
   check_didactr_auth()
   if (inherits(id, "data.frame")) {
     id = id$id[1]
@@ -47,7 +53,12 @@ gs_slide_df = function(id, extract_code = TRUE) {
     "https://docs.google.com/presentation/d/",
     id, "/export/png?id=", id,
     "&pageid=", slides$objectId)
-  slides$png_markdown = paste0("{format: png}\n![](", slides$png_url, ")\n")
+  if (use_google_drive) {
+    gs_png_data = gs_to_drive_pngs(id = id, ...)
+    slides$png_url = gs_png_data$upload_output$url
+  }
+  slides$png_markdown = paste0("{format: png}\n![](",
+                               slides$png_url, ")\n")
   slides$png_df = dplyr::tibble(
     page_id = slides$objectId,
     png_url = slides$png_url,
@@ -140,7 +151,8 @@ gs_get_slides = function(id) {
 #' }
 gs_speaker_notes_id = function(id) {
   slides = gs_get_slides(id)
-  slides$parsed$slides$slideProperties$notesPage$notesProperties$speakerNotesObjectId
+  notes = slides$parsed$slides$slideProperties
+  notes$notesPage$notesProperties$speakerNotesObjectId
 }
 
 

@@ -8,21 +8,29 @@
 
 <title>Create a Lesson — create_lesson • didactr</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Create a Lesson — create_lesson" />
 
+<meta property="og:title" content="Create a Lesson — create_lesson" />
 <meta property="og:description" content="Create a Lesson" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">didactr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -71,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,11 +106,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/muschellij2/didactr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/muschellij2/didactr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,6 +120,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -123,20 +132,33 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Create a Lesson</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>create_lesson</span>(<span class='no'>lesson_name</span>, <span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>md_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>slide_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>extract_code</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rmd</span> <span class='kw'>=</span> <span class='no'>extract_code</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>create_lesson</span>(
+  <span class='no'>lesson_name</span>,
+  <span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>md_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>slide_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>extract_code</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>rmd</span> <span class='kw'>=</span> <span class='no'>extract_code</span>,
+  <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>template_slide_id</span> <span class='kw'>=</span> <span class='st'>"143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE"</span>,
-  <span class='no'>...</span>)
+  <span class='kw'>publish</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>add_number</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>use_google_drive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>create_lessons_from_book</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'>create_lessons_from_book</span>(
+  <span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -189,30 +211,42 @@ included</p></td>
 will be copied to your new slide deck.</p></td>
     </tr>
     <tr>
+      <th>publish</th>
+      <td><p>should the slide be published so slides can be
+included in the markdown?</p></td>
+    </tr>
+    <tr>
+      <th>add_number</th>
+      <td><p>Add a prefix to the file name, such as
+`00_` for the first file</p></td>
+    </tr>
+    <tr>
+      <th>use_google_drive</th>
+      <td><p>passed to <code><a href='gs_slide_df.html'>gs_slide_df</a></code>
+to call <code><a href='gs_to_drive_pngs.html'>gs_to_drive_pngs</a></code> when putting in PNGs
+into the lesson.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>arguments passed to <code><a href='didactr_auth.html'>check_didactr_auth</a></code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of the created markdown manuscript file and script files.
 <code>create_lessons_from_book</code> will return a list of these lists,
 one for each lesson in the <code>Book.txt</code> file.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
+    <pre class="examples"><div class='input'><span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
 <span class='no'>course_name</span> <span class='kw'>=</span> <span class='st'>"test"</span>
-<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f551ab5565/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f551ab5565/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f551ab5565/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f551ab5565/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f551ab5565/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f551ab5565/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span>
-#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
-#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
-#&gt; </span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></div><div class='input'><span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a58d53551/test'</span><span></span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a58d53551/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a58d53551/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a58d53551/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a58d53551/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a58d53551/test/metrics directory</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></span></div><div class='input'><span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 <span class='no'>out</span> <span class='kw'>=</span><span class='fu'>create_lesson</span>(<span class='kw'>lesson_name</span> <span class='kw'>=</span> <span class='st'>"how to Do Things"</span>,
 <span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>,
 <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
 <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>man_path</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things.md" "Book.txt"               "resources"             </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>scr_path</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things_script.md"</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>sc</span>$<span class='no'>book_txt</span>, <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things.md"</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>out</span>$<span class='no'>md_file</span>)</div><div class='output co'>#&gt;  [1] ""                                                                                                 
+<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>man_path</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things.md" "Book.txt"               "resources"             </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>scr_path</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things_script.md"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>sc</span>$<span class='no'>book_txt</span>, <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "00_how_to_do_things.md"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>out</span>$<span class='no'>md_file</span>)</div><div class='output co'>#&gt;  [1] ""                                                                                                 
 #&gt;  [2] "# how to Do Things"                                                                               
 #&gt;  [3] ""                                                                                                 
 #&gt;  [4] "&lt;!-- Google Slide ID --&gt;"                                                                         
@@ -240,49 +274,50 @@ one for each lesson in the <code>Book.txt</code> file.</p>
 #&gt; [26] ""                                                                                                 
 #&gt; [27] "### how to Do Things quiz"                                                                        
 #&gt; [28] ""                                                                                                 
-#&gt; [29] "{choose-answers: 4} ?"                                                                            
-#&gt; [30] ""                                                                                                 
-#&gt; [31] "C) The answer to this one"                                                                        
-#&gt; [32] "o) Not the answer"                                                                                
-#&gt; [33] "o) A bad answer"                                                                                  
-#&gt; [34] "o) Not an answer"                                                                                 
-#&gt; [35] ""                                                                                                 
-#&gt; [36] "{/quiz}"                                                                                          </div><div class='input'><span class='no'>in_ci</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nchar'>nzchar</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.getenv'>Sys.getenv</a></span>(<span class='st'>"CI"</span>))
-}</div></span><span class='co'># NOT RUN {</span>
+#&gt; [29] "{choose-answers: 4} "                                                                             
+#&gt; [30] "? What do you think?"                                                                             
+#&gt; [31] ""                                                                                                 
+#&gt; [32] ""                                                                                                 
+#&gt; [33] "C) The answer to this one"                                                                        
+#&gt; [34] "o) Not the answer"                                                                                
+#&gt; [35] "o) A bad answer"                                                                                  
+#&gt; [36] "o) Not an answer"                                                                                 
+#&gt; [37] ""                                                                                                 
+#&gt; [38] "{/quiz}"                                                                                          </div><div class='input'><span class='no'>in_ci</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() {
+<span class='fu'><a href='https://rdrr.io/r/base/nchar.html'>nzchar</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"CI"</span>))
+}
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># requires authorization</span>
-<span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
+<span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
 <span class='no'>course_name</span> <span class='kw'>=</span> <span class='st'>"test"</span>
 <span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)
 <span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 <span class='no'>out</span> <span class='kw'>=</span> <span class='fu'>create_lesson</span>(<span class='kw'>lesson_name</span> <span class='kw'>=</span> <span class='st'>"how to Do Things"</span>,
 <span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>,
 <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> !<span class='fu'>in_ci</span>(),
-<span class='kw'>open</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>())
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>man_path</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>scr_path</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>sc</span>$<span class='no'>book_txt</span>, <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>out</span>$<span class='no'>md_file</span>, <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='co'># }</span><div class='input'>
-<span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
+<span class='kw'>open</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>man_path</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>scr_path</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>sc</span>$<span class='no'>book_txt</span>, <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>out</span>$<span class='no'>md_file</span>, <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+}
+
+<span class='no'>root_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
 <span class='no'>course_name</span> <span class='kw'>=</span> <span class='st'>"test"</span>
-<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f5477383c6/test'</span><span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f5477383c6/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f5477383c6/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f5477383c6/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f5477383c6/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp6xD7Qr/file125f5477383c6/test/metrics directory</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span>
-#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
-#&gt; </span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span>
-#&gt; </span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></div><div class='input'><span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-<span class='no'>x</span> <span class='kw'>=</span>  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"Book.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"didactr"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.copy</a></span>(<span class='no'>x</span>, <span class='no'>sc</span>$<span class='no'>book_txt</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>
+<span class='no'>sc</span> <span class='kw'>=</span> <span class='fu'><a href='start_course.html'>start_course</a></span>(<span class='no'>course_name</span>, <span class='no'>root_path</span>)</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a159f8667/test'</span><span></span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a159f8667/test/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a159f8667/test/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a159f8667/test/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a159f8667/test/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmphFk73E/file239a159f8667/test/metrics directory</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test.Rproj'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></span></div><div class='input'><span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='no'>x</span> <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"Book.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"didactr"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>x</span>, <span class='no'>sc</span>$<span class='no'>book_txt</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>
 <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>create_lessons_from_book</span>(<span class='kw'>course_dir</span> <span class='kw'>=</span> <span class='no'>sc</span>$<span class='no'>course_dir</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
 <span class='kw'>make_slide_deck</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>man_path</span>)</div><div class='output co'>#&gt;  [1] "00_types.md"         "01_reports.md"       "02_presentations.md"
+<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>man_path</span>)</div><div class='output co'>#&gt;  [1] "00_types.md"         "01_reports.md"       "02_presentations.md"
 #&gt;  [4] "03_general.md"       "04_technical.md"     "05_blogpost.md"     
 #&gt;  [7] "06_meetings.md"      "07_one_on_one.md"    "08_notebook.md"     
-#&gt; [10] "09_graphs.md"        "Book.txt"            "resources"          </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>scr_path</span>)</div><div class='output co'>#&gt;  [1] "00_types_script.md"         "01_reports_script.md"      
+#&gt; [10] "09_graphs.md"        "Book.txt"            "resources"          </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>dir</a></span>(<span class='no'>sc</span>$<span class='no'>scr_path</span>)</div><div class='output co'>#&gt;  [1] "00_types_script.md"         "01_reports_script.md"      
 #&gt;  [3] "02_presentations_script.md" "03_general_script.md"      
 #&gt;  [5] "04_technical_script.md"     "05_blogpost_script.md"     
 #&gt;  [7] "06_meetings_script.md"      "07_one_on_one_script.md"   
-#&gt;  [9] "08_notebook_script.md"      "09_graphs_script.md"       </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>sc</span>$<span class='no'>book_txt</span>)</div><div class='output co'>#&gt;  [1] "00_types.md # Types of Communication"
+#&gt;  [9] "08_notebook_script.md"      "09_graphs_script.md"       </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>sc</span>$<span class='no'>book_txt</span>)</div><div class='output co'>#&gt;  [1] "00_types.md # Types of Communication"
 #&gt;  [2] "01_reports.md"                       
 #&gt;  [3] "02_presentations.md"                 
 #&gt;  [4] "03_general.md"                       
@@ -291,7 +326,7 @@ one for each lesson in the <code>Book.txt</code> file.</p>
 #&gt;  [7] "06_meetings.md"                      
 #&gt;  [8] "07_one_on_one.md"                    
 #&gt;  [9] "08_notebook.md"                      
-#&gt; [10] "09_graphs.md"                        </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></span>(<span class='no'>res</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>md_file</span>)</div><div class='output co'>#&gt;  [1] ""                                                                                                 
+#&gt; [10] "09_graphs.md"                        </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>res</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>md_file</span>)</div><div class='output co'>#&gt;  [1] ""                                                                                                 
 #&gt;  [2] "# Presentations"                                                                                  
 #&gt;  [3] ""                                                                                                 
 #&gt;  [4] "&lt;!-- Google Slide ID --&gt;"                                                                         
@@ -319,27 +354,24 @@ one for each lesson in the <code>Book.txt</code> file.</p>
 #&gt; [26] ""                                                                                                 
 #&gt; [27] "### Presentations quiz"                                                                           
 #&gt; [28] ""                                                                                                 
-#&gt; [29] "{choose-answers: 4} ?"                                                                            
-#&gt; [30] ""                                                                                                 
-#&gt; [31] "C) The answer to this one"                                                                        
-#&gt; [32] "o) Not the answer"                                                                                
-#&gt; [33] "o) A bad answer"                                                                                  
-#&gt; [34] "o) Not an answer"                                                                                 
-#&gt; [35] ""                                                                                                 
-#&gt; [36] "{/quiz}"                                                                                          </div></span></pre>
+#&gt; [29] "{choose-answers: 4} "                                                                             
+#&gt; [30] "? What do you think?"                                                                             
+#&gt; [31] ""                                                                                                 
+#&gt; [32] ""                                                                                                 
+#&gt; [33] "C) The answer to this one"                                                                        
+#&gt; [34] "o) Not the answer"                                                                                
+#&gt; [35] "o) A bad answer"                                                                                  
+#&gt; [36] "o) Not an answer"                                                                                 
+#&gt; [37] ""                                                                                                 
+#&gt; [38] "{/quiz}"                                                                                          </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -347,13 +379,16 @@ one for each lesson in the <code>Book.txt</code> file.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

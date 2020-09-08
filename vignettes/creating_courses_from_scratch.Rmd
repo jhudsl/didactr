@@ -53,7 +53,7 @@ in your new session.
 5.  Go to your Google Slide deck and copy the URL from the slide deck
 
 ```{r, echo = FALSE}
-knitr::include_graphics("copy_url.png")
+knitr::include_graphics("../man/figures/copy_url.png")
 ```
 
 6. Create a lesson.  For your lesson, change `How to Do Things` to something more appropriate and run in your new session, pasting in the slide URL:
@@ -130,13 +130,13 @@ We see the paths that have been created for the project. You may ask yourself "W
 This workflow uses Google Slides to create your video and your document.  We **highly** recommend this process.  If you have a local presentation and you want to use that, go to https://drive.google.com (by clicking on the link).  Once on Google Drive, click the New button:
 
 ```{r, echo = FALSE}
-knitr::include_graphics("New.png")
+knitr::include_graphics("../man/figures/New.png")
 ```
 
 After clicking that, select "File Upload":
 
 ```{r, echo = FALSE}
-knitr::include_graphics("Upload.png")
+knitr::include_graphics("../man/figures/Upload.png")
 ```
 
 Then upload your deck.
@@ -149,7 +149,7 @@ x = "https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7T
 If you start with a Google Slide deck, you need the Slide ID.  Please go to the slide deck on Google Slides, and then copy the URL from the browser address bar: 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("copy_url.png")
+knitr::include_graphics("../man/figures/copy_url.png")
 ```
 
 For example, let's say we copied `https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58` from our address bar.  The ID is `r get_slide_id(x)`, and `didactr` provides the helper function `get_slide_id` that takes in this URL and provides the slide ID.  You can either copy just the slide ID or run `get_slide_id` on your URL as the example below demonstrates.

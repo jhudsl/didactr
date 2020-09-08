@@ -18,6 +18,7 @@ create_lesson(
   template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
   publish = TRUE,
   add_number = TRUE,
+  use_google_drive = FALSE,
   ...
 )
 
@@ -62,6 +63,10 @@ included in the markdown?}
 
 \item{add_number}{Add a prefix to the file name, such as
 `00_` for the first file}
+
+\item{use_google_drive}{passed to \code{\link{gs_slide_df}}
+to call \code{\link{gs_to_drive_pngs}} when putting in PNGs
+into the lesson.}
 
 \item{...}{arguments passed to \code{\link{check_didactr_auth}}}
 }

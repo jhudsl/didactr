@@ -10,7 +10,7 @@
 \alias{gs_replace_notes}
 \title{Get Google Slide Elements IDs}
 \usage{
-gs_slide_df(id, extract_code = TRUE)
+gs_slide_df(id, extract_code = TRUE, use_google_drive = FALSE, ...)
 
 notes_from_slide(id)
 
@@ -25,12 +25,18 @@ gs_speaker_notes_id(id)
 gs_replace_notes(id, notes)
 }
 \arguments{
-\item{id}{Slide id passed to \code{\link{get_slides_properties}} after passing
+\item{id}{Slide id passed to \code{\link{get_slides_properties}}
+after passing
 through \code{\link{as_id}}}
 
 \item{extract_code}{If you have text with \code{#rstats} in the
 slide or \code{#rstats} in the Alt-text title, code will be
 included}
+
+\item{use_google_drive}{Use Google Drive to host the PNGs, calling
+\code{\link{gs_to_drive_pngs}}}
+
+\item{...}{additional arguments to pass to \code{\link{gs_to_drive_pngs}}}
 
 \item{slides}{an output of \code{gs_slide_df(id)}}
 

@@ -23,6 +23,9 @@
 #' included in the markdown?
 #' @param add_number Add a prefix to the file name, such as
 #' `00_` for the first file
+#' @param use_google_drive passed to \code{\link{gs_slide_df}}
+#' to call \code{\link{gs_to_drive_pngs}} when putting in PNGs
+#' into the lesson.
 #' @param ... arguments passed to \code{\link{check_didactr_auth}}
 #'
 #' @return A list of the created markdown manuscript file and script files.
@@ -91,6 +94,7 @@ create_lesson = function(
   template_slide_id = "143gvqcynq_bl7iVd2G9yjumwJJkAy0S6CyNCsrJ2LgE",
   publish = TRUE,
   add_number = TRUE,
+  use_google_drive = FALSE,
   ...) {
 
   ext = ifelse(rmd, ".Rmd", ".md")
@@ -178,7 +182,8 @@ create_lesson = function(
   template = extract_notes(
     slide_id = slide_id,
     template = template,
-    extract_code = extract_code)
+    extract_code = extract_code,
+    use_google_drive = use_google_drive)
 
   md_file_name = sub("[.]Rmd", ".md", file_name)
   file_name = file.path(course$man_path, file_name)
@@ -269,9 +274,10 @@ create_lessons_from_book = function(
 }
 
 
-extract_notes = function(slide_id, template, extract_code) {
+extract_notes = function(slide_id, template, extract_code,
+                         use_google_drive = FALSE) {
   if (!is.null(slide_id)) {
-    slide_df = gs_slide_df(slide_id)
+    slide_df = gs_slide_df(slide_id, use_google_drive = use_google_drive)
     notes = notes_from_slide_output(slide_df)
     markdown_pngs = slide_df$png_markdown
     code = slide_df$code

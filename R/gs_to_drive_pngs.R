@@ -17,7 +17,7 @@
 #' "/export/png?",
 #' "id=1ywZbtFacZK0UIsnt2g-sheC9du_rw_7XZ1FX4rRt27M&pageid=g325fd519ca_0_5")
 #'
-#' gs_to_drive_pngs(url)
+#' out = gs_to_drive_pngs(url)
 #' }
 gs_to_drive_pngs = function(
     id,
@@ -27,8 +27,10 @@ gs_to_drive_pngs = function(
     id = didactr::get_slide_id(id)
     # pdf_file = ariExtra::download_gs_file(id = path, out_type = "pdf")
     result = didactr::gs_convert(
-        id, PPTX = FALSE,
-        use_gs_pngs = FALSE, use_gs_ids = TRUE)
+        id,
+        PPTX = FALSE,
+        use_gs_pngs = FALSE,
+        use_gs_ids = TRUE)
 
     images = file.path(dirname(result$images),
                        paste0("id=", id, "&page_id=", basename(result$images)))
@@ -55,7 +57,7 @@ gs_to_drive_pngs = function(
     }
 
     output = lapply(images, function(image) {
-        googledrive::drive_upload(
+        out = googledrive::drive_upload(
             media = image,
             path = trans_fol,
             name = basename(image),
@@ -65,6 +67,7 @@ gs_to_drive_pngs = function(
     })
     result$images = images
     output = do.call(rbind, output)
+    output$url = sapply(output$drive_resource, `[[`, "webViewLink")
     result$upload_output = output
     result
 }
