@@ -50,7 +50,7 @@ translate_slide = function(
     message("Pulling slide from Google Slides")
   }
   if (is.character(id)) {
-    id = get_slide_id(id)
+    id = ariExtra::get_slide_id(id)
     stopifnot(length(id) == 1)
   }
   if (googledrive::is_dribble(id)) {
@@ -226,7 +226,7 @@ copy_and_translate_slide = function(
   }
   check_didactr_auth(...)
   if (is.character(id)) {
-    id = get_slide_id(id)
+    id = ariExtra::get_slide_id(id)
     stopifnot(length(id) == 1)
   }
   if (googledrive::is_dribble(id)) {
@@ -280,4 +280,17 @@ copy_and_translate_slide = function(
                                ...)
   translated$original_id = original_id
   return(translated)
+}
+
+
+#' @rdname translate_manuscript
+#' @export
+check_manuscript_backticks = function(file) {
+  file = readLines(file)
+  bad = grepl("\\s+```", file)
+  if (any(bad)) {
+    stop(paste0("Bad backticks on lines",
+                paste(which(bad), collapse = ","))
+    )
+  }
 }

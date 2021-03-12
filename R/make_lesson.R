@@ -38,7 +38,7 @@
 #' @examples
 #' root_path = tempfile()
 #' course_name = "test"
-#' sc = start_course(course_name, root_path)
+#' sc = create_course(course_name, root_path)
 #' verbose = TRUE
 #' out =create_lesson(lesson_name = "how to Do Things",
 #' course_dir = sc$course_dir,
@@ -55,7 +55,7 @@
 #' # requires authorization
 #' root_path = tempfile()
 #' course_name = "test"
-#' sc = start_course(course_name, root_path)
+#' sc = create_course(course_name, root_path)
 #' verbose = TRUE
 #' out = create_lesson(lesson_name = "how to Do Things",
 #' course_dir = sc$course_dir,
@@ -69,7 +69,7 @@
 #'
 #' root_path = tempfile()
 #' course_name = "test"
-#' sc = start_course(course_name, root_path)
+#' sc = create_course(course_name, root_path)
 #' verbose = TRUE
 #' x =  system.file("extdata", "Book.txt", package = "didactr")
 #' file.copy(x, sc$book_txt, overwrite = TRUE)
@@ -327,7 +327,7 @@ create_slide_deck = function(
         grepl("google.com", slide_id)
       )
     ) {
-      slide_id = didactr::get_slide_id(slide_id)
+      slide_id = ariExtra::get_slide_id(slide_id)
     }
     template = gsub("Link to Slides", slide_url(slide_id),
                     template, fixed = TRUE)

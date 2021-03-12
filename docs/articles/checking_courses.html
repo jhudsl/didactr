@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -68,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/muschellij2/didactr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,13 +82,13 @@
 
       
 
-      </header><script src="checking_courses_files/header-attrs-2.3/header-attrs.js"></script><script src="checking_courses_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="checking_courses_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Checking Courses in didactr</h1>
                         <h4 class="author">John Muschelli, Shannon Ellis</h4>
             
-            <h4 class="date">2020-09-08</h4>
+            <h4 class="date">2021-03-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/muschellij2/didactr/blob/master/vignettes/checking_courses.Rmd"><code>vignettes/checking_courses.Rmd</code></a></small>
       <div class="hidden name"><code>checking_courses.Rmd</code></div>
@@ -97,18 +97,19 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">## load libraries</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">didactr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">git2r</span>)
-<span class="no">course_url</span> <span class="kw">=</span> <span class="st">"https://github.com/muschellij2/cds_testclass"</span>
-<span class="no">tfile</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>()
-<span class="no">tfile</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/path.expand.html">path.expand</a></span>(<span class="no">tfile</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="no">tfile</span>, <span class="kw">recursive</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="no">local_path</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">tfile</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html">basename</a></span>(<span class="no">course_url</span>))
-<span class="fu"><a href="https://docs.ropensci.org/git2r/reference/clone.html">clone</a></span>(<span class="no">course_url</span>,
-      <span class="kw">local_path</span> <span class="kw">=</span> <span class="no">local_path</span>,
-      <span class="kw">credentials</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/git2r/reference/cred_token.html">cred_token</a></span>())
-<span class="co">#&gt; cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWFgufI/file23ce736880e9/cds_testclass'...</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## load libraries</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/muschellij2/didactr">didactr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/git2r/">git2r</a></span><span class="op">)</span>
+<span class="va">course_url</span> <span class="op">=</span> <span class="st">"https://github.com/muschellij2/cds_testclass"</span>
+<span class="va">tfile</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">tfile</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/path.expand.html">path.expand</a></span><span class="op">(</span><span class="va">tfile</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="va">tfile</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">local_path</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">tfile</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html">basename</a></span><span class="op">(</span><span class="va">course_url</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://docs.ropensci.org/git2r/reference/clone.html">clone</a></span><span class="op">(</span><span class="va">course_url</span>, 
+      local_path <span class="op">=</span> <span class="va">local_path</span>, 
+      credentials <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/git2r/reference/cred_token.html">cred_token</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; cloning into '/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpBTwZVI/fileddd8ba8710c/cds_testclass'...</span>
 <span class="co">#&gt; Receiving objects:   4% (1/25),    8 kb</span>
 <span class="co">#&gt; Receiving objects:  12% (3/25),    8 kb</span>
 <span class="co">#&gt; Receiving objects:  24% (6/25),    8 kb</span>
@@ -120,45 +121,41 @@
 <span class="co">#&gt; Receiving objects:  84% (21/25),    8 kb</span>
 <span class="co">#&gt; Receiving objects:  92% (23/25),    8 kb</span>
 <span class="co">#&gt; Receiving objects: 100% (25/25),    8 kb, done.</span>
-<span class="co">#&gt; Local:    master /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpWFgufI/file23ce736880e9/cds_testclass</span>
+<span class="co">#&gt; Local:    master /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpBTwZVI/fileddd8ba8710c/cds_testclass</span>
 <span class="co">#&gt; Remote:   master @ origin (https://github.com/muschellij2/cds_testclass)</span>
 <span class="co">#&gt; Head:     [c78bc66] 2018-06-27: damned newlines</span>
-<span class="no">course_dir</span> <span class="kw">=</span> <span class="no">local_path</span>
-<span class="no">course_title</span> <span class="kw">=</span> <span class="st">"Test CDS class"</span>
+<span class="va">course_dir</span> <span class="op">=</span> <span class="va">local_path</span>
+<span class="va">course_title</span> <span class="op">=</span> <span class="st">"Test CDS class"</span>
 
 <span class="co">##TO ADD generate lenpub structure</span>
 <span class="co">##TO ADD create_manuscript(".md")</span>
 
 
-<span class="no">auth_file</span> <span class="kw">=</span> <span class="st">"../tests/testthat/googlesheets_token.rds"</span>
-<span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span>(<span class="no">auth_file</span>)) {
-  <span class="fu"><a href="../reference/didactr_auth.html">didactr_auth</a></span>(<span class="kw">token_file</span> <span class="kw">=</span> <span class="no">auth_file</span>)
-} <span class="kw">else</span> {
-  <span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="../reference/didactr_auth.html">didactr_auth</a></span>()
-}
-<span class="fu"><a href="../reference/didactr_auth.html">check_didactr_auth</a></span>()
+<span class="va">auth_file</span> <span class="op">=</span> <span class="st">"../tests/testthat/googlesheets_token.rds"</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">auth_file</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/didactr_auth.html">didactr_auth</a></span><span class="op">(</span>token_file <span class="op">=</span> <span class="va">auth_file</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="../reference/didactr_auth.html">didactr_auth</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu"><a href="../reference/didactr_auth.html">check_didactr_auth</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
 <span class="co">## check course structure</span>
 <span class="co">## fill in missing directories</span>
-<span class="no">paths</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_structure.html">check_structure</a></span>(<span class="no">course_dir</span>)
-<span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpWFgufI/file23ce736880e9/cds_testclass/manuscript/resources directory</span>
-<span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpWFgufI/file23ce736880e9/cds_testclass/manuscript/resources/images directory</span>
-<span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpWFgufI/file23ce736880e9/cds_testclass/manuscript/resources/videos directory</span>
-<span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpWFgufI/file23ce736880e9/cds_testclass/metrics directory</span>
+<span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_course.html">check_structure</a></span><span class="op">(</span><span class="va">course_dir</span><span class="op">)</span>
+<span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpBTwZVI/fileddd8ba8710c/cds_testclass/manuscript/resources directory</span>
+<span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpBTwZVI/fileddd8ba8710c/cds_testclass/manuscript/resources/images directory</span>
+<span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpBTwZVI/fileddd8ba8710c/cds_testclass/manuscript/resources/videos directory</span>
+<span class="co">#&gt; Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpBTwZVI/fileddd8ba8710c/cds_testclass/metrics directory</span>
 
 <span class="co">## get current status of course</span>
-<span class="no">course_status</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_course.html">check_course</a></span>(<span class="no">course_dir</span>)
-<span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span>
-<span class="co">#&gt; Please use `tibble()` instead.</span>
-<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
+<span class="va">course_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_course.html">check_course</a></span><span class="op">(</span><span class="va">course_dir</span><span class="op">)</span>
 <span class="co">#&gt; Images referenced in lesson do not exist in images directory: 00_first_lecture, 01_secondlecture</span>
-<span class="fu"><a href="https://docs.ropensci.org/git2r/reference/reexports.html">head</a></span>(<span class="no">course_status</span>$<span class="no">course_summary</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">course_status</span><span class="op">$</span><span class="va">course_summary</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 30</span>
-<span class="co">#&gt;   lesson md_file lesson_name id    gs_name course_info mod_time_gs        </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             </span>
-<span class="co">#&gt; 1 00_fi… /priva… First Lect… 1LLm… 00_tes… 00_testcla… 2018-06-26 19:35:32</span>
-<span class="co">#&gt; 2 01_se… /priva… Secondlect… 1zn4… 01_tes… 01_testcla… 2018-06-26 19:35:14</span>
+<span class="co">#&gt;   lesson  md_file    lesson_name  id     gs_name course_info mod_time_gs        </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             </span>
+<span class="co">#&gt; 1 00_fir… /private/… First Lectu… 1LLms… 00_tes… 00_testcla… 2018-06-26 19:35:32</span>
+<span class="co">#&gt; 2 01_sec… /private/… Secondlectu… 1zn41… 01_tes… 01_testcla… 2018-06-26 19:35:14</span>
 <span class="co">#&gt; # … with 23 more variables: n_slides &lt;int&gt;, img_dir &lt;chr&gt;, has_img_dir &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   all_images_exist &lt;lgl&gt;, pdf &lt;lgl&gt;, pdf_pages &lt;lgl&gt;, n_pngs &lt;int&gt;,</span>
 <span class="co">#&gt; #   pdf_png_match &lt;lgl&gt;, mod_time_pngs &lt;dttm&gt;, gs_more_recent &lt;lgl&gt;,</span>
@@ -170,28 +167,28 @@
 
 <span class="co">## download PDFs and PNGs</span>
 <span class="co">## put them where they belong</span>
-<span class="no">course_status</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/create_images.html">create_images</a></span>(<span class="no">course_status</span>,
-                               <span class="kw">extra.opts</span> <span class="kw">=</span> <span class="st">"-density 400 -quality 200"</span>,
-                               <span class="kw">use_gs_ids</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="va">course_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_images.html">create_images</a></span><span class="op">(</span><span class="va">course_status</span>, 
+                               extra.opts <span class="op">=</span> <span class="st">"-density 400 -quality 200"</span>,
+                               use_gs_ids <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Converting PDFs for: 00_first_lecture</span>
-<span class="co">#&gt; Downloading the PDF: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWFgufI/file23ce57a8eb82/file23ce12fdd0c4.pdf</span>
+<span class="co">#&gt; Downloading the PDF: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpBTwZVI/fileddd8429c7103/fileddd82cbf9e1f.pdf</span>
 <span class="co">#&gt; File downloaded:</span>
 <span class="co">#&gt;   * 00_testclass_first_lecture</span>
 <span class="co">#&gt; Saved locally as:</span>
-<span class="co">#&gt;   * /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWFgufI/file23ce57a8eb82/file23ce12fdd0c4.pdf</span>
+<span class="co">#&gt;   * /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpBTwZVI/fileddd8429c7103/fileddd82cbf9e1f.pdf</span>
 <span class="co">#&gt; Converting PDFs for: 01_secondlecture</span>
-<span class="co">#&gt; Downloading the PDF: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWFgufI/file23ce68648a4e/file23ce20b43c6d.pdf</span>
+<span class="co">#&gt; Downloading the PDF: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpBTwZVI/fileddd81cc9ca4e/fileddd8400d5a6.pdf</span>
 <span class="co">#&gt; File downloaded:</span>
 <span class="co">#&gt;   * 01_testclass_secondlecture</span>
 <span class="co">#&gt; Saved locally as:</span>
-<span class="co">#&gt;   * /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWFgufI/file23ce68648a4e/file23ce20b43c6d.pdf</span>
+<span class="co">#&gt;   * /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpBTwZVI/fileddd81cc9ca4e/fileddd8400d5a6.pdf</span>
 <span class="co">#&gt; Images referenced in lesson do not exist in images directory: 00_first_lecture, 01_secondlecture</span>
-<span class="fu"><a href="https://docs.ropensci.org/git2r/reference/reexports.html">head</a></span>(<span class="no">course_status</span>$<span class="no">course_summary</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">course_status</span><span class="op">$</span><span class="va">course_summary</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 30</span>
-<span class="co">#&gt;   lesson md_file lesson_name id    gs_name course_info mod_time_gs        </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             </span>
-<span class="co">#&gt; 1 00_fi… /priva… First Lect… 1LLm… 00_tes… 00_testcla… 2018-06-26 19:35:32</span>
-<span class="co">#&gt; 2 01_se… /priva… Secondlect… 1zn4… 01_tes… 01_testcla… 2018-06-26 19:35:14</span>
+<span class="co">#&gt;   lesson  md_file    lesson_name  id     gs_name course_info mod_time_gs        </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             </span>
+<span class="co">#&gt; 1 00_fir… /private/… First Lectu… 1LLms… 00_tes… 00_testcla… 2018-06-26 19:35:32</span>
+<span class="co">#&gt; 2 01_sec… /private/… Secondlectu… 1zn41… 01_tes… 01_testcla… 2018-06-26 19:35:14</span>
 <span class="co">#&gt; # … with 23 more variables: n_slides &lt;int&gt;, img_dir &lt;chr&gt;, has_img_dir &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   all_images_exist &lt;lgl&gt;, pdf &lt;chr&gt;, pdf_pages &lt;int&gt;, n_pngs &lt;int&gt;,</span>
 <span class="co">#&gt; #   pdf_png_match &lt;lgl&gt;, mod_time_pngs &lt;dttm&gt;, gs_more_recent &lt;lgl&gt;,</span>
@@ -199,32 +196,35 @@
 <span class="co">#&gt; #   scr_png_match &lt;lgl&gt;, mod_time_scr &lt;dttm&gt;, yt_md_link &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   has_vid_link &lt;lgl&gt;, vid_file &lt;chr&gt;, mod_time_vid &lt;dttm&gt;,</span>
 <span class="co">#&gt; #   has_vid_file &lt;lgl&gt;, vid_more_recent &lt;lgl&gt;, scr_more_recent &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   yt_md_ID &lt;lgl&gt;</span></pre></body></html></div>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co">## Create Videos</span>
+<span class="co">#&gt; #   yt_md_ID &lt;lgl&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Create Videos</span>
 <span class="co">## tell R what AWS keys to use</span>
-<span class="kw pkg">aws.signature</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/aws.signature/man/read_credentials.html">use_credentials</a></span>(<span class="kw">profile</span><span class="kw">=</span><span class="st">"polly"</span>)
-<span class="no">course_status</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/create_videos.html">create_videos</a></span>(
-  <span class="no">course_status</span>
-)
-<span class="fu"><a href="https://docs.ropensci.org/git2r/reference/reexports.html">head</a></span>(<span class="no">course_status</span>$<span class="no">course_summary</span>)</pre></body></html></div>
+<span class="fu">aws.signature</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/aws.signature/man/read_credentials.html">use_credentials</a></span><span class="op">(</span>profile<span class="op">=</span><span class="st">"polly"</span><span class="op">)</span>
+<span class="va">course_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_videos.html">create_videos</a></span><span class="op">(</span>
+  <span class="va">course_status</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">course_status</span><span class="op">$</span><span class="va">course_summary</span><span class="op">)</span></code></pre></div>
 <div id="upload-videos-to-youtube" class="section level1">
 <h1 class="hasAnchor">
 <a href="#upload-videos-to-youtube" class="anchor"></a>Upload Videos to YouTube</h1>
 <p>The following section is for uploading videos to YouTube. This uploading is done through <a href="https://github.com/soodoku/tuber"><code>tuber</code></a> See <a href="https://github.com/soodoku/tuber#using-tuber" class="uri">https://github.com/soodoku/tuber#using-tuber</a> for setting up the credentials for YouTube.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co">## Upload Videos &amp; Update YouTube log</span>
-<span class="no">course_status</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/vids_to_youtube.html">vids_to_youtube</a></span>(<span class="no">course_status</span>, <span class="kw">course_title</span><span class="kw">=</span><span class="no">course_title</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Upload Videos &amp; Update YouTube log</span>
+<span class="va">course_status</span> <span class="op">&lt;-</span> <span class="fu">vids_to_youtube</span><span class="op">(</span><span class="va">course_status</span>, course_title<span class="op">=</span><span class="va">course_title</span><span class="op">)</span>
 
 <span class="co">## to take a look at youtube videos</span>
-<span class="no">youtube_uploads</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">paths</span>$<span class="no">met_path</span>, <span class="st">"youtube_uploads.rds"</span>))
-<span class="fu"><a href="https://docs.ropensci.org/git2r/reference/reexports.html">head</a></span>(<span class="no">youtube_uploads</span>)</pre></body></html></div>
+<span class="va">youtube_uploads</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">paths</span><span class="op">$</span><span class="va">met_path</span>, <span class="st">"youtube_uploads.rds"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">youtube_uploads</span><span class="op">)</span></code></pre></div>
 <p>Once the videos are uploaded you can upload the following links using:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co">## Update Youtube Link in Manuscript file</span>
-<span class="no">course_status</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/update_youtube_link.html">update_youtube_link</a></span>(<span class="no">course_status</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Update Youtube Link in Manuscript file</span>
+<span class="va">course_status</span> <span class="op">&lt;-</span> <span class="fu">update_youtube_link</span><span class="op">(</span><span class="va">course_status</span><span class="op">)</span>
 
 <span class="co">## get current status of course</span>
-<span class="fu"><a href="https://docs.ropensci.org/git2r/reference/reexports.html">head</a></span>(<span class="no">course_status</span>$<span class="no">course_summary</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">course_status</span><span class="op">$</span><span class="va">course_summary</span><span class="op">)</span>
 
-<span class="co">## TO ADD: check_quiz</span></pre></body></html></div>
+<span class="co">## TO ADD: check_quiz</span></code></pre></div>
 </div>
   </div>
 
@@ -243,7 +243,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

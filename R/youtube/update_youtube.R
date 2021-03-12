@@ -60,22 +60,22 @@ update_youtube <- function(
   stopifnot(!is.null(lesson))
 
   if (!is.null(up$content)) {
-    yt_df <- as_data_frame(t(unlist(up$content))) %>%
-      mutate(file = basename(file),
+    yt_df <- tibble::as_tibble(t(unlist(up$content))) %>%
+      dplyr::mutate(file = basename(file),
              lesson = lesson,
              url = up$url,
              time_published = lubridate::ymd_hms(up$content$snippet$publishedAt),
              time_published = lubridate::with_tz(time_published,
                                                  tzone = timezone)
       ) %>%
-      select(file, lesson, url, time_published, everything()) %>%
-      rename(yt_id = id)
+      dplyr::select(file, lesson, url, time_published, dplyr::everything()) %>%
+      dplyr::rename(yt_id = id)
   } else {
     yt_df = NULL
   }
 
-  youtube_uploads = bind_rows(youtube_uploads, yt_df)
-  youtube_uploads = distinct(youtube_uploads)
+  youtube_uploads = dplyr::bind_rows(youtube_uploads, yt_df)
+  youtube_uploads = dplyr::distinct(youtube_uploads)
   if (save_metrics) {
     saveRDS(youtube_uploads, file = yt_file, compress = "xz")
   }

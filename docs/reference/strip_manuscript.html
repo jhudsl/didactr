@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/muschellij2/didactr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,7 +135,7 @@
     <p>Strip Markdown from Manuscript</p>
     </div>
 
-    <pre class="usage"><span class='fu'>strip_manuscript</span>(<span class='no'>file</span>)</pre>
+    <pre class="usage"><span class='fu'>strip_manuscript</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,28 +151,29 @@
     <p>A <code>data.frame</code> with text and edits</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"english"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
- <span class='no'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"08_DST_R_packages.md"</span>,
- <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"didactr"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"english"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='va'>file</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"08_DST_R_packages.md"</span>,
+ package <span class='op'>=</span> <span class='st'>"didactr"</span><span class='op'>)</span>
  <span class='co'># from https://stackoverflow.com/questions/37462126/regex-match-markdown-link</span>
  <span class='co'># md_regex = "(?:__|[*#])|\[(.*?)\]\(.*?\)"</span>
- <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>strip_manuscript</span>(<span class='no'>file</span>)
- <span class='no'>res</span>
-}</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 221 x 12</span><span>
-#&gt;    text  is_code original_text is_image image_link empty header bold_header
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>      
-#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>""</span><span>    FALSE   </span><span style='color: #555555;'>"</span><span># R package… FALSE    </span><span style='color: #555555;'>""</span><span>         FALSE TRUE   FALSE      
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>""</span><span>    FALSE   </span><span style='color: #555555;'>""</span><span>            FALSE    </span><span style='color: #555555;'>""</span><span>         TRUE  FALSE  FALSE      
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>"</span><span>Now… FALSE   </span><span style='color: #555555;'>"</span><span>Now that we… FALSE    </span><span style='color: #555555;'>""</span><span>         FALSE FALSE  FALSE      
-#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>""</span><span>    FALSE   </span><span style='color: #555555;'>""</span><span>            FALSE    </span><span style='color: #555555;'>""</span><span>         TRUE  FALSE  FALSE      
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>""</span><span>    FALSE   </span><span style='color: #555555;'>"</span><span>### What is… FALSE    </span><span style='color: #555555;'>""</span><span>         FALSE TRUE   FALSE      
-#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>""</span><span>    FALSE   </span><span style='color: #555555;'>""</span><span>            FALSE    </span><span style='color: #555555;'>""</span><span>         TRUE  FALSE  FALSE      
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>"</span><span>So … FALSE   </span><span style='color: #555555;'>"</span><span>So far, any… FALSE    </span><span style='color: #555555;'>""</span><span>         FALSE FALSE  FALSE      
-#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>""</span><span>    FALSE   </span><span style='color: #555555;'>""</span><span>            FALSE    </span><span style='color: #555555;'>""</span><span>         TRUE  FALSE  FALSE      
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>"</span><span>*Si… FALSE   </span><span style='color: #555555;'>"</span><span>*Side note:… FALSE    </span><span style='color: #555555;'>""</span><span>         FALSE FALSE  FALSE      
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>""</span><span>    FALSE   </span><span style='color: #555555;'>""</span><span>            FALSE    </span><span style='color: #555555;'>""</span><span>         TRUE  FALSE  FALSE      
-#&gt; </span><span style='color: #555555;'># … with 211 more rows, and 4 more variables: image </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, bullets </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   item_list </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, item_number </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div></span></pre>
+ <span class='va'>res</span> <span class='op'>=</span> <span class='fu'>strip_manuscript</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>
+ <span class='va'>res</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 221 x 12</span><span>
+#&gt;    text     is_code original_text   is_image image_link empty header bold_header
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>      
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> </span><span style='color: #949494;'>""</span><span>       FALSE   </span><span style='color: #949494;'>"</span><span># R packages</span><span style='color: #949494;'>"</span><span>  FALSE    </span><span style='color: #949494;'>""</span><span>         FALSE TRUE   FALSE      
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> </span><span style='color: #949494;'>""</span><span>       FALSE   </span><span style='color: #949494;'>""</span><span>              FALSE    </span><span style='color: #949494;'>""</span><span>         TRUE  FALSE  FALSE      
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> </span><span style='color: #949494;'>"</span><span>Now th… FALSE   </span><span style='color: #949494;'>"</span><span>Now that we'v… FALSE    </span><span style='color: #949494;'>""</span><span>         FALSE FALSE  FALSE      
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> </span><span style='color: #949494;'>""</span><span>       FALSE   </span><span style='color: #949494;'>""</span><span>              FALSE    </span><span style='color: #949494;'>""</span><span>         TRUE  FALSE  FALSE      
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> </span><span style='color: #949494;'>""</span><span>       FALSE   </span><span style='color: #949494;'>"</span><span>### What is a… FALSE    </span><span style='color: #949494;'>""</span><span>         FALSE TRUE   FALSE      
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> </span><span style='color: #949494;'>""</span><span>       FALSE   </span><span style='color: #949494;'>""</span><span>              FALSE    </span><span style='color: #949494;'>""</span><span>         TRUE  FALSE  FALSE      
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> </span><span style='color: #949494;'>"</span><span>So far… FALSE   </span><span style='color: #949494;'>"</span><span>So far, anyth… FALSE    </span><span style='color: #949494;'>""</span><span>         FALSE FALSE  FALSE      
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> </span><span style='color: #949494;'>""</span><span>       FALSE   </span><span style='color: #949494;'>""</span><span>              FALSE    </span><span style='color: #949494;'>""</span><span>         TRUE  FALSE  FALSE      
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> </span><span style='color: #949494;'>"</span><span>*Side … FALSE   </span><span style='color: #949494;'>"</span><span>*Side note:* … FALSE    </span><span style='color: #949494;'>""</span><span>         FALSE FALSE  FALSE      
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> </span><span style='color: #949494;'>""</span><span>       FALSE   </span><span style='color: #949494;'>""</span><span>              FALSE    </span><span style='color: #949494;'>""</span><span>         TRUE  FALSE  FALSE      
+#&gt; </span><span style='color: #949494;'># … with 211 more rows, and 4 more variables: image &lt;lgl&gt;, bullets &lt;lgl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   item_list &lt;lgl&gt;, item_number &lt;chr&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -188,7 +189,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -22,7 +22,7 @@ gs_folder_df = function(id, slides_only = FALSE) {
     id = id$id[1]
   }
   id = as.character(id)
-  id = get_folder_id(id)
+  id = ariExtra::get_folder_id(id)
   res = googledrive::drive_ls(path = as_id(id), recursive = TRUE)
   shared_res = googledrive::drive_ls(
     path = as_id(id),

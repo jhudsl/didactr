@@ -68,11 +68,11 @@ translate_swirl = function(
   }
 
   tb_df = dplyr::bind_rows(
-    data_frame(
+    tibble::tibble(
       text_content = new_hints,
       type = "Hint"
     ),
-    data_frame(
+    tibble::tibble(
       text_content = new_out,
       type = "Output"
     )

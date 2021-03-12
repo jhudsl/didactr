@@ -81,7 +81,7 @@ Create a Lesson
 \examples{
 root_path = tempfile()
 course_name = "test"
-sc = start_course(course_name, root_path)
+sc = create_course(course_name, root_path)
 verbose = TRUE
 out =create_lesson(lesson_name = "how to Do Things",
 course_dir = sc$course_dir,
@@ -98,7 +98,7 @@ nzchar(Sys.getenv("CI"))
 # requires authorization
 root_path = tempfile()
 course_name = "test"
-sc = start_course(course_name, root_path)
+sc = create_course(course_name, root_path)
 verbose = TRUE
 out = create_lesson(lesson_name = "how to Do Things",
 course_dir = sc$course_dir,
@@ -112,7 +112,7 @@ readLines(out$md_file, warn = FALSE)
 
 root_path = tempfile()
 course_name = "test"
-sc = start_course(course_name, root_path)
+sc = create_course(course_name, root_path)
 verbose = TRUE
 x =  system.file("extdata", "Book.txt", package = "didactr")
 file.copy(x, sc$book_txt, overwrite = TRUE)

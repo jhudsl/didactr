@@ -1,4 +1,3 @@
-
 #' Starting a Course, Light wrapper for \code{\link{make_course}}
 #'
 #' @param course_name Name of the course.  Any spaces will be set to
@@ -23,26 +22,26 @@
 #' @examples
 #' root_path = tempfile()
 #' course_name = "test this out"
-#' sc = start_course(course_name, root_path)
+#' sc = create_course(course_name, root_path)
 #'
 #'
 #' root_path = tempfile()
 #' course_name = "test this out2"
 #' book_txt =  system.file("extdata", "Book.txt", package = "didactr")
-#' sc = start_course(course_name, root_path, book_txt = book_txt)
+#' sc = create_course(course_name, root_path, book_txt = book_txt)
 #' readLines(sc$book_txt)
 #' md_files = list.files(sc$man_path, full.names = TRUE)
 #' md_files
 #' readLines(md_files[1])
-start_course = function(course_name,
-                        root_path = ".",
-                        book_txt = NULL,
-                        folder_id = NULL,
-                        verbose = TRUE,
-                        rstudio = TRUE,
-                        open = FALSE,
-                        git = FALSE,
-                        ...){
+create_course = function(course_name,
+                         root_path = ".",
+                         book_txt = NULL,
+                         folder_id = NULL,
+                         verbose = TRUE,
+                         rstudio = TRUE,
+                         open = FALSE,
+                         git = FALSE,
+                         ...){
   course_name = gsub(" ", "_", course_name)
 
   course_dir = file.path(root_path, course_name)
@@ -108,28 +107,15 @@ start_course = function(course_name,
     }
   }
   if (git) {
-    usethis::use_git()
+    try({usethis::use_git()})
     msg = paste0("Run usethis::use_github() when your ",
                  "project opens to use GitHub")
     message(msg)
   }
   # make sure videos don't go up there.
   usethis::use_git_ignore("manuscript/resources/videos")
-
-  return(res)
-}
-
-#' @export
-#' @rdname start_course
-create_course = start_course
-
-#' @export
-#' @rdname start_course
-create_github_course = function(
-  ...) {
-  res = create_course(...)
-  usethis::use_git()
-  usethis::use_github()
-
+  if (git) {
+    try({usethis::use_github()})
+  }
   return(res)
 }

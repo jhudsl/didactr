@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Translate Mansucript File — check_manuscript_backticks • didactr</title>
+<title>Translate Mansucript File — translate_manuscript • didactr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Translate Mansucript File — check_manuscript_backticks" />
+<meta property="og:title" content="Translate Mansucript File — translate_manuscript" />
 <meta property="og:description" content="Translate Mansucript File" />
 
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/muschellij2/didactr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,7 +127,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Translate Mansucript File</h1>
-    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/check_manuscript_backticks.R'><code>R/check_manuscript_backticks.R</code></a>, <a href='https://github.com/muschellij2/didactr/blob/master/R/translate_manuscript.R'><code>R/translate_manuscript.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/translate_manuscript.R'><code>R/translate_manuscript.R</code></a>, <a href='https://github.com/muschellij2/didactr/blob/master/R/translate_slides.R'><code>R/translate_slides.R</code></a></small>
     <div class="hidden name"><code>translate_manuscript.Rd</code></div>
     </div>
 
@@ -135,35 +135,35 @@
     <p>Translate Mansucript File</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_manuscript_backticks</span>(<span class='no'>file</span>)
+    <pre class="usage"><span class='fu'>translate_manuscript</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  target <span class='op'>=</span> <span class='st'>"es"</span>,
+  chunk <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fix_header <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>translate_manuscript</span>(
-  <span class='no'>file</span>,
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>,
-  <span class='kw'>chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fix_header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>translate_script</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  target <span class='op'>=</span> <span class='st'>"es"</span>,
+  chunk <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fix_header <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>translate_script</span>(
-  <span class='no'>file</span>,
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>,
-  <span class='kw'>chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fix_header</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>chunk_google_translate</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  chunk <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  target <span class='op'>=</span> <span class='st'>"es"</span>,
+  fix_header <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>chunk_google_translate</span>(
-  <span class='no'>file</span>,
-  <span class='kw'>chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>,
-  <span class='kw'>fix_header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>gl_detect_file</span><span class='op'>(</span><span class='va'>file</span>, max_nchar <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>)</span>
 
-<span class='fu'>gl_detect_file</span>(<span class='no'>file</span>, <span class='kw'>max_nchar</span> <span class='kw'>=</span> <span class='fl'>2000</span>)</pre>
+<span class='fu'>check_manuscript_backticks</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,15 +213,16 @@ Replace asterisks and underscores for bolding
 Keep back-ticked code as is</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>auth_file</span> <span class='kw'>=</span> <span class='st'>"~/Dropbox/Projects/cbds_translate/RClass-Translator.json"</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span>(<span class='no'>auth_file</span>)) {
-<span class='kw pkg'>googleLanguageR</span><span class='kw ns'>::</span><span class='fu'><a href='https://code.markedmondson.me/googleLanguageR//reference/gl_auth.html'>gl_auth</a></span>(<span class='no'>auth_file</span>)
-<span class='no'>target</span> <span class='kw'>=</span> <span class='st'>"es"</span>
-<span class='no'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
- <span class='no'>chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-<span class='no'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"00_template.md"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"didactr"</span>)
-<span class='no'>df</span> <span class='kw'>=</span> <span class='fu'>translate_manuscript</span>(<span class='no'>file</span>)
-}</div><div class='output co'>#&gt; <span class='warning'>Warning: Possible HTML found in input text, but format != 'html'</span></div><div class='output co'>#&gt; <span class='message'>2020-09-08 17:01:31 -- Translating text: 617 characters - </span></div><div class='output co'>#&gt; <span class='message'>Fixing Image Links</span></div><div class='output co'>#&gt; <span class='message'>Fixing Bolding</span></div><div class='output co'>#&gt; <span class='message'>Fixing @</span></div><div class='output co'>#&gt; <span class='message'>Fixing Links</span></div><div class='output co'>#&gt; <span class='message'>Fixing Back Ticks</span></div><div class='output co'>#&gt; <span class='message'>Fixing Tags, such as {quiz}</span></div><div class='output co'>#&gt; <span class='message'>Fixing Underscores</span></div><div class='output co'>#&gt; <span class='message'>Fixing Exercises/quizes</span></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>auth_file</span> <span class='op'>=</span> <span class='st'>"~/Dropbox/Projects/cbds_translate/RClass-Translator.json"</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span><span class='op'>(</span><span class='va'>auth_file</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>googleLanguageR</span><span class='fu'>::</span><span class='fu'><a href='https://code.markedmondson.me/googleLanguageR//reference/gl_auth.html'>gl_auth</a></span><span class='op'>(</span><span class='va'>auth_file</span><span class='op'>)</span>
+<span class='va'>target</span> <span class='op'>=</span> <span class='st'>"es"</span>
+<span class='va'>verbose</span> <span class='op'>=</span> <span class='cn'>TRUE</span>
+ <span class='va'>chunk</span> <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='va'>file</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"00_template.md"</span>, package <span class='op'>=</span> <span class='st'>"didactr"</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>=</span> <span class='fu'>translate_manuscript</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Possible HTML found in input text, but format != 'html'</span></div><div class='output co'>#&gt; <span class='message'>2021-03-11 16:31:17 -- Translating text: 617 characters - </span></div><div class='output co'>#&gt; <span class='message'>Fixing Image Links</span></div><div class='output co'>#&gt; <span class='message'>Fixing Bolding</span></div><div class='output co'>#&gt; <span class='message'>Fixing @</span></div><div class='output co'>#&gt; <span class='message'>Fixing Links</span></div><div class='output co'>#&gt; <span class='message'>Fixing Back Ticks</span></div><div class='output co'>#&gt; <span class='message'>Fixing Tags, such as {quiz}</span></div><div class='output co'>#&gt; <span class='message'>Fixing Underscores</span></div><div class='output co'>#&gt; <span class='message'>Fixing Exercises/quizes</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -237,7 +238,7 @@ Keep back-ticked code as is</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

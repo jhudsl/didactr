@@ -12,7 +12,7 @@
 #' if (is_didactr_authorized()) {
 #' pdf = pptx_to_pdf(path)
 #' }
-pptx_to_gs = function(
+gs_upload_pptx = function(
   path,
   name = NULL,
   verbose = TRUE) {
@@ -36,16 +36,16 @@ pptx_to_gs = function(
 }
 
 #' @export
-#' @rdname pptx_to_gs
+#' @rdname gs_upload_pptx
 #' @param trash should the Google Slide be trashed after downloading
 #' the PDF?
-pptx_to_pdf = function(
+gs_pptx_to_pdf = function(
   path,
   name = NULL,
   trash = TRUE,
   verbose = TRUE) {
 
-  id = pptx_to_gs(
+  id = gs_upload_pptx(
     path = path,
     name = name,
     verbose = verbose)

@@ -16,3 +16,4 @@ vignettes/.httr-oauth$
 ^_pkgdown\.yml$
 ^docs$
 ^cran-comments\.md$
+^R/youtube$

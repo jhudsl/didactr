@@ -25,12 +25,15 @@ Imports:
     tidyr,
     utils,
     ari (>= 0.2.2.1),
+    ariExtra (>= 0.3.0),
+    tibble,
     text2speech,
     rmarkdown,
     rgoogleslides (>= 0.3.1.9000),
     googleAuthR,
     usethis (>= 1.4.0.9000),
-    methods
+    methods,
+    magrittr
 Suggests: 
     xml2,
     english,
@@ -51,6 +54,7 @@ Encoding: UTF-8
 LazyData: true
 Remotes: 
     muschellij2/ari, 
+    muschellij2/ariExtra, 
     muschellij2/text2speech,
     hairizuanbinnoorazman/rgoogleslides
 ByteCompile: true

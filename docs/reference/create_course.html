@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Starting a Course, Light wrapper for make_course — start_course • didactr</title>
+<title>Starting a Course, Light wrapper for make_course — create_course • didactr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Starting a Course, Light wrapper for make_course — start_course" />
+<meta property="og:title" content="Starting a Course, Light wrapper for make_course — create_course" />
 <meta property="og:description" content="Starting a Course, Light wrapper for make_course" />
 
 
@@ -128,14 +128,14 @@
     <div class="page-header">
     <h1>Starting a Course, Light wrapper for <code><a href='make_course.html'>make_course</a></code></h1>
     <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/start_course.R'><code>R/start_course.R</code></a></small>
-    <div class="hidden name"><code>start_course.Rd</code></div>
+    <div class="hidden name"><code>create_course.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Starting a Course, Light wrapper for <code><a href='make_course.html'>make_course</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>start_course</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>create_course</span><span class='op'>(</span>
   <span class='va'>course_name</span>,
   root_path <span class='op'>=</span> <span class='st'>"."</span>,
   book_txt <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -145,21 +145,7 @@
   open <span class='op'>=</span> <span class='cn'>FALSE</span>,
   git <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='fu'>create_course</span><span class='op'>(</span>
-  <span class='va'>course_name</span>,
-  root_path <span class='op'>=</span> <span class='st'>"."</span>,
-  book_txt <span class='op'>=</span> <span class='cn'>NULL</span>,
-  folder_id <span class='op'>=</span> <span class='cn'>NULL</span>,
-  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  rstudio <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  open <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  git <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='fu'>create_github_course</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,14 +201,14 @@ use Git inside the project.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>root_path</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>course_name</span> <span class='op'>=</span> <span class='st'>"test this out"</span>
-<span class='va'>sc</span> <span class='op'>=</span> <span class='fu'>start_course</span><span class='op'>(</span><span class='va'>course_name</span>, <span class='va'>root_path</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d87911e9cf/test_this_out'</span><span></span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d87911e9cf/test_this_out/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d87911e9cf/test_this_out/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d87911e9cf/test_this_out/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d87911e9cf/test_this_out/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d87911e9cf/test_this_out/metrics directory</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test_this_out.Rproj'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></span></div><div class='input'>
+<span class='va'>sc</span> <span class='op'>=</span> <span class='fu'>create_course</span><span class='op'>(</span><span class='va'>course_name</span>, <span class='va'>root_path</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda838141eb3/test_this_out'</span><span></span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda838141eb3/test_this_out/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda838141eb3/test_this_out/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda838141eb3/test_this_out/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda838141eb3/test_this_out/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda838141eb3/test_this_out/metrics directory</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test_this_out.Rproj'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></span></div><div class='input'>
 
 <span class='va'>root_path</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>course_name</span> <span class='op'>=</span> <span class='st'>"test this out2"</span>
 <span class='va'>book_txt</span> <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"Book.txt"</span>, package <span class='op'>=</span> <span class='st'>"didactr"</span><span class='op'>)</span>
-<span class='va'>sc</span> <span class='op'>=</span> <span class='fu'>start_course</span><span class='op'>(</span><span class='va'>course_name</span>, <span class='va'>root_path</span>, book_txt <span class='op'>=</span> <span class='va'>book_txt</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2'</span><span></span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/metrics directory</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test_this_out2.Rproj'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>sc</span><span class='op'>$</span><span class='va'>book_txt</span><span class='op'>)</span>
+<span class='va'>sc</span> <span class='op'>=</span> <span class='fu'>create_course</span><span class='op'>(</span><span class='va'>course_name</span>, <span class='va'>root_path</span>, book_txt <span class='op'>=</span> <span class='va'>book_txt</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2'</span><span></span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/scripts directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/resources directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/resources/images directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/resources/videos directory</span></div><div class='output co'>#&gt; <span class='message'>Creating missing /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/metrics directory</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Writing </span><span style='color: #0000BB;'>'test_this_out2.Rproj'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'.Rproj.user'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Adding </span><span style='color: #0000BB;'>'manuscript/resources/videos'</span><span> to </span><span style='color: #0000BB;'>'.gitignore'</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'&lt;no active project&gt;'</span><span></span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>sc</span><span class='op'>$</span><span class='va'>book_txt</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] "00_types.md # Types of Communication"
 #&gt;  [2] "01_reports.md"                       
 #&gt;  [3] "02_presentations.md"                 
@@ -234,18 +220,18 @@ use Git inside the project.</p></td>
 #&gt;  [9] "08_notebook.md"                      
 #&gt; [10] "09_graphs.md"                        </div><div class='input'><span class='va'>md_files</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='va'>sc</span><span class='op'>$</span><span class='va'>man_path</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>md_files</span>
-</div><div class='output co'>#&gt;  [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/00_types.md"        
-#&gt;  [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/01_reports.md"      
-#&gt;  [3] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/02_presentations.md"
-#&gt;  [4] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/03_general.md"      
-#&gt;  [5] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/04_technical.md"    
-#&gt;  [6] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/05_blogpost.md"     
-#&gt;  [7] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/06_meetings.md"     
-#&gt;  [8] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/07_one_on_one.md"   
-#&gt;  [9] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/08_notebook.md"     
-#&gt; [10] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/09_graphs.md"       
-#&gt; [11] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/Book.txt"           
-#&gt; [12] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpzspcUp/filed5d870d5322/test_this_out2/manuscript/resources"          </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>md_files</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/00_types.md"        
+#&gt;  [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/01_reports.md"      
+#&gt;  [3] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/02_presentations.md"
+#&gt;  [4] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/03_general.md"      
+#&gt;  [5] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/04_technical.md"    
+#&gt;  [6] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/05_blogpost.md"     
+#&gt;  [7] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/06_meetings.md"     
+#&gt;  [8] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/07_one_on_one.md"   
+#&gt;  [9] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/08_notebook.md"     
+#&gt; [10] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/09_graphs.md"       
+#&gt; [11] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/Book.txt"           
+#&gt; [12] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpUTiJRp/filedda830eb9688/test_this_out2/manuscript/resources"          </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>md_files</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] ""                                                                                                 
 #&gt;  [2] "# Types of Communication"                                                                         
 #&gt;  [3] ""                                                                                                 

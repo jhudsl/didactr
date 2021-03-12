@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rename set of PNGs to Google Slide IDs — rename_pngs_to_gs_ids • didactr</title>
+<title>Convert PPTX to Google Slides (and then PDF) — gs_upload_pptx • didactr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Rename set of PNGs to Google Slide IDs — rename_pngs_to_gs_ids" />
-<meta property="og:description" content="Rename set of PNGs to Google Slide IDs" />
+<meta property="og:title" content="Convert PPTX to Google Slides (and then PDF) — gs_upload_pptx" />
+<meta property="og:description" content="Convert PPTX to Google Slides (and then PDF)" />
 
 
 
@@ -126,35 +126,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rename set of PNGs to Google Slide IDs</h1>
-    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/gs_convert.R'><code>R/gs_convert.R</code></a></small>
-    <div class="hidden name"><code>rename_pngs_to_gs_ids.Rd</code></div>
+    <h1>Convert PPTX to Google Slides (and then PDF)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/didactr/blob/master/R/gs_upload_pptx_to_pdf.R'><code>R/gs_upload_pptx_to_pdf.R</code></a></small>
+    <div class="hidden name"><code>gs_upload_pptx.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Rename set of PNGs to Google Slide IDs</p>
+    <p>Convert PPTX to Google Slides (and then PDF)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rename_pngs_to_gs_ids</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>pngs</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gs_upload_pptx</span><span class='op'>(</span><span class='va'>path</span>, name <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='fu'>gs_pptx_to_pdf</span><span class='op'>(</span><span class='va'>path</span>, name <span class='op'>=</span> <span class='cn'>NULL</span>, trash <span class='op'>=</span> <span class='cn'>TRUE</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>id</th>
-      <td><p>File id passed to <code><a href='https://googledrive.tidyverse.org/reference/drive_download.html'>drive_download</a></code> after passing
-through <code><a href='https://googledrive.tidyverse.org/reference/as_id.html'>as_id</a></code></p></td>
+      <th>path</th>
+      <td><p>Path of PPTX file name</p></td>
     </tr>
     <tr>
-      <th>pngs</th>
-      <td><p>Vector of PNG filenames</p></td>
+      <th>name</th>
+      <td><p>name of PPTX, if different than base name of path.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>print diagnostic messages</p></td>
+    </tr>
+    <tr>
+      <th>trash</th>
+      <td><p>should the Google Slide be trashed after downloading
+the PDF?</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code>, similar to output of <code><a href='gs_slide_df.html'>gs_slide_df</a></code></p>
+    <p>A Google Slide ID or a path to a PDF file</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>path</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>
+<span class='st'>"extdata"</span>, <span class='st'>"example.pptx"</span>, package <span class='op'>=</span> <span class='st'>"didactr"</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='didactr_auth.html'>is_didactr_authorized</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>pdf</span> <span class='op'>=</span> <span class='fu'>pptx_to_pdf</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

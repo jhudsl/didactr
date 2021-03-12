@@ -6,11 +6,8 @@
 \usage{
 create_videos(
   course_status = ".",
-  voice = "Joanna",
-  ffmpeg_opts = "-minrate 16M -vf \\"scale=1200:720\\"",
-  divisible_height = FALSE,
-  video_bitrate = "16M",
-  audio_codec = NULL,
+  voice = text2speech::tts_default_voice(service = service),
+  service = "google",
   verbose = TRUE,
   ...
 )
@@ -20,17 +17,10 @@ create_videos(
 
 \item{voice}{Voice to pass to \code{\link{ari_spin}}}
 
-\item{ffmpeg_opts}{ffmpeg options to pass to \code{\link{ari_spin}}}
+\item{service}{speech synthesis service to use, passed to \code{\link{tts}},
+Either "amazon", "microsoft", or "google".}
 
-\item{divisible_height}{should heights be divisible?
-Advanced usage to pass to \code{\link{ari_spin}}}
-
-\item{video_bitrate}{video bitrate to enforce.
-Advanced usage to pass to \code{\link{ari_spin}}}
-
-\item{audio_codec}{audio codec to pass to \code{\link{ari_spin}}}
-
-\item{verbose}{Should diagnostic messages be printed}
+\item{verbose}{print diagnostic messages}
 
 \item{...}{additional arguments passed to \code{\link{ari_spin}}}
 }

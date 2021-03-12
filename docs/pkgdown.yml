@@ -1,8 +1,8 @@
-pandoc: 2.9.2
-pkgdown: 1.5.1
+pandoc: '2.10'
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   checking_courses: checking_courses.html
   creating_courses_from_scratch: creating_courses_from_scratch.html
-last_built: 2020-09-08T21:01Z
+last_built: 2021-03-11T21:31Z
 

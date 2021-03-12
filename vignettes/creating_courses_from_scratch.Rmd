@@ -152,11 +152,11 @@ If you start with a Google Slide deck, you need the Slide ID.  Please go to the 
 knitr::include_graphics("../man/figures/copy_url.png")
 ```
 
-For example, let's say we copied `https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58` from our address bar.  The ID is `r get_slide_id(x)`, and `didactr` provides the helper function `get_slide_id` that takes in this URL and provides the slide ID.  You can either copy just the slide ID or run `get_slide_id` on your URL as the example below demonstrates.
+For example, let's say we copied `https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58` from our address bar.  The ID is `r ariExtra::get_slide_id(x)`, and `didactr` provides the helper function `ariExtra::get_slide_id` that takes in this URL and provides the slide ID.  You can either copy just the slide ID or run `ariExtra::get_slide_id` on your URL as the example below demonstrates.
 
 ```{r}
 my_slide_url = "https://docs.google.com/presentation/d/1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8/edit#slide=id.g154aa4fae2_0_58"
-slide_id = didactr::get_slide_id(my_slide_url)
+slide_id = ariExtra::get_slide_id(my_slide_url)
 slide_id
 # copy this to slide_id
 # for example:
@@ -172,7 +172,7 @@ slide_id = NULL
 Otherwise, you should run the command, where you removed the example URL and put in your own URL:
 
 ```{r, eval = FALSE}
-slide_id = didactr::get_slide_id("URL FOR GOOGLE SLIDE DECK")
+slide_id = ariExtra::get_slide_id("URL FOR GOOGLE SLIDE DECK")
 ```
 Before we actually make the lesson, please read this note on authorization.
 
@@ -335,7 +335,7 @@ in your manuscript files, shere `SLIDE_ID` is the Google Slide deck ID and `PAGE
 
 If this errors, that is due to the fact that you are not in your course directory when running it.  You must either change the directory to the course directory (using `setwd`) or open your course folder and open the file that has the extension `.Rproj` to open a new `R` session with the right directory set and then run the above commands.
 
-Here we break down the arguments we specified.  Whenever `create_lesson`, you must supply a `lesson_name` (in our case `"How to Do Things"`).  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` again is the slide identifier for a Google Slide deck.  The ID can be extracted from the URL manually or running `didactr::get_slide_id` on the URL.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  If `TRUE`, it copies a template; if `FALSE` it does not make a slide deck.   **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
+Here we break down the arguments we specified.  Whenever `create_lesson`, you must supply a `lesson_name` (in our case `"How to Do Things"`).  This can have spaces if you want and will be the title of the lesson.  We will pass the course directory in here from our `sc` object, otherwise it assumes we are creating this in the current working directory.  The `slide_id` again is the slide identifier for a Google Slide deck.  The ID can be extracted from the URL manually or running `ariExtra::get_slide_id` on the URL.  If you do not specify a slide ID, the `make_slide_deck` argument determines if you would like to create a slide deck.  If `TRUE`, it copies a template; if `FALSE` it does not make a slide deck.   **NB:** if you're creating a slide deck, we are copying over a slide deck from a different Google Drive and may take a few seconds due to the Google Drive API.
 
 The `md_file` argument allows you to override the standard naming convention we recommend, the `rmd` argument says whether you'd like to use an Rmarkdown vs. Markdown document.  The argument `open` determines if you'd like to edit the document and script after creating it. 
 

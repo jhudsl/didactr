@@ -9,7 +9,6 @@
 #' @return A list from \code{\link{check_course}} with another field of
 #' \code{youtube_uploads}.
 #' @export
-#' @importFrom dplyr data_frame
 vids_to_youtube <- function(
   course_status,
   course_title = NULL,
@@ -56,7 +55,7 @@ vids_to_youtube <- function(
     }
   }
   df = df %>%
-    mutate(course_title = course_title)
+    dplyr::mutate(course_title = course_title)
 
   ################################################
   # add in
@@ -68,25 +67,25 @@ vids_to_youtube <- function(
   ## or if video link in df not the most updated
   if (!is.null(youtube_uploads)) {
     youtube_uploads = youtube_uploads %>%
-      mutate(lesson = sub("[.]mp4$", "", basename(file)))
-    df = left_join(df, youtube_uploads, by = "lesson")
+      dplyr::mutate(lesson = sub("[.]mp4$", "", basename(file)))
+    df = dplyr::left_join(df, youtube_uploads, by = "lesson")
 
     # keep most recent
     df = df %>%
-      group_by(lesson) %>%
-      arrange(desc(time_published)) %>%
+      dplyr::group_by(lesson) %>%
+      dplyr::arrange(dplyr::desc(time_published)) %>%
       dplyr::slice(1)
     df = df %>%
-      mutate(make_video = time_published < mod_time_vid,
+      dplyr::mutate(make_video = time_published < mod_time_vid,
              make_video = ifelse(is.na(make_video), TRUE, make_video))
     df = df %>%
-      filter(make_video)
+      dplyr::filter(make_video)
   }
 
   # no videos need to be made
   if (nrow(df) > 0) {
     df = df %>%
-      group_by(lesson)
+      dplyr::group_by(lesson)
 
 
     for (irow in seq(nrow(df))) {
@@ -129,10 +128,10 @@ vids_to_youtube <- function(
         up,
         metric_path = paths$met_path,
         save_metrics = course_status$save_metrics)
-      youtube_uploads = bind_rows(yt_up, youtube_uploads)
+      youtube_uploads = dplyr::bind_rows(yt_up, youtube_uploads)
     }
   }
-  youtube_uploads = distinct(youtube_uploads)
+  youtube_uploads = dplyr::distinct(youtube_uploads)
   youtube_uploads$course_title = course_title
 
   ret = check_course(course_dir = course_status$course_dir,

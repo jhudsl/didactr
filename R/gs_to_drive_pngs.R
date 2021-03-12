@@ -24,7 +24,7 @@ gs_to_drive_pngs = function(
     folder_name = "leanpub_pngs",
     verbose = TRUE,
     overwrite = TRUE) {
-    id = didactr::get_slide_id(id)
+    id = ariExtra::get_slide_id(id)
     # pdf_file = ariExtra::download_gs_file(id = path, out_type = "pdf")
     result = didactr::gs_convert(
         id,

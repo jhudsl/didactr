@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/muschellij2/didactr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,28 +135,28 @@
     <p>Convert Google Slides to PNGs and a script</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gs_convert</span>(
-  <span class='no'>id</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>PPTX</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>auto_stub</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>use_gs_ids</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>use_gs_pngs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>gs_convert</span><span class='op'>(</span>
+  <span class='va'>id</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  PPTX <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  auto_stub <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  use_gs_ids <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  use_gs_pngs <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>id</th>
-      <td><p>File id passed to <code>drive_download</code> after passing
-through <code>as_id</code></p></td>
+      <td><p>File id passed to <code><a href='https://googledrive.tidyverse.org/reference/drive_download.html'>drive_download</a></code> after passing
+through <code><a href='https://googledrive.tidyverse.org/reference/as_id.html'>as_id</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
       <td><p>logical, indicating whether to print informative messages,
-passed to <code>drive_download</code></p></td>
+passed to <code><a href='https://googledrive.tidyverse.org/reference/drive_download.html'>drive_download</a></code></p></td>
     </tr>
     <tr>
       <th>PPTX</th>
@@ -191,16 +191,17 @@ if <code>use_gs_pngs = FALSE</code></p></td>
     <p>A list of the images and the notes for each script</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>id</span> <span class='kw'>=</span> <span class='st'>"1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"</span>
-<span class='no'>PPTX</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-<span class='no'>auto_stub</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>gs_convert</span>(<span class='no'>id</span>, <span class='kw'>use_gs_ids</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>PPTX</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>gs_convert</span>(<span class='no'>id</span>, <span class='kw'>use_gs_pngs</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>gs_convert</span>(<span class='no'>id</span>, <span class='kw'>use_gs_pngs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>PPTX</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>gs_convert</span>(<span class='no'>id</span>, <span class='kw'>use_gs_pngs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>use_gs_ids</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>PPTX</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>id</span> <span class='op'>=</span> <span class='st'>"1XoRj0pwaLI34XKZ7TljVeDHu-tbgGmXRmQa528JIwmw"</span>
+<span class='va'>PPTX</span> <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='va'>auto_stub</span> <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='va'>res</span> <span class='op'>=</span> <span class='fu'>gs_convert</span><span class='op'>(</span><span class='va'>id</span>, use_gs_ids <span class='op'>=</span> <span class='cn'>TRUE</span>, PPTX <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>res</span> <span class='op'>=</span> <span class='fu'>gs_convert</span><span class='op'>(</span><span class='va'>id</span>, use_gs_pngs <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>res</span> <span class='op'>=</span> <span class='fu'>gs_convert</span><span class='op'>(</span><span class='va'>id</span>, use_gs_pngs <span class='op'>=</span> <span class='cn'>TRUE</span>, PPTX <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>res</span> <span class='op'>=</span> <span class='fu'>gs_convert</span><span class='op'>(</span><span class='va'>id</span>, use_gs_pngs <span class='op'>=</span> <span class='cn'>TRUE</span>, use_gs_ids <span class='op'>=</span> <span class='cn'>TRUE</span>,
+PPTX <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -216,7 +217,7 @@ if <code>use_gs_pngs = FALSE</code></p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
